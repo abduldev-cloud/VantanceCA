@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# Virtual environment
+venv/
+env/
+
+# Logs and local data
+*.log
+*.sqlite3
+*.db
+*.pid
+*.cache
+*.coverage
+coverage.xml
+htmlcov/
+
+# Env files
+.env
+.env.*
+
+# IDEs
+.vscode/
+.idea/
+
+# Docker
+*.tar
+*.log
+*.pid
+*.sock
+docker-compose.override.yml
+
+# mypy / pytest / etc
+.mypy_cache/
+pytest_cache/
+.dmypy.json
+.pytest_cache/
+
+# Misc
+.DS_Store
+*.swp
+*.bak
+*.tmp
+
+# System files
+Thumbs.db
+ehthumbs.db
+wallet

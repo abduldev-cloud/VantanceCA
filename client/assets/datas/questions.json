@@ -1,0 +1,386 @@
+[
+  {
+    "title": "Question 1",
+    "text": "Define accounting and explain its objectives. Discuss the role of accounting in modern business management.",
+    "subtext": "Your answer should cover:",
+    "bullets": [
+      "Definition of accounting as per AICPA",
+      "Primary objectives of accounting",
+      "Role in decision making and planning",
+      "Importance for stakeholders"
+    ]
+  },
+  {
+    "title": "Question 2",
+    "text": "Explain the accounting equation and how it remains balanced after each transaction. Provide examples of at least 5 different types of transactions.",
+    "subtext": "Include transactions such as:",
+    "bullets": [
+      "Cash purchase of assets",
+      "Credit purchase of goods",
+      "Payment to creditors",
+      "Receipt from debtors",
+      "Owner's capital introduction"
+    ]
+  },
+  {
+    "title": "Question 3",
+    "text": "Distinguish between Capital Expenditure and Revenue Expenditure with suitable examples. Why is this classification important?",
+    "subtext": "Provide examples for:",
+    "bullets": [
+      "Capital Expenditure (at least 3 examples)",
+      "Revenue Expenditure (at least 3 examples)",
+      "Deferred Revenue Expenditure",
+      "Impact on financial statements"
+    ]
+  },
+  {
+    "title": "Question 4",
+    "text": "What are the Generally Accepted Accounting Principles (GAAP)? Explain any five important accounting concepts with examples.",
+    "subtext": "Discuss concepts such as:",
+    "bullets": [
+      "Going Concern Concept",
+      "Accrual Concept",
+      "Matching Concept",
+      "Consistency Concept",
+      "Conservatism/Prudence Concept"
+    ]
+  },
+  {
+    "title": "Question 5",
+    "text": "Prepare Journal Entries for the following transactions in the books of M/s. Sharma Traders for the month of January 2025:",
+    "subtext": "Transactions:",
+    "bullets": [
+      "Jan 1: Started business with cash ₹ 5,00,000",
+      "Jan 3: Purchased goods for cash ₹ 80,000",
+      "Jan 5: Purchased furniture on credit from Modern Furniture ₹ 25,000",
+      "Jan 8: Sold goods for cash ₹ 1,20,000",
+      "Jan 10: Paid rent ₹ 5,000",
+      "Jan 15: Purchased goods on credit from Ram & Co. ₹ 60,000",
+      "Jan 20: Sold goods to Mohan on credit ₹ 75,000",
+      "Jan 25: Paid to Ram & Co. ₹ 58,000 in full settlement",
+      "Jan 28: Received from Mohan ₹ 73,500 in full settlement",
+      "Jan 31: Paid salaries ₹ 15,000"
+    ]
+  },
+  {
+    "title": "Question 6",
+    "text": "From the journal entries prepared in Question 5, post them to the respective Ledger Accounts and balance them as on 31st January 2025.",
+    "subtext": "Prepare ledger accounts for:",
+    "bullets": [
+      "Cash Account",
+      "Purchases Account",
+      "Sales Account",
+      "Ram & Co. Account",
+      "Mohan's Account",
+      "All other relevant accounts"
+    ]
+  },
+  {
+    "title": "Question 7",
+    "text": "Prepare a Trial Balance as on 31st March 2025 from the following balances extracted from the books of M/s. Krishna Enterprises:",
+    "subtext": "Ledger Balances:",
+    "bullets": [
+      "Capital: ₹ 3,00,000; Cash: ₹ 45,000; Bank: ₹ 1,25,000",
+      "Purchases: ₹ 2,50,000; Sales: ₹ 4,00,000",
+      "Furniture: ₹ 50,000; Machinery: ₹ 1,50,000",
+      "Debtors: ₹ 85,000; Creditors: ₹ 65,000",
+      "Salaries: ₹ 36,000; Rent: ₹ 24,000",
+      "Opening Stock: ₹ 40,000; Loan from Bank: ₹ 80,000",
+      "Interest on Loan: ₹ 6,000; Commission Received: ₹ 12,000"
+    ]
+  },
+  {
+    "title": "Question 8",
+    "text": "Explain the purpose and advantages of maintaining Subsidiary Books. Describe any four types of subsidiary books with their formats.",
+    "subtext": "Include:",
+    "bullets": [
+      "Purchase Book/Purchase Journal",
+      "Sales Book/Sales Journal",
+      "Purchase Returns Book",
+      "Sales Returns Book",
+      "Cash Book (Single/Double/Triple Column)",
+      "Journal Proper"
+    ]
+  },
+  {
+    "title": "Question 9",
+    "text": "Prepare a Three Column Cash Book from the following transactions for March 2025:",
+    "subtext": "Transactions:",
+    "bullets": [
+      "March 1: Cash in hand ₹ 20,000; Bank balance ₹ 80,000",
+      "March 3: Purchased goods for cash ₹ 15,000",
+      "March 5: Deposited into bank ₹ 10,000",
+      "March 8: Paid to Suresh by cheque ₹ 9,500 (discount allowed ₹ 500)",
+      "March 12: Received from Ramesh ₹ 14,500 (discount allowed ₹ 500)",
+      "March 15: Withdrew from bank for office use ₹ 5,000",
+      "March 20: Paid salaries by cash ₹ 8,000",
+      "March 25: Received cheque from Kumar ₹ 19,000, deposited same day",
+      "March 30: Bank charges debited by bank ₹ 200"
+    ]
+  },
+  {
+    "title": "Question 10",
+    "text": "Prepare a Bank Reconciliation Statement as on 31st December 2024 from the following information:",
+    "subtext": "Given Information:",
+    "bullets": [
+      "Balance as per Cash Book (Bank Column): ₹ 75,000",
+      "Cheques issued but not yet presented: ₹ 18,000",
+      "Cheques deposited but not yet cleared: ₹ 12,000",
+      "Bank charges ₹ 500 debited by bank not recorded in cash book",
+      "Interest credited by bank ₹ 1,200 not recorded in cash book",
+      "Direct deposit by customer ₹ 5,000 not recorded in cash book",
+      "Cheque dishonoured ₹ 3,000 not recorded in cash book"
+    ]
+  },
+  {
+    "title": "Question 11",
+    "text": "From the following Trial Balance of M/s. Gupta Traders as on 31st March 2025, prepare Trading and Profit & Loss Account for the year ended and Balance Sheet as on that date:",
+    "subtext": "Trial Balance Details:",
+    "bullets": [
+      "Capital: ₹ 5,00,000; Drawings: ₹ 40,000",
+      "Opening Stock: ₹ 80,000; Purchases: ₹ 4,50,000; Sales: ₹ 7,00,000",
+      "Returns Inward: ₹ 10,000; Returns Outward: ₹ 8,000",
+      "Carriage Inward: ₹ 5,000; Carriage Outward: ₹ 3,000",
+      "Wages: ₹ 25,000; Salaries: ₹ 60,000; Rent: ₹ 36,000",
+      "Insurance: ₹ 6,000; Advertising: ₹ 12,000",
+      "Plant & Machinery: ₹ 2,00,000; Furniture: ₹ 50,000",
+      "Debtors: ₹ 1,20,000; Creditors: ₹ 90,000",
+      "Cash: ₹ 15,000; Bank: ₹ 95,000"
+    ]
+  },
+  {
+    "title": "Question 12",
+    "text": "For Question 11, make the following adjustments and prepare adjusted Final Accounts:",
+    "subtext": "Adjustments:",
+    "bullets": [
+      "Closing Stock was valued at ₹ 1,00,000",
+      "Depreciate Plant & Machinery @ 10% and Furniture @ 5%",
+      "Outstanding Salaries ₹ 5,000 and Rent ₹ 3,000",
+      "Prepaid Insurance ₹ 1,000",
+      "Create Provision for Doubtful Debts @ 5% on Debtors",
+      "Commission received in advance ₹ 2,000"
+    ]
+  },
+  {
+    "title": "Question 13",
+    "text": "Explain the concept of Depreciation. Compare and contrast the Straight Line Method and Written Down Value Method of depreciation with numerical examples.",
+    "subtext": "Include:",
+    "bullets": [
+      "Definition and causes of depreciation",
+      "Factors affecting depreciation",
+      "Straight Line Method with example",
+      "Written Down Value Method with example",
+      "Comparative analysis of both methods"
+    ]
+  },
+  {
+    "title": "Question 14",
+    "text": "A machine was purchased on 1st April 2022 for ₹ 5,00,000. Its estimated useful life is 10 years with a scrap value of ₹ 50,000. Calculate depreciation for three years (2022-23, 2023-24, 2024-25) using:",
+    "subtext": "Methods:",
+    "bullets": [
+      "(a) Straight Line Method",
+      "(b) Written Down Value Method @ 20% p.a.",
+      "Prepare Machinery Account and Depreciation Account for all three years under both methods",
+      "Compare the book value at the end of third year under both methods"
+    ]
+  },
+  {
+    "title": "Question 15",
+    "text": "What are the different types of errors in accounting? Explain with examples how each type of error affects the Trial Balance.",
+    "subtext": "Discuss:",
+    "bullets": [
+      "Errors of Omission (Complete and Partial)",
+      "Errors of Commission",
+      "Errors of Principle",
+      "Compensating Errors",
+      "Which errors affect Trial Balance agreement?"
+    ]
+  },
+  {
+    "title": "Question 16",
+    "text": "Rectify the following errors discovered before the preparation of Trial Balance:",
+    "subtext": "Errors:",
+    "bullets": [
+      "Purchase of furniture ₹ 15,000 was debited to Purchases Account",
+      "Goods sold to Ram ₹ 8,000 were credited to his account",
+      "Cash paid for repairs ₹ 2,000 was debited to Building Account",
+      "Salary paid to manager ₹ 10,000 was debited to his personal account",
+      "Goods returned by Mohan ₹ 1,500 were recorded in Purchase Returns Book",
+      "Credit purchase from Suresh ₹ 5,000 was recorded as ₹ 500"
+    ]
+  },
+  {
+    "title": "Question 17",
+    "text": "The Trial Balance of a business did not agree, and the difference was placed to Suspense Account. The following errors were subsequently discovered. Pass rectification entries and prepare Suspense Account:",
+    "subtext": "Errors Found:",
+    "bullets": [
+      "Sales Book was overcast by ₹ 1,000",
+      "Purchase of goods ₹ 5,000 from Kumar was not recorded in the books",
+      "Discount allowed ₹ 500 was not posted to Discount Account",
+      "Cash received from Ramesh ₹ 7,000 was posted as ₹ 700",
+      "Returns Outward Book was undercast by ₹ 800",
+      "Salary paid ₹ 3,000 was posted twice in Salary Account"
+    ]
+  },
+  {
+    "title": "Question 18",
+    "text": "Define Bills of Exchange. Explain the essential features and parties involved in a Bill of Exchange. Distinguish between Bill of Exchange and Promissory Note.",
+    "subtext": "Cover:",
+    "bullets": [
+      "Definition as per Negotiable Instruments Act",
+      "Essential features of a valid bill",
+      "Drawer, Drawee, and Payee",
+      "Acceptance and Endorsement",
+      "Differences from Promissory Note"
+    ]
+  },
+  {
+    "title": "Question 19",
+    "text": "On 1st January 2025, A sold goods worth ₹ 50,000 to B. B accepted a bill drawn by A for 3 months. On the due date, B requested for renewal of the bill for another 3 months, paying ₹ 20,000 in cash and interest @ 12% p.a. on the balance. Pass journal entries in the books of both A and B.",
+    "subtext": "Show entries for:",
+    "bullets": [
+      "Original bill drawn and accepted",
+      "Cancellation of old bill on due date",
+      "Cash payment and interest calculation",
+      "New bill drawn and accepted",
+      "Final settlement on maturity of new bill"
+    ]
+  },
+  {
+    "title": "Question 20",
+    "text": "X sold goods to Y for ₹ 40,000 on 1st March 2025. On the same date, X drew a bill on Y for 3 months which Y accepted. X got the bill discounted from bank @ 12% p.a. On the due date, the bill was dishonoured and the bank paid ₹ 500 as noting charges. Pass necessary journal entries in the books of X and Y.",
+    "subtext": "Calculate and record:",
+    "bullets": [
+      "Bill drawn and accepted",
+      "Discount charges calculation",
+      "Bill discounted with bank",
+      "Dishonour of bill on due date",
+      "Noting charges",
+      "Final settlement"
+    ]
+  },
+  {
+    "title": "Question 21",
+    "text": "Explain the concept of Consignment. Distinguish between Consignment and Sale. What are the rights and duties of a Consignee?",
+    "subtext": "Discuss:",
+    "bullets": [
+      "Definition of Consignment",
+      "Consignor and Consignee relationship",
+      "Key differences from Sale (at least 5 points)",
+      "Types of commission",
+      "Accounting treatment of unsold stock"
+    ]
+  },
+  {
+    "title": "Question 22",
+    "text": "Ram of Delhi consigned 500 units of goods to Shyam of Mumbai at a cost of ₹ 200 per unit. Ram paid ₹ 10,000 for freight and insurance. Shyam paid ₹ 5,000 for godown rent and ₹ 3,000 for other expenses. Shyam sold 400 units @ ₹ 300 per unit. Shyam is entitled to a commission of 5% on sales plus 20% of any surplus price realized over ₹ 250 per unit. Shyam sent a bank draft for the amount due. Prepare Consignment Account and Shyam's Account in the books of Ram.",
+    "subtext": "Show calculations for:",
+    "bullets": [
+      "Total cost of consignment",
+      "Sales value",
+      "Normal commission calculation",
+      "Del credere commission calculation",
+      "Value of unsold stock",
+      "Profit on consignment"
+    ]
+  },
+  {
+    "title": "Question 23",
+    "text": "Define Partnership as per the Indian Partnership Act, 1932. Explain the essential features of partnership and the contents of a Partnership Deed.",
+    "subtext": "Include:",
+    "bullets": [
+      "Legal definition of partnership",
+      "Essential elements (at least 5)",
+      "Types of partners",
+      "Important clauses in Partnership Deed",
+      "Provisions in absence of Partnership Deed"
+    ]
+  },
+  {
+    "title": "Question 24",
+    "text": "A, B, and C are partners sharing profits in the ratio of 5:3:2. Their Balance Sheet as on 31st March 2025 is as follows: Capital - A: ₹ 2,00,000, B: ₹ 1,50,000, C: ₹ 1,00,000; Reserve: ₹ 50,000; Creditors: ₹ 80,000; Assets - Land & Building: ₹ 2,50,000, Machinery: ₹ 1,50,000, Stock: ₹ 80,000, Debtors: ₹ 70,000, Cash: ₹ 30,000. They admit D for 1/5th share in profits on the following terms:",
+    "subtext": "Terms of Admission:",
+    "bullets": [
+      "D brings ₹ 1,00,000 as capital and ₹ 40,000 for goodwill",
+      "Land & Building to be appreciated by 20%",
+      "Machinery to be depreciated by 10%",
+      "Provision for doubtful debts @ 5% to be created",
+      "Unrecorded liability of ₹ 10,000 to be brought into books",
+      "Prepare Revaluation Account, Partners' Capital Accounts, and Balance Sheet after admission"
+    ]
+  },
+  {
+    "title": "Question 25",
+    "text": "X, Y, and Z are partners sharing profits equally. Z retires from the firm on 31st March 2025. On the date of retirement: Goodwill of the firm is valued at ₹ 1,50,000; Assets are to be revalued - Building increased by ₹ 50,000, Stock decreased by ₹ 10,000; Provision for doubtful debts to be created @ 5% on Debtors of ₹ 60,000. Z is to be paid ₹ 20,000 immediately and the balance in 3 equal annual instalments with interest @ 10% p.a. Pass necessary journal entries and prepare Z's Loan Account till final payment.",
+    "subtext": "Show:",
+    "bullets": [
+      "Revaluation Account",
+      "Treatment of Goodwill",
+      "Z's Capital Account",
+      "Z's Loan Account",
+      "Instalment calculations with interest",
+      "New profit sharing ratio of X and Y"
+    ]
+  },
+  {
+    "title": "Question 26",
+    "text": "Explain the concept of Share Capital. Distinguish between Equity Shares and Preference Shares. What are the different types of Share Capital?",
+    "subtext": "Discuss:",
+    "bullets": [
+      "Authorized, Issued, Subscribed, and Paid-up Capital",
+      "Features of Equity Shares",
+      "Features of Preference Shares",
+      "Rights and Cumulative Preference Shares",
+      "Calls in Advance and Calls in Arrears"
+    ]
+  },
+  {
+    "title": "Question 27",
+    "text": "XYZ Ltd. issued 50,000 equity shares of ₹ 10 each at a premium of ₹ 2 per share, payable as: ₹ 3 on application, ₹ 4 (including premium) on allotment, ₹ 3 on first call, and ₹ 2 on final call. Applications were received for 60,000 shares. Applications for 5,000 shares were rejected and money refunded. Allotment was made pro-rata to remaining applicants. Excess money received on application was adjusted towards allotment. Ram, who applied for 1,200 shares, failed to pay allotment and call money. His shares were forfeited after first call. Pass necessary journal entries and prepare Balance Sheet (Share Capital portion only).",
+    "subtext": "Show:",
+    "bullets": [
+      "Application and allotment entries",
+      "Pro-rata allotment calculation",
+      "Calls entries",
+      "Forfeiture entry",
+      "Securities Premium Account",
+      "Share Forfeiture Account"
+    ]
+  },
+  {
+    "title": "Question 28",
+    "text": "What are Debentures? Explain the different types of debentures. Distinguish between Shares and Debentures.",
+    "subtext": "Cover:",
+    "bullets": [
+      "Definition of Debentures",
+      "Secured vs Unsecured Debentures",
+      "Redeemable vs Irredeemable Debentures",
+      "Convertible vs Non-convertible Debentures",
+      "At least 5 differences between Shares and Debentures"
+    ]
+  },
+  {
+    "title": "Question 29",
+    "text": "Explain the concept of Ratio Analysis. Calculate the following ratios from the given information and comment on the financial position: Current Assets: ₹ 5,00,000; Current Liabilities: ₹ 2,00,000; Stock: ₹ 1,50,000; Net Profit: ₹ 2,00,000; Sales: ₹ 10,00,000; Cost of Goods Sold: ₹ 6,00,000; Average Debtors: ₹ 1,00,000; Average Creditors: ₹ 80,000; Average Stock: ₹ 1,20,000; Shareholders' Funds: ₹ 8,00,000.",
+    "subtext": "Calculate:",
+    "bullets": [
+      "Current Ratio and Quick Ratio",
+      "Gross Profit Ratio and Net Profit Ratio",
+      "Debt-Equity Ratio (assume Total Debt = ₹ 2,00,000)",
+      "Stock Turnover Ratio",
+      "Debtors Turnover Ratio",
+      "Return on Investment"
+    ]
+  },
+  {
+    "title": "Question 30",
+    "text": "Prepare a Comparative Balance Sheet from the following information and calculate the absolute change and percentage change.",
+    "subtext": "Balance Sheet Data (₹ in thousands):",
+    "bullets": [
+      "2024: Fixed Assets 500, Current Assets 300, Share Capital 400, Reserves 150, Long-term Loans 100, Current Liabilities 150",
+      "2025: Fixed Assets 600, Current Assets 400, Share Capital 500, Reserves 200, Long-term Loans 150, Current Liabilities 150",
+      "Analyze the changes and comment on financial position",
+      "Calculate working capital for both years"
+    ]
+  }
+]

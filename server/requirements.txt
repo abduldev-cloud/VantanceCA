@@ -1,0 +1,17 @@
+fastapi
+uvicorn[standard]
+python-dotenv
+pydantic[email]
+httpx
+python-multipart
+python-jose
+elasticsearch
+google-auth[requests]
+aiofiles
+requests
+pandas
+openpyxl
+beautifulsoup4
+lxml
+pyparsing
+mysql-connector-python

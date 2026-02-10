@@ -1,0 +1,67 @@
+# Mock login endpoint for local development
+# Add this to app/modules/auth_mock/routes.py
+
+@router.post("/users/login")
+async def mock_login(
+    username: str = Form(None),
+    password: str = Form(None),
+    email: str = Form(None)
+):
+    """Mock login endpoint that uses MySQL"""
+    
+    # Use email or username
+    login_identifier = email or username
+    
+    if not login_identifier or not password:
+        raise HTTPException(status_code=400, detail="Email/username and password required")
+    
+    conn = get_mysql_connection()
+    cursor = conn.cursor(dictionary=True)
+    
+    try:
+        cursor.execute(
+            "SELECT * FROM mock_users WHERE username = %s OR email = %s",
+            (login_identifier, login_identifier)
+        )
+        user = cursor.fetchone()
+        
+        if not user:
+            raise HTTPException(status_code=401, detail="Invalid credentials")
+        
+        if user["password"] != password:
+            raise HTTPException(status_code=401, detail="Invalid credentials")
+        
+        if not user["enabled"]:
+            raise HTTPException(status_code=401, detail="User is disabled")
+        
+        # Generate tokens
+        access_token = f"mock_access_token_{secrets.token_urlsafe(32)}"
+        refresh_token = f"mock_refresh_token_{secrets.token_urlsafe(32)}"
+        
+        # Store token in memory
+        mock_tokens_db[access_token] = {
+            "user_id": user["id"],
+            "username": user["username"],
+            "email": user["email"],
+            "expires_at": datetime.now() + timedelta(hours=1)
+        }
+        
+        return {
+            "access_token": access_token,
+            "expires_in": 3600,
+            "refresh_expires_in": 7200,
+            "refresh_token": refresh_token,
+            "token_type": "Bearer",
+            "user_id": user["id"],
+            "username": user["username"],
+            "email": user["email"]
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Login error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        cursor.close()
+        conn.close()
