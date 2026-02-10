@@ -31,7 +31,7 @@ flutter build web
 Open a terminal (Ubuntu) in the project directory and run:
 
 ```bash
-rsync -avz --progress build/web/ <username>@<server>:/mnt/data/binarysuccess/binarysuccess-web/web_1
+rsync -avz --progress build/web/ <username>@<server>:/mnt/data/vantanceCA/vantanceCA-web/web_1
 ```
 
 
