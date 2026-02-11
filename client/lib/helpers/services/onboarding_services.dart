@@ -1,4 +1,4 @@
-import 'package:binary_success/helpers/network/api_service.dart';
+import 'package:vantanceCA/helpers/network/api_service.dart';
 
 class OnboardingServices {
   Future<dynamic> getOnboardingSchoolDetails(String inviteCode) async {

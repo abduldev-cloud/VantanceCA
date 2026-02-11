@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:binary_success/helpers/theme/app_theme.dart';
-import 'package:binary_success/helpers/widgets/my_text.dart';
+import 'package:vantanceCA/helpers/theme/app_theme.dart';
+import 'package:vantanceCA/helpers/widgets/my_text.dart';
 
 class Info {
   static message(String message,

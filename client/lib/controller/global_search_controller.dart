@@ -1,11 +1,11 @@
 
 import 'dart:async';
-import 'package:binary_success/helpers/constant/app_constant.dart';
+import 'package:vantanceCA/helpers/constant/app_constant.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:binary_success/helpers/storage/local_storage.dart';
-import 'package:binary_success/helpers/utils/utils.dart';
-import 'package:binary_success/models/global_search_model.dart';
+import 'package:vantanceCA/helpers/storage/local_storage.dart';
+import 'package:vantanceCA/helpers/utils/utils.dart';
+import 'package:vantanceCA/models/global_search_model.dart';
 
 class GlobalSearchController extends GetxController {
   var results = <GlobalSearchModel>[].obs;

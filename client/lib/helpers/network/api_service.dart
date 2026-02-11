@@ -1,6 +1,6 @@
-import 'package:binary_success/helpers/logger/logger.dart';
-import 'package:binary_success/helpers/network/webclinet.dart';
-import 'package:binary_success/helpers/storage/local_storage.dart';
+import 'package:vantanceCA/helpers/logger/logger.dart';
+import 'package:vantanceCA/helpers/network/webclinet.dart';
+import 'package:vantanceCA/helpers/storage/local_storage.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';

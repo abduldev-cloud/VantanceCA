@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:binary_success/views/apps/school/integrations/widgets/asset_icon.dart';
+import 'package:vantanceCA/views/apps/school/integrations/widgets/asset_icon.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 

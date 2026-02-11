@@ -1,5 +1,5 @@
-import 'package:binary_success/helpers/widgets/my_card.dart';
-import 'package:binary_success/views/apps/school/integrations/widgets/custom_tab_bar.dart';
+import 'package:vantanceCA/helpers/widgets/my_card.dart';
+import 'package:vantanceCA/views/apps/school/integrations/widgets/custom_tab_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';

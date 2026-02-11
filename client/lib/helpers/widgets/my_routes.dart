@@ -1,4 +1,4 @@
-import 'package:binary_success/helpers/widgets/my_route.dart';
+import 'package:vantanceCA/helpers/widgets/my_route.dart';
 
 class MyRoutes {
   static List<MyRoute> _routes = [];

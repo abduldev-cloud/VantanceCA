@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:binary_success/helpers/theme/admin_theme.dart';
-import 'package:binary_success/helpers/theme/app_theme.dart';
-import 'package:binary_success/helpers/widgets/my_dashed_divider.dart';
-import 'package:binary_success/helpers/widgets/my_navigation_mixin.dart';
+import 'package:vantanceCA/helpers/theme/admin_theme.dart';
+import 'package:vantanceCA/helpers/theme/app_theme.dart';
+import 'package:vantanceCA/helpers/widgets/my_dashed_divider.dart';
+import 'package:vantanceCA/helpers/widgets/my_navigation_mixin.dart';
 
 mixin UIMixin {
   // ThemeData get theme => AppStyle.theme;

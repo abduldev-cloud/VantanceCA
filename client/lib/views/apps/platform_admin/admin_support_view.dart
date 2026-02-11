@@ -1,8 +1,8 @@
-import 'package:binary_success/views/layouts/layout.dart';
-import 'package:binary_success/models/platform_support_model.dart';
-import 'package:binary_success/widgets/comman_titlebar.dart';
-import 'package:binary_success/helpers/utils/ui_mixins.dart';
-import 'package:binary_success/helpers/widgets/my_spacing.dart';
+import 'package:vantanceCA/views/layouts/layout.dart';
+import 'package:vantanceCA/models/platform_support_model.dart';
+import 'package:vantanceCA/widgets/comman_titlebar.dart';
+import 'package:vantanceCA/helpers/utils/ui_mixins.dart';
+import 'package:vantanceCA/helpers/widgets/my_spacing.dart';
 import 'package:flutter/material.dart';
 import 'widget/admin_support_view_widget.dart';
 

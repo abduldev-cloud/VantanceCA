@@ -1,14 +1,14 @@
-import 'package:binary_success/models/teachers_assignments_model.dart';
+import 'package:vantanceCA/models/teachers_assignments_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:binary_success/helpers/theme/admin_theme.dart';
-import 'package:binary_success/helpers/widgets/my_card.dart';
-import 'package:binary_success/helpers/widgets/my_container.dart';
-import 'package:binary_success/helpers/widgets/my_spacing.dart';
-import 'package:binary_success/helpers/widgets/my_text.dart';
-import 'package:binary_success/images.dart';
+import 'package:vantanceCA/helpers/theme/admin_theme.dart';
+import 'package:vantanceCA/helpers/widgets/my_card.dart';
+import 'package:vantanceCA/helpers/widgets/my_container.dart';
+import 'package:vantanceCA/helpers/widgets/my_spacing.dart';
+import 'package:vantanceCA/helpers/widgets/my_text.dart';
+import 'package:vantanceCA/images.dart';
 class TeacherAssignmentWidget extends StatelessWidget {
   final ContentTheme contentTheme;
   final List<TaskSummary> list;

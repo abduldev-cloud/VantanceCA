@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
-import 'package:binary_success/controller/my_controller.dart';
-import 'package:binary_success/helpers/services/student_service.dart';
-import 'package:binary_success/helpers/storage/local_storage.dart';
-import 'package:binary_success/models/student_class_model.dart';
-import 'package:binary_success/models/student_view_class_model.dart';
+import 'package:vantanceCA/controller/my_controller.dart';
+import 'package:vantanceCA/helpers/services/student_service.dart';
+import 'package:vantanceCA/helpers/storage/local_storage.dart';
+import 'package:vantanceCA/models/student_class_model.dart';
+import 'package:vantanceCA/models/student_view_class_model.dart';
 
 class StudentDashboardController extends MyController {
   /// UI State

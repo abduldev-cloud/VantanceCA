@@ -1,19 +1,19 @@
-import 'package:binary_success/helpers/theme/admin_theme.dart';
-import 'package:binary_success/helpers/widgets/my_spacing.dart';
-import 'package:binary_success/helpers/widgets/my_text.dart';
-import 'package:binary_success/views/apps/teacher/dialog/teacher_writing_fingerprint_dialog_two.dart';
-import 'package:binary_success/widgets/comman_dialog_dropdown.dart';
+import 'package:vantanceCA/helpers/theme/admin_theme.dart';
+import 'package:vantanceCA/helpers/widgets/my_spacing.dart';
+import 'package:vantanceCA/helpers/widgets/my_text.dart';
+import 'package:vantanceCA/views/apps/teacher/dialog/teacher_writing_fingerprint_dialog_two.dart';
+import 'package:vantanceCA/widgets/comman_dialog_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:binary_success/controller/widgets/date_time_picker_controller.dart';
-import 'package:binary_success/widgets/custom_time_picker_field.dart';
-import 'package:binary_success/widgets/custom_date_picker_field.dart';
-import 'package:binary_success/helpers/services/teacher_service.dart';
+import 'package:vantanceCA/controller/widgets/date_time_picker_controller.dart';
+import 'package:vantanceCA/widgets/custom_time_picker_field.dart';
+import 'package:vantanceCA/widgets/custom_date_picker_field.dart';
+import 'package:vantanceCA/helpers/services/teacher_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:binary_success/helpers/storage/local_storage.dart';
+import 'package:vantanceCA/helpers/storage/local_storage.dart';
 
 class TeacherWritingFingerprintDialog extends StatefulWidget {
   final ContentTheme contentTheme;

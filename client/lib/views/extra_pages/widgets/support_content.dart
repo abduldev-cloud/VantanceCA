@@ -4,10 +4,10 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:binary_success/helpers/services/school_support_service.dart';
+import 'package:vantanceCA/helpers/services/school_support_service.dart';
 // ✅ Import your AdminSupportViewWidget & SupportModel
-import 'package:binary_success/models/school_support_model.dart';
-import 'package:binary_success/views/extra_pages/support_content_view.dart';
+import 'package:vantanceCA/models/school_support_model.dart';
+import 'package:vantanceCA/views/extra_pages/support_content_view.dart';
 import 'package:flutter/foundation.dart';
 
 class SupportPageContent extends StatefulWidget {

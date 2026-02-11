@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
-import 'package:binary_success/models/result_model.dart';
+import 'package:vantanceCA/models/result_model.dart';
 
 class ResultService {
   Future<List<ResultModel>> getResults() async {

@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:binary_success/models/student_subscription_model.dart';
+import 'package:vantanceCA/models/student_subscription_model.dart';
 
 class SubscriptionService {
   // Mock JSON data matching the design

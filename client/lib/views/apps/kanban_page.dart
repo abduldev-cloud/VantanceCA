@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/instance_manager.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:binary_success/controller/apps/kanban_controller.dart';
-import 'package:binary_success/helpers/theme/app_theme.dart';
-import 'package:binary_success/helpers/utils/ui_mixins.dart';
-import 'package:binary_success/helpers/widgets/my_breadcrumb.dart';
-import 'package:binary_success/helpers/widgets/my_breadcrumb_item.dart';
-import 'package:binary_success/helpers/widgets/my_container.dart';
-import 'package:binary_success/helpers/widgets/my_spacing.dart';
-import 'package:binary_success/helpers/widgets/my_text.dart';
-import 'package:binary_success/helpers/widgets/responsive.dart';
-import 'package:binary_success/views/layouts/layout.dart';
+import 'package:vantanceCA/controller/apps/kanban_controller.dart';
+import 'package:vantanceCA/helpers/theme/app_theme.dart';
+import 'package:vantanceCA/helpers/utils/ui_mixins.dart';
+import 'package:vantanceCA/helpers/widgets/my_breadcrumb.dart';
+import 'package:vantanceCA/helpers/widgets/my_breadcrumb_item.dart';
+import 'package:vantanceCA/helpers/widgets/my_container.dart';
+import 'package:vantanceCA/helpers/widgets/my_spacing.dart';
+import 'package:vantanceCA/helpers/widgets/my_text.dart';
+import 'package:vantanceCA/helpers/widgets/responsive.dart';
+import 'package:vantanceCA/views/layouts/layout.dart';
 
 class KanBanPage extends StatefulWidget {
   const KanBanPage({super.key});

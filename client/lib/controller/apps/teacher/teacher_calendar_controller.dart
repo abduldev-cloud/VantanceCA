@@ -1,8 +1,8 @@
-import 'package:binary_success/helpers/services/teacher_service.dart';
-import 'package:binary_success/models/teacher_calendar_model.dart';
+import 'package:vantanceCA/helpers/services/teacher_service.dart';
+import 'package:vantanceCA/models/teacher_calendar_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:binary_success/controller/my_controller.dart';
+import 'package:vantanceCA/controller/my_controller.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 import '../../../helpers/storage/local_storage.dart';

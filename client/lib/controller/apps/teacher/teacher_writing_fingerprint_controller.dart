@@ -1,11 +1,11 @@
-import 'package:binary_success/helpers/services/teacher_service.dart';
-import 'package:binary_success/helpers/storage/local_storage.dart';
-import 'package:binary_success/models/teacher_fingerprint_model.dart';
-import 'package:binary_success/models/teacher_fingerprint_detail_model.dart';
-import 'package:binary_success/models/Teacher_Fingerprint_Review_Model.dart';
+import 'package:vantanceCA/helpers/services/teacher_service.dart';
+import 'package:vantanceCA/helpers/storage/local_storage.dart';
+import 'package:vantanceCA/models/teacher_fingerprint_model.dart';
+import 'package:vantanceCA/models/teacher_fingerprint_detail_model.dart';
+import 'package:vantanceCA/models/Teacher_Fingerprint_Review_Model.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:binary_success/controller/my_controller.dart';
+import 'package:vantanceCA/controller/my_controller.dart';
 
 class TeacherWritingFingerprintController extends MyController {
   // ===== UI State =====

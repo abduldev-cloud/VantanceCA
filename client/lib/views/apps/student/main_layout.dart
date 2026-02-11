@@ -1,5 +1,5 @@
-import 'package:binary_success/models/user.dart';
-import 'package:binary_success/views/apps/student/widget/collapsible_sidebar.dart';
+import 'package:vantanceCA/models/user.dart';
+import 'package:vantanceCA/views/apps/student/widget/collapsible_sidebar.dart';
 import 'package:flutter/material.dart';
 import 'practice_screen.dart'; // Keep if used elsewhere or remove if not needed? Leaving for safety but ideally cleanup.
 import 'papers_screen.dart';

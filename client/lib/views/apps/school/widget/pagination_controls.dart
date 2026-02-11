@@ -1,5 +1,5 @@
-import 'package:binary_success/helpers/utils/ui_mixins.dart';
-import 'package:binary_success/helpers/widgets/my_text.dart';
+import 'package:vantanceCA/helpers/utils/ui_mixins.dart';
+import 'package:vantanceCA/helpers/widgets/my_text.dart';
 import 'package:flutter/material.dart';
 
 class PaginationControls extends StatelessWidget with UIMixin {

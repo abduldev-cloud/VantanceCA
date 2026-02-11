@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:binary_success/services/security_service.dart';
+import 'package:vantanceCA/services/security_service.dart';
 import 'widget/student_delete_account_dialog.dart';
 
 class SecurityPrivacyPage extends StatefulWidget {

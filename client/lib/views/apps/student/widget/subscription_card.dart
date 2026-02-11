@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:binary_success/models/student_subscription_model.dart';
-import 'package:binary_success/app_colors.dart';
+import 'package:vantanceCA/models/student_subscription_model.dart';
+import 'package:vantanceCA/app_colors.dart';
 
 class SubscriptionCard extends StatelessWidget {
   final Plan plan;

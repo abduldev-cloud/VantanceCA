@@ -1,19 +1,19 @@
-import 'package:binary_success/controller/apps/teacher/teacher_assignments_controller.dart';
-import 'package:binary_success/helpers/utils/my_shadow.dart';
-import 'package:binary_success/helpers/utils/ui_mixins.dart';
-import 'package:binary_success/helpers/widgets/my_card.dart';
-import 'package:binary_success/helpers/widgets/my_container.dart';
-import 'package:binary_success/helpers/widgets/my_spacing.dart';
-import 'package:binary_success/helpers/widgets/my_text.dart';
+import 'package:vantanceCA/controller/apps/teacher/teacher_assignments_controller.dart';
+import 'package:vantanceCA/helpers/utils/my_shadow.dart';
+import 'package:vantanceCA/helpers/utils/ui_mixins.dart';
+import 'package:vantanceCA/helpers/widgets/my_card.dart';
+import 'package:vantanceCA/helpers/widgets/my_container.dart';
+import 'package:vantanceCA/helpers/widgets/my_spacing.dart';
+import 'package:vantanceCA/helpers/widgets/my_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:binary_success/models/teachers_assignments_model.dart';
-import 'package:binary_success/views/layouts/layout.dart';
-import 'package:binary_success/widgets/comman_titlebar.dart';
+import 'package:vantanceCA/models/teachers_assignments_model.dart';
+import 'package:vantanceCA/views/layouts/layout.dart';
+import 'package:vantanceCA/widgets/comman_titlebar.dart';
 import 'package:intl/intl.dart';
-import 'package:binary_success/views/apps/teacher/dialog/teacher_create_assignment_diaog.dart';
+import 'package:vantanceCA/views/apps/teacher/dialog/teacher_create_assignment_diaog.dart';
 
 class TeacherAssignmentsPage extends StatefulWidget {
   const TeacherAssignmentsPage({super.key});

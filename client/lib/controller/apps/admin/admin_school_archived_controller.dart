@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:binary_success/models/platform_admin_school_model.dart';
-import 'package:binary_success/helpers/network/api_service.dart';
+import 'package:vantanceCA/models/platform_admin_school_model.dart';
+import 'package:vantanceCA/helpers/network/api_service.dart';
 
 class AdminArchivedSchoolController extends GetxController {
   RxList<InstituteDetail> institutes = <InstituteDetail>[].obs;

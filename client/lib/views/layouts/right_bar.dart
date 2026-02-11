@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:binary_success/helpers/theme/app_theme.dart';
-import 'package:binary_success/helpers/theme/theme_customizer.dart';
-import 'package:binary_success/helpers/utils/ui_mixins.dart';
-import 'package:binary_success/helpers/widgets/my_spacing.dart';
-import 'package:binary_success/helpers/widgets/my_text.dart';
-import 'package:binary_success/widgets/custom_switch.dart';
+import 'package:vantanceCA/helpers/theme/app_theme.dart';
+import 'package:vantanceCA/helpers/theme/theme_customizer.dart';
+import 'package:vantanceCA/helpers/utils/ui_mixins.dart';
+import 'package:vantanceCA/helpers/widgets/my_spacing.dart';
+import 'package:vantanceCA/helpers/widgets/my_text.dart';
+import 'package:vantanceCA/widgets/custom_switch.dart';
 
 // typedef void OnLeftBarColorSchemeChange(LeftBarThemeType leftBarThemeType);
 // typedef void OnTopBarColorSchemeChange(TopBarThemeType topBarThemeType);

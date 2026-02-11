@@ -4,7 +4,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:binary_success/helpers/theme/app_theme.dart';
+import 'package:vantanceCA/helpers/theme/app_theme.dart';
 
 enum MyTextType {
   displayLarge,

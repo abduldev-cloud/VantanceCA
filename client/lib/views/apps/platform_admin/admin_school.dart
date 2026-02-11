@@ -1,28 +1,28 @@
-import 'package:binary_success/controller/apps/admin/admin_school_controller.dart';
-import 'package:binary_success/controller/apps/school/add_school_controller.dart';
-import 'package:binary_success/helpers/utils/my_shadow.dart';
-import 'package:binary_success/helpers/utils/ui_mixins.dart';
-import 'package:binary_success/helpers/widgets/my_card.dart';
-import 'package:binary_success/helpers/widgets/my_spacing.dart';
-import 'package:binary_success/helpers/widgets/my_text.dart';
-import 'package:binary_success/views/apps/platform_admin/widget/admin_active_school_widget.dart';
-import 'package:binary_success/views/apps/platform_admin/widget/admin_archived_school_widget.dart';
-import 'package:binary_success/views/apps/platform_admin/widget/admin_total_school_user_widget.dart';
-import 'package:binary_success/views/layouts/layout.dart';
-import 'package:binary_success/widgets/comman_dialog_dropdown.dart';
-import 'package:binary_success/widgets/comman_dialog_texfield.dart';
-import 'package:binary_success/widgets/comman_titlebar.dart';
+import 'package:vantanceCA/controller/apps/admin/admin_school_controller.dart';
+import 'package:vantanceCA/controller/apps/school/add_school_controller.dart';
+import 'package:vantanceCA/helpers/utils/my_shadow.dart';
+import 'package:vantanceCA/helpers/utils/ui_mixins.dart';
+import 'package:vantanceCA/helpers/widgets/my_card.dart';
+import 'package:vantanceCA/helpers/widgets/my_spacing.dart';
+import 'package:vantanceCA/helpers/widgets/my_text.dart';
+import 'package:vantanceCA/views/apps/platform_admin/widget/admin_active_school_widget.dart';
+import 'package:vantanceCA/views/apps/platform_admin/widget/admin_archived_school_widget.dart';
+import 'package:vantanceCA/views/apps/platform_admin/widget/admin_total_school_user_widget.dart';
+import 'package:vantanceCA/views/layouts/layout.dart';
+import 'package:vantanceCA/widgets/comman_dialog_dropdown.dart';
+import 'package:vantanceCA/widgets/comman_dialog_texfield.dart';
+import 'package:vantanceCA/widgets/comman_titlebar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/services.dart';
 
-import 'package:binary_success/controller/apps/admin/admin_school_controller.dart';
-import 'package:binary_success/models/platform_admin_school_model.dart';
+import 'package:vantanceCA/controller/apps/admin/admin_school_controller.dart';
+import 'package:vantanceCA/models/platform_admin_school_model.dart';
 
-import 'package:binary_success/controller/apps/admin/admin_school_archived_controller.dart';
-import 'package:binary_success/models/platform_school_archived_model.dart'
+import 'package:vantanceCA/controller/apps/admin/admin_school_archived_controller.dart';
+import 'package:vantanceCA/models/platform_school_archived_model.dart'
     as archived;
 
 class AdminSchoolPage extends StatefulWidget {

@@ -1,15 +1,15 @@
-import 'package:binary_success/helpers/theme/admin_theme.dart';
-import 'package:binary_success/helpers/widgets/my_card.dart';
-import 'package:binary_success/helpers/widgets/my_spacing.dart';
+import 'package:vantanceCA/helpers/theme/admin_theme.dart';
+import 'package:vantanceCA/helpers/widgets/my_card.dart';
+import 'package:vantanceCA/helpers/widgets/my_spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:binary_success/controller/apps/admin/admin_users_controller.dart';
-import 'package:binary_success/helpers/widgets/my_container.dart';
-import 'package:binary_success/widgets/custom_pop_menu.dart';
-import 'package:binary_success/images.dart';
-import 'package:binary_success/helpers/storage/local_storage.dart';
+import 'package:vantanceCA/controller/apps/admin/admin_users_controller.dart';
+import 'package:vantanceCA/helpers/widgets/my_container.dart';
+import 'package:vantanceCA/widgets/custom_pop_menu.dart';
+import 'package:vantanceCA/images.dart';
+import 'package:vantanceCA/helpers/storage/local_storage.dart';
 
 class AdminActiveUsersWidget extends StatefulWidget {
   final ContentTheme contentTheme;

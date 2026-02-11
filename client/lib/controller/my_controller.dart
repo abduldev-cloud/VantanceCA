@@ -1,5 +1,5 @@
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:binary_success/helpers/theme/theme_customizer.dart';
+import 'package:vantanceCA/helpers/theme/theme_customizer.dart';
 
 abstract class MyController extends GetxController {
   @override

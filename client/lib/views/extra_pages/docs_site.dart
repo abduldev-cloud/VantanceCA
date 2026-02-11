@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:binary_success/helpers/utils/ui_mixins.dart';
-import 'package:binary_success/views/layouts/layout.dart';
+import 'package:vantanceCA/helpers/utils/ui_mixins.dart';
+import 'package:vantanceCA/views/layouts/layout.dart';
 
 class DocsSite extends StatefulWidget {
   const DocsSite({super.key});

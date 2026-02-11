@@ -1,8 +1,8 @@
-import 'package:binary_success/views/apps/school/integrations/widgets/asset_icon.dart';
+import 'package:vantanceCA/views/apps/school/integrations/widgets/asset_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:binary_success/helpers/widgets/my_text.dart';
+import 'package:vantanceCA/helpers/widgets/my_text.dart';
 
 class AppButton extends StatelessWidget {
   final String title;

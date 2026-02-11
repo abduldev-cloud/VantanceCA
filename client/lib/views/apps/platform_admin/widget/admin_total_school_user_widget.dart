@@ -1,22 +1,22 @@
-import 'package:binary_success/views/apps/student/widget/block_picker.dart';
+import 'package:vantanceCA/views/apps/student/widget/block_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:binary_success/controller/apps/admin/admin_total_current_users_controller.dart';
-import 'package:binary_success/helpers/theme/admin_theme.dart';
-import 'package:binary_success/helpers/widgets/my_card.dart';
-import 'package:binary_success/helpers/widgets/my_spacing.dart';
-import 'package:binary_success/helpers/widgets/my_container.dart';
-import 'package:binary_success/helpers/widgets/my_text.dart';
-import 'package:binary_success/helpers/widgets/my_text_style.dart';
-import 'package:binary_success/widgets/custom_pop_menu.dart';
+import 'package:vantanceCA/controller/apps/admin/admin_total_current_users_controller.dart';
+import 'package:vantanceCA/helpers/theme/admin_theme.dart';
+import 'package:vantanceCA/helpers/widgets/my_card.dart';
+import 'package:vantanceCA/helpers/widgets/my_spacing.dart';
+import 'package:vantanceCA/helpers/widgets/my_container.dart';
+import 'package:vantanceCA/helpers/widgets/my_text.dart';
+import 'package:vantanceCA/helpers/widgets/my_text_style.dart';
+import 'package:vantanceCA/widgets/custom_pop_menu.dart';
 import 'package:feather_icons/feather_icons.dart';
-import 'package:binary_success/models/platform_total_users_model.dart';
-import 'package:binary_success/widgets/custom_pop_menu.dart';
-import 'package:binary_success/helpers/theme/app_theme.dart';
-import 'package:binary_success/helpers/utils/ui_mixins.dart';
+import 'package:vantanceCA/models/platform_total_users_model.dart';
+import 'package:vantanceCA/widgets/custom_pop_menu.dart';
+import 'package:vantanceCA/helpers/theme/app_theme.dart';
+import 'package:vantanceCA/helpers/utils/ui_mixins.dart';
 
 class AdminTotalCurrentUsersWidget extends StatefulWidget {
   final ContentTheme contentTheme;

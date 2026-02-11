@@ -1,12 +1,12 @@
-import 'package:binary_success/helpers/widgets/my_card.dart';
-import 'package:binary_success/models/platform_support_model.dart';
+import 'package:vantanceCA/helpers/widgets/my_card.dart';
+import 'package:vantanceCA/models/platform_support_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:binary_success/helpers/services/platform_service.dart';
+import 'package:vantanceCA/helpers/services/platform_service.dart';
 import 'package:intl/intl.dart';
-import 'package:binary_success/helpers/storage/local_storage.dart';
+import 'package:vantanceCA/helpers/storage/local_storage.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AdminSupportViewWidget extends StatefulWidget {

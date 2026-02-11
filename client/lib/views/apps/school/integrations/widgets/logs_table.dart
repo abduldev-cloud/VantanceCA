@@ -1,5 +1,5 @@
-import 'package:binary_success/helpers/utils/datetime_utils.dart';
-import 'package:binary_success/models/integration_log_model.dart';
+import 'package:vantanceCA/helpers/utils/datetime_utils.dart';
+import 'package:vantanceCA/models/integration_log_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

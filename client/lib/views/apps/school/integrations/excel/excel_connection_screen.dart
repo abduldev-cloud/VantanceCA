@@ -1,10 +1,10 @@
-import 'package:binary_success/images.dart';
-import 'package:binary_success/views/apps/school/integrations/excel/excel_log_tab.dart';
-import 'package:binary_success/views/apps/school/integrations/excel/upload_tab.dart';
-import 'package:binary_success/views/apps/school/integrations/platforms.dart';
-import 'package:binary_success/views/apps/school/integrations/widgets/custom_tab_bar.dart';
-import 'package:binary_success/views/apps/school/integrations/widgets/integration_tabs_widget.dart';
-import 'package:binary_success/views/layouts/layout.dart';
+import 'package:vantanceCA/images.dart';
+import 'package:vantanceCA/views/apps/school/integrations/excel/excel_log_tab.dart';
+import 'package:vantanceCA/views/apps/school/integrations/excel/upload_tab.dart';
+import 'package:vantanceCA/views/apps/school/integrations/platforms.dart';
+import 'package:vantanceCA/views/apps/school/integrations/widgets/custom_tab_bar.dart';
+import 'package:vantanceCA/views/apps/school/integrations/widgets/integration_tabs_widget.dart';
+import 'package:vantanceCA/views/layouts/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

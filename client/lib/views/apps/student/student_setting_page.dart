@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:binary_success/services/user_service.dart';
+import 'package:vantanceCA/services/user_service.dart';
 import 'widget/student_change_password_dialog.dart';
 import 'student_subscription_page.dart';
 import 'student_security_privacy_page.dart'; // Added import

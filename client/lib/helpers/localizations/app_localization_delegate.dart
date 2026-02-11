@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:binary_success/helpers/localizations/language.dart';
-import 'package:binary_success/helpers/theme/app_notifier.dart';
+import 'package:vantanceCA/helpers/localizations/language.dart';
+import 'package:vantanceCA/helpers/theme/app_notifier.dart';
 
 class AppLocalizationsDelegate extends LocalizationsDelegate {
   final BuildContext context;

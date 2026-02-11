@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:binary_success/controller/apps/student/student_performance_controller.dart';
-import 'package:binary_success/models/student_performance_report_question_model.dart';
+import 'package:vantanceCA/controller/apps/student/student_performance_controller.dart';
+import 'package:vantanceCA/models/student_performance_report_question_model.dart';
 import 'widget/student_question_card_dialog.dart';
 import 'widget/student_performance_report_filter_dialog.dart';
 import 'package:google_fonts/google_fonts.dart';

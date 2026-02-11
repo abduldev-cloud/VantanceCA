@@ -1,5 +1,5 @@
-import 'package:binary_success/helpers/logger/logger.dart';
-import 'package:binary_success/helpers/network/api_service.dart';
+import 'package:vantanceCA/helpers/logger/logger.dart';
+import 'package:vantanceCA/helpers/network/api_service.dart';
 import 'package:dio/dio.dart';
 
 class StudentService {

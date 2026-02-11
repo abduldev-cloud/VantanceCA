@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/instance_manager.dart';
-import 'package:binary_success/controller/error_pages/maintenance_controller.dart';
-import 'package:binary_success/helpers/utils/ui_mixins.dart';
-import 'package:binary_success/helpers/widgets/my_text.dart';
+import 'package:vantanceCA/controller/error_pages/maintenance_controller.dart';
+import 'package:vantanceCA/helpers/utils/ui_mixins.dart';
+import 'package:vantanceCA/helpers/widgets/my_text.dart';
 
 class MaintenancePage extends StatefulWidget {
   const MaintenancePage({super.key});

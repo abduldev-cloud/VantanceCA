@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:binary_success/controller/apps/student/student_settings_controller.dart';
-import 'package:binary_success/views/apps/student/widget/student_change_password_dialog.dart';
+import 'package:vantanceCA/controller/apps/student/student_settings_controller.dart';
+import 'package:vantanceCA/views/apps/student/widget/student_change_password_dialog.dart';
 
 class SettingsScreen extends StatelessWidget {
   final VoidCallback? onOpenSubscription;

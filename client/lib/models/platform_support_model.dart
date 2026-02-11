@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:binary_success/helpers/constant/app_constant.dart';
-import 'package:binary_success/helpers/services/platform_service.dart';
+import 'package:vantanceCA/helpers/constant/app_constant.dart';
+import 'package:vantanceCA/helpers/services/platform_service.dart';
 
 /// =======================================================
 /// JSON Helpers

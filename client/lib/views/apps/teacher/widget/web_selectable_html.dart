@@ -1,5 +1,5 @@
-import 'package:binary_success/helpers/services/teacher_service.dart';
-import 'package:binary_success/widgets/common_status_dialog.dart';
+import 'package:vantanceCA/helpers/services/teacher_service.dart';
+import 'package:vantanceCA/widgets/common_status_dialog.dart';
 import 'package:flutter/material.dart' hide Element;
 import 'package:flutter/gestures.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

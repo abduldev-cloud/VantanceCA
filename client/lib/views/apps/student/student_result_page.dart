@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'widget/result_card.dart';
-import 'package:binary_success/models/result_model.dart';
-import 'package:binary_success/services/result_service.dart';
-import 'package:binary_success/views/layouts/layout.dart';
+import 'package:vantanceCA/models/result_model.dart';
+import 'package:vantanceCA/services/result_service.dart';
+import 'package:vantanceCA/views/layouts/layout.dart';
 
 class StudentResultPage extends StatefulWidget {
   const StudentResultPage({super.key});

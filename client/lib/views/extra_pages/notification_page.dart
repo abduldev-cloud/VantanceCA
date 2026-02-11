@@ -1,5 +1,5 @@
-import 'package:binary_success/controller/extra_pages/notification_controller.dart';
-import 'package:binary_success/helpers/storage/local_storage.dart';
+import 'package:vantanceCA/controller/extra_pages/notification_controller.dart';
+import 'package:vantanceCA/helpers/storage/local_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -1,15 +1,15 @@
-import 'package:binary_success/helpers/logger/logger.dart';
-import 'package:binary_success/models/teacher_classes_model_analytics.dart';
+import 'package:vantanceCA/helpers/logger/logger.dart';
+import 'package:vantanceCA/models/teacher_classes_model_analytics.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:binary_success/controller/my_controller.dart';
-import 'package:binary_success/helpers/services/school_analytics_service.dart';
-import 'package:binary_success/helpers/storage/local_storage.dart';
-import 'package:binary_success/models/school_dashboard_analytics_model.dart';
+import 'package:vantanceCA/controller/my_controller.dart';
+import 'package:vantanceCA/helpers/services/school_analytics_service.dart';
+import 'package:vantanceCA/helpers/storage/local_storage.dart';
+import 'package:vantanceCA/models/school_dashboard_analytics_model.dart';
 import 'package:get/get.dart';
 
 // Import AI usage model
-import 'package:binary_success/models/ai_usage_overview_model.dart';
+import 'package:vantanceCA/models/ai_usage_overview_model.dart';
 
 class SchoolAnalyticsController extends MyController {
   // Loading states

@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:binary_success/helpers/widgets/my_exception.dart';
+import 'package:vantanceCA/helpers/widgets/my_exception.dart';
 
 class BaseException extends MyException {
   StackTrace? stackTrace;

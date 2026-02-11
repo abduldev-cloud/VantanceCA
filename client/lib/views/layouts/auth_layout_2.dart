@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:binary_success/controller/layouts/dynamic_auth_layout_controller.dart';
-import 'package:binary_success/helpers/theme/admin_theme.dart';
-import 'package:binary_success/helpers/theme/app_theme.dart';
-import 'package:binary_success/helpers/widgets/my_container.dart';
-import 'package:binary_success/helpers/widgets/my_flex.dart';
-import 'package:binary_success/helpers/widgets/my_flex_item.dart';
-import 'package:binary_success/helpers/widgets/my_responsiv.dart';
-import 'package:binary_success/helpers/widgets/my_spacing.dart';
-import 'package:binary_success/images.dart';
+import 'package:vantanceCA/controller/layouts/dynamic_auth_layout_controller.dart';
+import 'package:vantanceCA/helpers/theme/admin_theme.dart';
+import 'package:vantanceCA/helpers/theme/app_theme.dart';
+import 'package:vantanceCA/helpers/widgets/my_container.dart';
+import 'package:vantanceCA/helpers/widgets/my_flex.dart';
+import 'package:vantanceCA/helpers/widgets/my_flex_item.dart';
+import 'package:vantanceCA/helpers/widgets/my_responsiv.dart';
+import 'package:vantanceCA/helpers/widgets/my_spacing.dart';
+import 'package:vantanceCA/images.dart';
 
 class AuthLayout2 extends StatelessWidget {
   final Widget? child;

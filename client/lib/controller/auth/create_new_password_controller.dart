@@ -1,5 +1,5 @@
-import 'package:binary_success/helpers/constant/app_constant.dart';
-import 'package:binary_success/helpers/validators/basic_validator.dart';
+import 'package:vantanceCA/helpers/constant/app_constant.dart';
+import 'package:vantanceCA/helpers/validators/basic_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart';

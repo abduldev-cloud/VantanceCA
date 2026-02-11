@@ -1,12 +1,12 @@
 import 'dart:io';
 import 'dart:convert'; // ✅ for jsonDecode
-import 'package:binary_success/helpers/constant/app_constant.dart';
+import 'package:vantanceCA/helpers/constant/app_constant.dart';
 import 'package:dio/dio.dart';
-import 'package:binary_success/models/school_support_model.dart';
+import 'package:vantanceCA/models/school_support_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:http/http.dart' as http;
-import 'package:binary_success/helpers/storage/local_storage.dart';
+import 'package:vantanceCA/helpers/storage/local_storage.dart';
 
 class SchoolSupportService {
   static final Dio _dio = Dio();

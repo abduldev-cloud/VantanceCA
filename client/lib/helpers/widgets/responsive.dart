@@ -1,4 +1,4 @@
-import 'package:binary_success/helpers/widgets/my_screen_media.dart';
+import 'package:vantanceCA/helpers/widgets/my_screen_media.dart';
 
 export 'my_display_type.dart';
 export 'my_screen_media.dart';

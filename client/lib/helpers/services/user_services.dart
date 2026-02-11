@@ -1,8 +1,8 @@
-import 'package:binary_success/helpers/network/api_service.dart';
+import 'package:vantanceCA/helpers/network/api_service.dart';
 import 'package:dio/dio.dart';
-import 'package:binary_success/models/user_model.dart';
-import 'package:binary_success/helpers/constant/app_constant.dart';
-import 'package:binary_success/helpers/storage/local_storage.dart';
+import 'package:vantanceCA/models/user_model.dart';
+import 'package:vantanceCA/helpers/constant/app_constant.dart';
+import 'package:vantanceCA/helpers/storage/local_storage.dart';
 
 class UserServices {
 

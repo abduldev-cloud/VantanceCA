@@ -1,5 +1,5 @@
-import 'package:binary_success/images.dart';
-import 'package:binary_success/models/user.dart';
+import 'package:vantanceCA/images.dart';
+import 'package:vantanceCA/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

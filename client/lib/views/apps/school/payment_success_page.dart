@@ -1,10 +1,10 @@
-import 'package:binary_success/helpers/constant/app_constant.dart';
-import 'package:binary_success/helpers/storage/local_storage.dart';
+import 'package:vantanceCA/helpers/constant/app_constant.dart';
+import 'package:vantanceCA/helpers/storage/local_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:get/get.dart';
-import 'package:binary_success/controller/error_pages/onboarding_controller.dart';
+import 'package:vantanceCA/controller/error_pages/onboarding_controller.dart';
 // at the top
 
 class PaymentSuccessPage extends StatefulWidget {

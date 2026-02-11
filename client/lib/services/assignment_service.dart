@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import '../models/assignment_request.dart';
-import 'package:binary_success/helpers/network/api_service.dart';
-import 'package:binary_success/helpers/constant/app_constant.dart';
-import 'package:binary_success/models/submit_draft_model.dart';
+import 'package:vantanceCA/helpers/network/api_service.dart';
+import 'package:vantanceCA/helpers/constant/app_constant.dart';
+import 'package:vantanceCA/models/submit_draft_model.dart';
 
 class AssignmentService {
   static final String baseUrl = "${API.apiURL}/teacher";

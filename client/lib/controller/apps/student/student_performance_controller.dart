@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:binary_success/models/student_performance_report_question_model.dart';
-import 'package:binary_success/services/question_service.dart';
+import 'package:vantanceCA/models/student_performance_report_question_model.dart';
+import 'package:vantanceCA/services/question_service.dart';
 
 class StudentPerformanceController extends GetxController {
   final QuestionService _questionService = QuestionService();

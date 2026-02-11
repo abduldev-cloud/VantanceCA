@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:binary_success/models/question.dart';
+import 'package:vantanceCA/models/question.dart';
 import 'package:flutter/services.dart';
 class QuizService {
   Future<List<Question>> fetchQuestions() async {

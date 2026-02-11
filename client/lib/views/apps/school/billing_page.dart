@@ -1,6 +1,6 @@
-import 'package:binary_success/helpers/constant/app_constant.dart';
+import 'package:vantanceCA/helpers/constant/app_constant.dart';
 import 'package:flutter/material.dart';
-import 'package:binary_success/helpers/storage/local_storage.dart';
+import 'package:vantanceCA/helpers/storage/local_storage.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';

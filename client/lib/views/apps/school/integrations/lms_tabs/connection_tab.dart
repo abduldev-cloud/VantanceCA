@@ -1,7 +1,7 @@
-import 'package:binary_success/controller/apps/school/lms_integration_controller.dart';
-import 'package:binary_success/helpers/utils/ui_mixins.dart';
-import 'package:binary_success/views/apps/school/integrations/lms_tabs/widgets/connection_input_screen.dart';
-import 'package:binary_success/views/apps/school/integrations/lms_tabs/widgets/view_access_token.dart';
+import 'package:vantanceCA/controller/apps/school/lms_integration_controller.dart';
+import 'package:vantanceCA/helpers/utils/ui_mixins.dart';
+import 'package:vantanceCA/views/apps/school/integrations/lms_tabs/widgets/connection_input_screen.dart';
+import 'package:vantanceCA/views/apps/school/integrations/lms_tabs/widgets/view_access_token.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:binary_success/controller/my_controller.dart';
+import 'package:vantanceCA/controller/my_controller.dart';
 import 'package:appflowy_board/appflowy_board.dart';
-import 'package:binary_success/images.dart';
+import 'package:vantanceCA/images.dart';
 
 class KanBanController extends MyController {
   final AppFlowyBoardController boardData = AppFlowyBoardController(

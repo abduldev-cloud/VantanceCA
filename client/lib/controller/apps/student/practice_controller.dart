@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:binary_success/helpers/services/practice_service.dart';
-import 'package:binary_success/models/question.dart';
+import 'package:vantanceCA/helpers/services/practice_service.dart';
+import 'package:vantanceCA/models/question.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

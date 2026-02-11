@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:binary_success/controller/auth/login_2_controller.dart';
-import 'package:binary_success/helpers/theme/app_theme.dart';
-import 'package:binary_success/helpers/utils/ui_mixins.dart';
-import 'package:binary_success/helpers/widgets/my_button.dart';
-import 'package:binary_success/helpers/widgets/my_container.dart';
-import 'package:binary_success/helpers/widgets/my_spacing.dart';
-import 'package:binary_success/helpers/widgets/my_text.dart';
-import 'package:binary_success/helpers/widgets/my_text_style.dart';
-import 'package:binary_success/images.dart';
-import 'package:binary_success/views/layouts/auth_layout_2.dart';
+import 'package:vantanceCA/controller/auth/login_2_controller.dart';
+import 'package:vantanceCA/helpers/theme/app_theme.dart';
+import 'package:vantanceCA/helpers/utils/ui_mixins.dart';
+import 'package:vantanceCA/helpers/widgets/my_button.dart';
+import 'package:vantanceCA/helpers/widgets/my_container.dart';
+import 'package:vantanceCA/helpers/widgets/my_spacing.dart';
+import 'package:vantanceCA/helpers/widgets/my_text.dart';
+import 'package:vantanceCA/helpers/widgets/my_text_style.dart';
+import 'package:vantanceCA/images.dart';
+import 'package:vantanceCA/views/layouts/auth_layout_2.dart';
 
 class Login2 extends StatefulWidget {
   const Login2({super.key});

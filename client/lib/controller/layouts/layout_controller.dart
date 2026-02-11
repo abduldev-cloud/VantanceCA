@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:binary_success/controller/my_controller.dart';
-import 'package:binary_success/helpers/theme/theme_customizer.dart';
+import 'package:vantanceCA/controller/my_controller.dart';
+import 'package:vantanceCA/helpers/theme/theme_customizer.dart';
 
 class LayoutController extends MyController {
   ThemeCustomizer themeCustomizer = ThemeCustomizer();

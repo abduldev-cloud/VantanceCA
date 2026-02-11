@@ -1,9 +1,9 @@
-import 'package:binary_success/helpers/constant/app_constant.dart';
+import 'package:vantanceCA/helpers/constant/app_constant.dart';
 import 'package:get/get.dart';
-import 'package:binary_success/controller/my_controller.dart';
-import 'package:binary_success/helpers/services/student_service.dart';
-import 'package:binary_success/helpers/storage/local_storage.dart';
-import 'package:binary_success/models/student_assignment_model.dart';
+import 'package:vantanceCA/controller/my_controller.dart';
+import 'package:vantanceCA/helpers/services/student_service.dart';
+import 'package:vantanceCA/helpers/storage/local_storage.dart';
+import 'package:vantanceCA/models/student_assignment_model.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:intl/intl.dart';
 import 'package:dio/dio.dart';

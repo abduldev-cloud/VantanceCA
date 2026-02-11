@@ -1,12 +1,12 @@
 import 'dart:typed_data';
-import 'package:binary_success/controller/apps/school/lms_integration_controller.dart';
-import 'package:binary_success/controller/my_controller.dart';
-import 'package:binary_success/helpers/services/excel_integration_service.dart';
-import 'package:binary_success/helpers/services/integration_service.dart';
-import 'package:binary_success/helpers/storage/local_storage.dart';
-import 'package:binary_success/helpers/utils/app_snakbar.dart';
-import 'package:binary_success/models/integration_log_model.dart';
-import 'package:binary_success/models/paginated_data_model.dart';
+import 'package:vantanceCA/controller/apps/school/lms_integration_controller.dart';
+import 'package:vantanceCA/controller/my_controller.dart';
+import 'package:vantanceCA/helpers/services/excel_integration_service.dart';
+import 'package:vantanceCA/helpers/services/integration_service.dart';
+import 'package:vantanceCA/helpers/storage/local_storage.dart';
+import 'package:vantanceCA/helpers/utils/app_snakbar.dart';
+import 'package:vantanceCA/models/integration_log_model.dart';
+import 'package:vantanceCA/models/paginated_data_model.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart' as dio;
 

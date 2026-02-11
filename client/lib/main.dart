@@ -1,8 +1,8 @@
-import 'package:binary_success/helpers/constant/app_constant.dart';
-import 'package:binary_success/helpers/localizations/app_localization_delegate.dart';
-import 'package:binary_success/helpers/logger/logger.dart';
-import 'package:binary_success/helpers/network/api_service.dart';
-import 'package:binary_success/routes.dart';
+import 'package:vantanceCA/helpers/constant/app_constant.dart';
+import 'package:vantanceCA/helpers/localizations/app_localization_delegate.dart';
+import 'package:vantanceCA/helpers/logger/logger.dart';
+import 'package:vantanceCA/helpers/network/api_service.dart';
+import 'package:vantanceCA/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -16,7 +16,7 @@ import 'helpers/theme/app_notifier.dart';
 import 'helpers/theme/app_style.dart';
 import 'helpers/theme/theme_customizer.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:binary_success/images.dart';
+import 'package:vantanceCA/images.dart';
 
 final GoogleSignInPlatform platform = GoogleSignInPlatform.instance;
 

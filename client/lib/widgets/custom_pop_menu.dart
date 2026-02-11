@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:binary_success/helpers/theme/app_theme.dart';
-import 'package:binary_success/helpers/utils/ui_mixins.dart';
+import 'package:vantanceCA/helpers/theme/app_theme.dart';
+import 'package:vantanceCA/helpers/utils/ui_mixins.dart';
 
 enum CustomPopupMenuPlacement { left, right, top, bottom }
 

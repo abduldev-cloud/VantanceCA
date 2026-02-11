@@ -1,9 +1,9 @@
-import 'package:binary_success/helpers/services/school_service.dart';
-import 'package:binary_success/helpers/storage/local_storage.dart';
-import 'package:binary_success/models/add_school_model.dart';
+import 'package:vantanceCA/helpers/services/school_service.dart';
+import 'package:vantanceCA/helpers/storage/local_storage.dart';
+import 'package:vantanceCA/models/add_school_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:binary_success/widgets/common_status_dialog.dart';
+import 'package:vantanceCA/widgets/common_status_dialog.dart';
 
 class AddSchoolController extends GetxController {
   final nameController = TextEditingController();

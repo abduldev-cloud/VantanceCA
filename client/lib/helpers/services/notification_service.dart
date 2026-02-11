@@ -1,8 +1,8 @@
-import 'package:binary_success/helpers/constant/app_constant.dart';
-import 'package:binary_success/helpers/logger/logger.dart';
-import 'package:binary_success/helpers/network/api_service.dart';
-import 'package:binary_success/models/notification_model.dart';
-import 'package:binary_success/models/submit_draft_model.dart';
+import 'package:vantanceCA/helpers/constant/app_constant.dart';
+import 'package:vantanceCA/helpers/logger/logger.dart';
+import 'package:vantanceCA/helpers/network/api_service.dart';
+import 'package:vantanceCA/models/notification_model.dart';
+import 'package:vantanceCA/models/submit_draft_model.dart';
 import 'package:dio/dio.dart';
 
 class NotificationService {

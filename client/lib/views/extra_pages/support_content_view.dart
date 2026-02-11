@@ -1,10 +1,10 @@
-import 'package:binary_success/views/layouts/layout.dart';
-import 'package:binary_success/models/school_support_model.dart';
-import 'package:binary_success/widgets/comman_titlebar.dart';
-import 'package:binary_success/helpers/utils/ui_mixins.dart';
-import 'package:binary_success/helpers/widgets/my_spacing.dart';
+import 'package:vantanceCA/views/layouts/layout.dart';
+import 'package:vantanceCA/models/school_support_model.dart';
+import 'package:vantanceCA/widgets/comman_titlebar.dart';
+import 'package:vantanceCA/helpers/utils/ui_mixins.dart';
+import 'package:vantanceCA/helpers/widgets/my_spacing.dart';
 import 'package:flutter/material.dart';
-import 'package:binary_success/views/extra_pages/widgets/support_content_widgets.dart';
+import 'package:vantanceCA/views/extra_pages/widgets/support_content_widgets.dart';
 
 class AdminSupportViewPage extends StatelessWidget with UIMixin {
   final SupportModel ticket;

@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:binary_success/services/user_service.dart';
+import 'package:vantanceCA/services/user_service.dart';
 
 class StudentSettingsController extends GetxController {
   final UserService _userService = UserService();

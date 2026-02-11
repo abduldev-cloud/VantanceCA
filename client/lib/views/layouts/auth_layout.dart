@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:binary_success/controller/layouts/auth_layout_controller.dart';
-import 'package:binary_success/helpers/theme/admin_theme.dart';
-import 'package:binary_success/helpers/theme/app_theme.dart';
-import 'package:binary_success/helpers/widgets/my_container.dart';
-import 'package:binary_success/helpers/widgets/my_flex.dart';
-import 'package:binary_success/helpers/widgets/my_flex_item.dart';
-import 'package:binary_success/helpers/widgets/my_responsiv.dart';
-import 'package:binary_success/helpers/widgets/my_spacing.dart';
+import 'package:vantanceCA/controller/layouts/auth_layout_controller.dart';
+import 'package:vantanceCA/helpers/theme/admin_theme.dart';
+import 'package:vantanceCA/helpers/theme/app_theme.dart';
+import 'package:vantanceCA/helpers/widgets/my_container.dart';
+import 'package:vantanceCA/helpers/widgets/my_flex.dart';
+import 'package:vantanceCA/helpers/widgets/my_flex_item.dart';
+import 'package:vantanceCA/helpers/widgets/my_responsiv.dart';
+import 'package:vantanceCA/helpers/widgets/my_spacing.dart';
 
 class AuthLayout extends StatelessWidget {
   final Widget? child;

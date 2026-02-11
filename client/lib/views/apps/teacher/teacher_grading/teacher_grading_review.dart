@@ -1,18 +1,18 @@
 import 'dart:collection';
 import 'dart:convert';
 
-import 'package:binary_success/controller/apps/teacher/teacher_grading_controller.dart';
-import 'package:binary_success/helpers/services/teacher_service.dart';
-import 'package:binary_success/helpers/utils/ui_mixins.dart';
-import 'package:binary_success/helpers/widgets/my_card.dart';
-import 'package:binary_success/helpers/widgets/my_spacing.dart';
-import 'package:binary_success/helpers/widgets/my_text.dart';
-import 'package:binary_success/images.dart';
-import 'package:binary_success/models/teachers_grading_model.dart';
-import 'package:binary_success/views/apps/teacher/dialog/teacher_writing_fingerprint_dialog.dart';
-import 'package:binary_success/views/apps/teacher/widget/confirm_grade_dialog.dart';
-import 'package:binary_success/views/layouts/layout.dart';
-import 'package:binary_success/widgets/common_status_dialog.dart';
+import 'package:vantanceCA/controller/apps/teacher/teacher_grading_controller.dart';
+import 'package:vantanceCA/helpers/services/teacher_service.dart';
+import 'package:vantanceCA/helpers/utils/ui_mixins.dart';
+import 'package:vantanceCA/helpers/widgets/my_card.dart';
+import 'package:vantanceCA/helpers/widgets/my_spacing.dart';
+import 'package:vantanceCA/helpers/widgets/my_text.dart';
+import 'package:vantanceCA/images.dart';
+import 'package:vantanceCA/models/teachers_grading_model.dart';
+import 'package:vantanceCA/views/apps/teacher/dialog/teacher_writing_fingerprint_dialog.dart';
+import 'package:vantanceCA/views/apps/teacher/widget/confirm_grade_dialog.dart';
+import 'package:vantanceCA/views/layouts/layout.dart';
+import 'package:vantanceCA/widgets/common_status_dialog.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,7 +24,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:flutter/gestures.dart';
-import 'package:binary_success/views/apps/teacher/widget/web_selectable_html.dart';
+import 'package:vantanceCA/views/apps/teacher/widget/web_selectable_html.dart';
 
 import 'package:flutter/services.dart';
 

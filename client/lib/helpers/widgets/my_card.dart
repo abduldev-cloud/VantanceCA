@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:binary_success/helpers/theme/app_theme.dart';
-import 'package:binary_success/helpers/utils/constant_data.dart';
-import 'package:binary_success/helpers/utils/my_shadow.dart';
-import 'package:binary_success/helpers/widgets/my_spacing.dart';
+import 'package:vantanceCA/helpers/theme/app_theme.dart';
+import 'package:vantanceCA/helpers/utils/constant_data.dart';
+import 'package:vantanceCA/helpers/utils/my_shadow.dart';
+import 'package:vantanceCA/helpers/widgets/my_spacing.dart';
 
 class MyCard extends StatelessWidget {
   final Widget child;

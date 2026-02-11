@@ -1,7 +1,7 @@
-import 'package:binary_success/helpers/widgets/app_button.dart';
-import 'package:binary_success/helpers/widgets/my_text.dart';
-import 'package:binary_success/images.dart';
-import 'package:binary_success/views/apps/school/widget/asset_icon_box.dart';
+import 'package:vantanceCA/helpers/widgets/app_button.dart';
+import 'package:vantanceCA/helpers/widgets/my_text.dart';
+import 'package:vantanceCA/images.dart';
+import 'package:vantanceCA/views/apps/school/widget/asset_icon_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

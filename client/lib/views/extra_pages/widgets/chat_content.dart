@@ -1,9 +1,9 @@
-import 'package:binary_success/helpers/constant/app_constant.dart';
+import 'package:vantanceCA/helpers/constant/app_constant.dart';
 import 'package:flutter/material.dart';
-import 'package:binary_success/images.dart';
+import 'package:vantanceCA/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:binary_success/helpers/storage/local_storage.dart';
+import 'package:vantanceCA/helpers/storage/local_storage.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 

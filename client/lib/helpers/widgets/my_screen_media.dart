@@ -1,5 +1,5 @@
-import 'package:binary_success/helpers/widgets/my_display_type.dart';
-import 'package:binary_success/helpers/widgets/my_screen_media_type.dart';
+import 'package:vantanceCA/helpers/widgets/my_display_type.dart';
+import 'package:vantanceCA/helpers/widgets/my_screen_media_type.dart';
 
 class MyScreenMedia {
   static int flexColumns = 12;

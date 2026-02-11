@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:binary_success/helpers/theme/app_theme.dart';
+import 'package:vantanceCA/helpers/theme/app_theme.dart';
 
 extension IntUtil on int {
   String textFromSeconds(

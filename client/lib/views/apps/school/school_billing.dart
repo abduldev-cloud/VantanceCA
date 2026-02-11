@@ -1,10 +1,10 @@
-import 'package:binary_success/helpers/constant/app_constant.dart';
+import 'package:vantanceCA/helpers/constant/app_constant.dart';
 import 'package:flutter/material.dart';
-import 'package:binary_success/views/layouts/layout.dart';
-import 'package:binary_success/helpers/storage/local_storage.dart';
+import 'package:vantanceCA/views/layouts/layout.dart';
+import 'package:vantanceCA/helpers/storage/local_storage.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:binary_success/services/dodo_service.dart';
+import 'package:vantanceCA/services/dodo_service.dart';
 
 class SchoolBillingPage extends StatefulWidget {
   const SchoolBillingPage({super.key});

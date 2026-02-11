@@ -5,9 +5,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:binary_success/helpers/theme/custom_theme.dart';
-import 'package:binary_success/helpers/theme/theme_type.dart';
-import 'package:binary_success/helpers/widgets/my_text_style.dart';
+import 'package:vantanceCA/helpers/theme/custom_theme.dart';
+import 'package:vantanceCA/helpers/theme/theme_type.dart';
+import 'package:vantanceCA/helpers/widgets/my_text_style.dart';
 
 export 'custom_theme.dart';
 export 'navigation_theme.dart';

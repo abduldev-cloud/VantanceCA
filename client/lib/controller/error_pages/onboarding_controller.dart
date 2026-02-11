@@ -1,11 +1,11 @@
 import 'dart:developer';
 
-import 'package:binary_success/controller/my_controller.dart';
-import 'package:binary_success/helpers/services/onboarding_services.dart';
-import 'package:binary_success/helpers/widgets/my_form_validator.dart';
-import 'package:binary_success/models/add_school_model.dart';
+import 'package:vantanceCA/controller/my_controller.dart';
+import 'package:vantanceCA/helpers/services/onboarding_services.dart';
+import 'package:vantanceCA/helpers/widgets/my_form_validator.dart';
+import 'package:vantanceCA/models/add_school_model.dart';
 import 'package:flutter/widgets.dart';
-import 'package:binary_success/helpers/storage/local_storage.dart';
+import 'package:vantanceCA/helpers/storage/local_storage.dart';
 import 'package:get/get.dart';
 
 const personaMap = {

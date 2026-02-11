@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:binary_success/controller/my_controller.dart';
-import 'package:binary_success/helpers/services/school_service.dart';
-import 'package:binary_success/helpers/storage/local_storage.dart'; // Import LocalStorage
+import 'package:vantanceCA/controller/my_controller.dart';
+import 'package:vantanceCA/helpers/services/school_service.dart';
+import 'package:vantanceCA/helpers/storage/local_storage.dart'; // Import LocalStorage
 import 'package:flutter/widgets.dart';
-import 'package:binary_success/models/create_class_model.dart';
-import 'package:binary_success/helpers/services/teacher_service.dart';
+import 'package:vantanceCA/models/create_class_model.dart';
+import 'package:vantanceCA/helpers/services/teacher_service.dart';
 
 class SchoolClassesController extends GetxController {
   TextEditingController className = TextEditingController();

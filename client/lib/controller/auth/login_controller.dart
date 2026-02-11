@@ -1,14 +1,14 @@
 import 'dart:async';
 
-import 'package:binary_success/controller/my_controller.dart';
-import 'package:binary_success/helpers/constant/app_constant.dart';
-import 'package:binary_success/helpers/logger/logger.dart';
-import 'package:binary_success/helpers/services/auth_services.dart';
-import 'package:binary_success/helpers/services/user_services.dart';
-import 'package:binary_success/helpers/storage/local_storage.dart';
-import 'package:binary_success/helpers/utils/utils.dart';
-import 'package:binary_success/helpers/widgets/my_form_validator.dart';
-import 'package:binary_success/main.dart';
+import 'package:vantanceCA/controller/my_controller.dart';
+import 'package:vantanceCA/helpers/constant/app_constant.dart';
+import 'package:vantanceCA/helpers/logger/logger.dart';
+import 'package:vantanceCA/helpers/services/auth_services.dart';
+import 'package:vantanceCA/helpers/services/user_services.dart';
+import 'package:vantanceCA/helpers/storage/local_storage.dart';
+import 'package:vantanceCA/helpers/utils/utils.dart';
+import 'package:vantanceCA/helpers/widgets/my_form_validator.dart';
+import 'package:vantanceCA/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in_platform_interface/google_sign_in_platform_interface.dart';

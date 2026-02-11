@@ -1,5 +1,5 @@
-import 'package:binary_success/images.dart';
-import 'package:binary_success/views/apps/school/integrations/platforms.dart';
+import 'package:vantanceCA/images.dart';
+import 'package:vantanceCA/views/apps/school/integrations/platforms.dart';
 
 class LmsData {
   static final List<Map<String, String?>> platformsData = [

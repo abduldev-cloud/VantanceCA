@@ -1,7 +1,7 @@
-import 'package:binary_success/controller/extra_pages/faqs_controller.dart';
-import 'package:binary_success/helpers/utils/ui_mixins.dart';
-import 'package:binary_success/views/extra_pages/widgets/faqs_content.dart';
-import 'package:binary_success/views/layouts/layout.dart';
+import 'package:vantanceCA/controller/extra_pages/faqs_controller.dart';
+import 'package:vantanceCA/helpers/utils/ui_mixins.dart';
+import 'package:vantanceCA/views/extra_pages/widgets/faqs_content.dart';
+import 'package:vantanceCA/views/layouts/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/instance_manager.dart';

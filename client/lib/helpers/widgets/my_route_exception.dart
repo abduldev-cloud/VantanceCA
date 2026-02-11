@@ -1,4 +1,4 @@
-import 'package:binary_success/helpers/widgets/my_base_exception.dart';
+import 'package:vantanceCA/helpers/widgets/my_base_exception.dart';
 
 class RouteException extends BaseException {
   final String message;

@@ -1,7 +1,7 @@
 import 'dart:ui';
 
-import 'package:binary_success/helpers/theme/app_theme.dart';
-import 'package:binary_success/helpers/theme/theme_type.dart';
+import 'package:vantanceCA/helpers/theme/app_theme.dart';
+import 'package:vantanceCA/helpers/theme/theme_type.dart';
 
 @Deprecated('message')
 class MaterialTheme {

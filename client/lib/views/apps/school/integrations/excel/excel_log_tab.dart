@@ -1,16 +1,16 @@
 import 'dart:async';
 
-import 'package:binary_success/controller/apps/school/excel_integration_controller.dart';
-import 'package:binary_success/controller/apps/school/lms_integration_controller.dart';
-import 'package:binary_success/helpers/storage/local_storage.dart';
-import 'package:binary_success/helpers/utils/datetime_utils.dart';
-import 'package:binary_success/helpers/utils/ui_mixins.dart';
-import 'package:binary_success/helpers/widgets/my_text.dart';
-import 'package:binary_success/views/apps/school/integrations/lms_tabs/widgets/header_text.dart';
-import 'package:binary_success/views/apps/school/integrations/platforms.dart';
-import 'package:binary_success/views/apps/school/integrations/widgets/last_sync_datetime.dart';
-import 'package:binary_success/views/apps/school/integrations/widgets/logs_table.dart';
-import 'package:binary_success/views/apps/school/widget/pagination_controls.dart';
+import 'package:vantanceCA/controller/apps/school/excel_integration_controller.dart';
+import 'package:vantanceCA/controller/apps/school/lms_integration_controller.dart';
+import 'package:vantanceCA/helpers/storage/local_storage.dart';
+import 'package:vantanceCA/helpers/utils/datetime_utils.dart';
+import 'package:vantanceCA/helpers/utils/ui_mixins.dart';
+import 'package:vantanceCA/helpers/widgets/my_text.dart';
+import 'package:vantanceCA/views/apps/school/integrations/lms_tabs/widgets/header_text.dart';
+import 'package:vantanceCA/views/apps/school/integrations/platforms.dart';
+import 'package:vantanceCA/views/apps/school/integrations/widgets/last_sync_datetime.dart';
+import 'package:vantanceCA/views/apps/school/integrations/widgets/logs_table.dart';
+import 'package:vantanceCA/views/apps/school/widget/pagination_controls.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

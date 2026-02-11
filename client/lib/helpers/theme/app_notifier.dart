@@ -5,10 +5,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:binary_success/helpers/localizations/language.dart';
-import 'package:binary_success/helpers/storage/local_storage.dart';
-import 'package:binary_success/helpers/theme/app_style.dart';
-import 'package:binary_success/helpers/widgets/my.dart';
+import 'package:vantanceCA/helpers/localizations/language.dart';
+import 'package:vantanceCA/helpers/storage/local_storage.dart';
+import 'package:vantanceCA/helpers/theme/app_style.dart';
+import 'package:vantanceCA/helpers/widgets/my.dart';
 
 import 'theme_customizer.dart';
 

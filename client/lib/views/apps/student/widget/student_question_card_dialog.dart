@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:binary_success/models/student_performance_report_question_model.dart';
-import 'package:binary_success/app_colors.dart';
+import 'package:vantanceCA/models/student_performance_report_question_model.dart';
+import 'package:vantanceCA/app_colors.dart';
 
 class QuestionCard extends StatelessWidget {
   final Question question;

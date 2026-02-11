@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:binary_success/helpers/widgets/my_pages.dart';
+import 'package:vantanceCA/helpers/widgets/my_pages.dart';
 
 class MyPagerIndicator extends StatelessWidget {
   final PagerIndicatorViewModel? viewModel;

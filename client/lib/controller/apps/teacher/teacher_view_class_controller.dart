@@ -1,8 +1,8 @@
-import 'package:binary_success/helpers/services/teacher_service.dart';
+import 'package:vantanceCA/helpers/services/teacher_service.dart';
 import 'package:get/get.dart';
-import 'package:binary_success/controller/my_controller.dart';
-import 'package:binary_success/helpers/storage/local_storage.dart';
-import 'package:binary_success/models/teacher_view_class_model.dart';
+import 'package:vantanceCA/controller/my_controller.dart';
+import 'package:vantanceCA/helpers/storage/local_storage.dart';
+import 'package:vantanceCA/models/teacher_view_class_model.dart';
 
 class TeacherClassViewController extends MyController {
   RxBool isLoading = false.obs;

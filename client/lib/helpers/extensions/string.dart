@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:binary_success/helpers/localizations/translator.dart';
+import 'package:vantanceCA/helpers/localizations/translator.dart';
 
 extension StringUtil on String {
   Color get toColor {

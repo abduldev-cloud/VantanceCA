@@ -1,12 +1,12 @@
 import 'dart:convert';
-import 'package:binary_success/controller/apps/setting_controller.dart';
-import 'package:binary_success/helpers/constant/app_constant.dart';
-import 'package:binary_success/helpers/services/auth_services.dart';
-import 'package:binary_success/helpers/storage/local_storage.dart';
-import 'package:binary_success/helpers/utils/ui_mixins.dart';
-import 'package:binary_success/helpers/utils/utils.dart';
-import 'package:binary_success/helpers/widgets/my_text.dart';
-import 'package:binary_success/views/layouts/layout.dart';
+import 'package:vantanceCA/controller/apps/setting_controller.dart';
+import 'package:vantanceCA/helpers/constant/app_constant.dart';
+import 'package:vantanceCA/helpers/services/auth_services.dart';
+import 'package:vantanceCA/helpers/storage/local_storage.dart';
+import 'package:vantanceCA/helpers/utils/ui_mixins.dart';
+import 'package:vantanceCA/helpers/utils/utils.dart';
+import 'package:vantanceCA/helpers/widgets/my_text.dart';
+import 'package:vantanceCA/views/layouts/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -14,8 +14,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:http/http.dart' as http;
-import 'package:binary_success/controller/change_password_controller.dart';
-import 'package:binary_success/models/change_password_model.dart';
+import 'package:vantanceCA/controller/change_password_controller.dart';
+import 'package:vantanceCA/models/change_password_model.dart';
 
 class SchoolSettingPage extends StatefulWidget {
   const SchoolSettingPage({super.key});

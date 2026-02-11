@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:binary_success/models/platform_total_users_model.dart';
-import 'package:binary_success/helpers/network/api_service.dart';
-import 'package:binary_success/helpers/constant/app_constant.dart'; 
+import 'package:vantanceCA/models/platform_total_users_model.dart';
+import 'package:vantanceCA/helpers/network/api_service.dart';
+import 'package:vantanceCA/helpers/constant/app_constant.dart'; 
 
   class PlatformUserController extends GetxController {
 

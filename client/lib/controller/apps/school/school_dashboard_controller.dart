@@ -1,14 +1,14 @@
-import 'package:binary_success/controller/my_controller.dart';
-import 'package:binary_success/helpers/services/school_analytics_service.dart';
-import 'package:binary_success/helpers/services/notification_service.dart';
-import 'package:binary_success/helpers/storage/local_storage.dart';
-import 'package:binary_success/helpers/network/api_service.dart';
-import 'package:binary_success/helpers/constant/app_constant.dart';
-import 'package:binary_success/models/school_dashboard_analytics_model.dart';
-import 'package:binary_success/models/ai_usage_overview_model.dart';
-import 'package:binary_success/models/notification_model.dart';
-import 'package:binary_success/models/school_class_model.dart';
-import 'package:binary_success/models/teacher_classes_model_analytics.dart';
+import 'package:vantanceCA/controller/my_controller.dart';
+import 'package:vantanceCA/helpers/services/school_analytics_service.dart';
+import 'package:vantanceCA/helpers/services/notification_service.dart';
+import 'package:vantanceCA/helpers/storage/local_storage.dart';
+import 'package:vantanceCA/helpers/network/api_service.dart';
+import 'package:vantanceCA/helpers/constant/app_constant.dart';
+import 'package:vantanceCA/models/school_dashboard_analytics_model.dart';
+import 'package:vantanceCA/models/ai_usage_overview_model.dart';
+import 'package:vantanceCA/models/notification_model.dart';
+import 'package:vantanceCA/models/school_class_model.dart';
+import 'package:vantanceCA/models/teacher_classes_model_analytics.dart';
 import 'package:get/get.dart';
 
 class SchoolDashboardController extends MyController {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:binary_success/helpers/widgets/my_middleware.dart';
-import 'package:binary_success/helpers/widgets/my_route.dart';
-import 'package:binary_success/helpers/widgets/my_route_exception.dart';
-import 'package:binary_success/helpers/widgets/my_routes.dart';
+import 'package:vantanceCA/helpers/widgets/my_middleware.dart';
+import 'package:vantanceCA/helpers/widgets/my_route.dart';
+import 'package:vantanceCA/helpers/widgets/my_route_exception.dart';
+import 'package:vantanceCA/helpers/widgets/my_routes.dart';
 
 class MyRouter {
   static T? getArgs<T>(BuildContext context) {

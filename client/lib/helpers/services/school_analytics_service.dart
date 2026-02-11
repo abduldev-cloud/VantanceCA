@@ -1,11 +1,11 @@
-import 'package:binary_success/helpers/logger/logger.dart';
-import 'package:binary_success/helpers/network/api_service.dart';
-import 'package:binary_success/helpers/constant/app_constant.dart';
-import 'package:binary_success/models/school_dashboard_analytics_model.dart';
-import 'package:binary_success/models/ai_usage_overview_model.dart';
-import 'package:binary_success/models/school_class_model.dart';
-import 'package:binary_success/models/school_performance_metrics_model.dart';
-import 'package:binary_success/models/teacher_classes_model_analytics.dart'
+import 'package:vantanceCA/helpers/logger/logger.dart';
+import 'package:vantanceCA/helpers/network/api_service.dart';
+import 'package:vantanceCA/helpers/constant/app_constant.dart';
+import 'package:vantanceCA/models/school_dashboard_analytics_model.dart';
+import 'package:vantanceCA/models/ai_usage_overview_model.dart';
+import 'package:vantanceCA/models/school_class_model.dart';
+import 'package:vantanceCA/models/school_performance_metrics_model.dart';
+import 'package:vantanceCA/models/teacher_classes_model_analytics.dart'
     show ApiResponse;
 import 'package:dio/dio.dart';
 

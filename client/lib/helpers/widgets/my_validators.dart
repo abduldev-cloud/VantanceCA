@@ -1,5 +1,5 @@
-import 'package:binary_success/helpers/utils/my_string_utils.dart';
-import 'package:binary_success/helpers/widgets/my_field_validator.dart';
+import 'package:vantanceCA/helpers/utils/my_string_utils.dart';
+import 'package:vantanceCA/helpers/widgets/my_field_validator.dart';
 
 class MyEmailValidator extends MyFieldValidatorRule<String> {
   @override

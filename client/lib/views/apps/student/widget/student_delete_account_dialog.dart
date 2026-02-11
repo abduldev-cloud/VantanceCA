@@ -37,66 +37,61 @@ class DeleteAccountDialog extends StatelessWidget {
                   const TextSpan(text: "Are you sure you want to delete "),
                   TextSpan(
                     text: "Arun Kumar", // Mocked user name
-                    style: GoogleFonts.inter(fontWeight: FontWeight.bold, color: Colors.grey[500]),
+                    style: GoogleFonts.inter(
+                        fontWeight: FontWeight.bold, color: Colors.grey[500]),
                   ),
                   const TextSpan(text: "?"),
                 ],
               ),
             ),
             const SizedBox(height: 24),
-            
+
             const SizedBox(height: 24),
-            
+
             // Warning Box
             Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(16),
                 color: Colors.white,
                 child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                        Container(
-                            width: 4,
-                            height: 60,
-                            margin: const EdgeInsets.only(right: 12),
-                            color: const Color(0xFFFF9933),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 4,
+                      height: 60,
+                      margin: const EdgeInsets.only(right: 12),
+                      color: const Color(0xFFFF9933),
+                    ),
+                    Expanded(
+                        child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(Icons.warning_amber_rounded,
+                                color: Color(0xFFFF9933), size: 18),
+                            const SizedBox(width: 8),
+                            Text("Warning",
+                                style: GoogleFonts.inter(
+                                    color: const Color(0xFFFF9933),
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 14))
+                          ],
                         ),
-                        Expanded(
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                    Row(
-                                        children: [
-                                            const Icon(Icons.warning_amber_rounded, color: Color(0xFFFF9933), size: 18),
-                                            const SizedBox(width: 8),
-                                            Text(
-                                                "Warning",
-                                                style: GoogleFonts.inter(
-                                                    color: const Color(0xFFFF9933),
-                                                    fontWeight: FontWeight.w700,
-                                                    fontSize: 14
-                                                )
-                                            )
-                                        ],
-                                    ),
-                                    const SizedBox(height: 8),
-                                    Text(
-                                        "By deleting this account, you won't be able to access the Deskpad system.",
-                                        style: GoogleFonts.inter(
-                                            color: const Color(0xFFFF9933),
-                                            fontSize: 13,
-                                            height: 1.4
-                                        )
-                                    )
-                                ],
-                            )
-                        )
-                    ],
-                )
-            ),
+                        const SizedBox(height: 8),
+                        Text(
+                            "By deleting this account, you won't be able to access the VantanceCA system.",
+                            style: GoogleFonts.inter(
+                                color: const Color(0xFFFF9933),
+                                fontSize: 13,
+                                height: 1.4))
+                      ],
+                    ))
+                  ],
+                )),
 
             const SizedBox(height: 32),
-            
+
             // Action Buttons
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -109,7 +104,8 @@ class DeleteAccountDialog extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(24),
                     ),
-                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24, vertical: 14),
                     elevation: 0,
                   ),
                   child: Text(
@@ -124,8 +120,7 @@ class DeleteAccountDialog extends StatelessWidget {
                     // Open Success
                     showDialog(
                         context: context,
-                        builder: (context) => const AccountDeletedDialog()
-                    );
+                        builder: (context) => const AccountDeletedDialog());
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
@@ -133,7 +128,8 @@ class DeleteAccountDialog extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(24),
                     ),
-                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24, vertical: 14),
                   ),
                   child: Text(
                     "Yes, Delete",

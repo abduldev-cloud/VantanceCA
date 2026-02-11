@@ -2,18 +2,18 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:binary_success/helpers/constant/app_constant.dart';
-import 'package:binary_success/controller/my_controller.dart';
-import 'package:binary_success/helpers/services/student_service.dart';
-import 'package:binary_success/models/student_assignment_model.dart';
-import 'package:binary_success/models/writing_pad_model.dart';
+import 'package:vantanceCA/helpers/constant/app_constant.dart';
+import 'package:vantanceCA/controller/my_controller.dart';
+import 'package:vantanceCA/helpers/services/student_service.dart';
+import 'package:vantanceCA/models/student_assignment_model.dart';
+import 'package:vantanceCA/models/writing_pad_model.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../../../helpers/storage/local_storage.dart';
-import 'package:binary_success/models/submit_draft_model.dart';
-import 'package:binary_success/helpers/services/teacher_service.dart';
+import 'package:vantanceCA/models/submit_draft_model.dart';
+import 'package:vantanceCA/helpers/services/teacher_service.dart';
 
 class StudentWritingPadController extends MyController {
   RxInt selectedTabIndex = 0.obs;

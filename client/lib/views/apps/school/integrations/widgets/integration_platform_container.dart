@@ -1,10 +1,10 @@
-import 'package:binary_success/app_colors.dart';
-import 'package:binary_success/helpers/utils/ui_mixins.dart';
-import 'package:binary_success/helpers/widgets/my_text.dart';
-import 'package:binary_success/images.dart';
-import 'package:binary_success/views/apps/school/integrations/platforms.dart';
-import 'package:binary_success/views/apps/school/integrations/widgets/asset_icon.dart';
-import 'package:binary_success/views/apps/school/integrations/widgets/last_sync_datetime.dart';
+import 'package:vantanceCA/app_colors.dart';
+import 'package:vantanceCA/helpers/utils/ui_mixins.dart';
+import 'package:vantanceCA/helpers/widgets/my_text.dart';
+import 'package:vantanceCA/images.dart';
+import 'package:vantanceCA/views/apps/school/integrations/platforms.dart';
+import 'package:vantanceCA/views/apps/school/integrations/widgets/asset_icon.dart';
+import 'package:vantanceCA/views/apps/school/integrations/widgets/last_sync_datetime.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

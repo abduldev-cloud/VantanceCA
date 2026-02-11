@@ -1,13 +1,13 @@
-import 'package:binary_success/controller/my_controller.dart';
-import 'package:binary_success/helpers/logger/logger.dart';
-import 'package:binary_success/helpers/services/teacher_service.dart';
-import 'package:binary_success/helpers/services/school_analytics_service.dart';
-import 'package:binary_success/helpers/storage/local_storage.dart';
-import 'package:binary_success/models/teacher_classes_model_analytics.dart';
-import 'package:binary_success/models/teachers_dashboard_model.dart';
-import 'package:binary_success/models/teacher_dashboard_analytics_model.dart';
-import 'package:binary_success/models/teacher_dashboard_model.dart';
-import 'package:binary_success/models/ai_usage_overview_model.dart';
+import 'package:vantanceCA/controller/my_controller.dart';
+import 'package:vantanceCA/helpers/logger/logger.dart';
+import 'package:vantanceCA/helpers/services/teacher_service.dart';
+import 'package:vantanceCA/helpers/services/school_analytics_service.dart';
+import 'package:vantanceCA/helpers/storage/local_storage.dart';
+import 'package:vantanceCA/models/teacher_classes_model_analytics.dart';
+import 'package:vantanceCA/models/teachers_dashboard_model.dart';
+import 'package:vantanceCA/models/teacher_dashboard_analytics_model.dart';
+import 'package:vantanceCA/models/teacher_dashboard_model.dart';
+import 'package:vantanceCA/models/ai_usage_overview_model.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get.dart';
 

@@ -1,17 +1,17 @@
-import 'package:binary_success/helpers/theme/admin_theme.dart';
-import 'package:binary_success/helpers/widgets/my_card.dart';
-import 'package:binary_success/helpers/widgets/my_container.dart';
-import 'package:binary_success/helpers/widgets/my_spacing.dart';
-import 'package:binary_success/helpers/widgets/my_text.dart';
-import 'package:binary_success/helpers/widgets/my_text_style.dart';
-import 'package:binary_success/images.dart';
+import 'package:vantanceCA/helpers/theme/admin_theme.dart';
+import 'package:vantanceCA/helpers/widgets/my_card.dart';
+import 'package:vantanceCA/helpers/widgets/my_container.dart';
+import 'package:vantanceCA/helpers/widgets/my_spacing.dart';
+import 'package:vantanceCA/helpers/widgets/my_text.dart';
+import 'package:vantanceCA/helpers/widgets/my_text_style.dart';
+import 'package:vantanceCA/images.dart';
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:binary_success/controller/apps/teacher/teacher_writing_fingerprint_controller.dart';
-import 'package:binary_success/models/teacher_fingerprint_detail_model.dart';
+import 'package:vantanceCA/controller/apps/teacher/teacher_writing_fingerprint_controller.dart';
+import 'package:vantanceCA/models/teacher_fingerprint_detail_model.dart';
 
 class TeacherFingerprintDetailWidget extends StatelessWidget {
   final ContentTheme contentTheme;

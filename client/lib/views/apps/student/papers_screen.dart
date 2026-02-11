@@ -1,4 +1,4 @@
-import 'package:binary_success/views/apps/student/widget/paper_card.dart';
+import 'package:vantanceCA/views/apps/student/widget/paper_card.dart';
 import 'package:flutter/material.dart';
 import 'practice_screen.dart';
 

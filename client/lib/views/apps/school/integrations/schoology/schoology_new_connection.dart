@@ -1,5 +1,5 @@
-import 'package:binary_success/controller/apps/school/lms_integration_controller.dart';
-import 'package:binary_success/helpers/utils/datetime_utils.dart';
+import 'package:vantanceCA/controller/apps/school/lms_integration_controller.dart';
+import 'package:vantanceCA/helpers/utils/datetime_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

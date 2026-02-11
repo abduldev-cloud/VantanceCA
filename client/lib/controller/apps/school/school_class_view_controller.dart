@@ -1,6 +1,6 @@
-import 'package:binary_success/helpers/network/api_service.dart';
+import 'package:vantanceCA/helpers/network/api_service.dart';
 import 'package:get/get.dart';
-import 'package:binary_success/models/school_view_details_model.dart';
+import 'package:vantanceCA/models/school_view_details_model.dart';
 
 class SchoolClassViewController extends GetxController {
   var isLoading = false.obs;

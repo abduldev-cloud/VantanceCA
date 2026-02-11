@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:binary_success/models/student_subscription_model.dart';
-import 'package:binary_success/services/subscription_service.dart';
+import 'package:vantanceCA/models/student_subscription_model.dart';
+import 'package:vantanceCA/services/subscription_service.dart';
 import 'widget/subscription_card.dart';
 
 class SubscriptionPage extends StatefulWidget {

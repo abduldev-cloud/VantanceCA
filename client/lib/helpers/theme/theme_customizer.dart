@@ -7,13 +7,13 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:binary_success/helpers/localizations/language.dart';
-import 'package:binary_success/helpers/localizations/translator.dart';
-import 'package:binary_success/helpers/services/json_decoder.dart';
-import 'package:binary_success/helpers/services/navigation_service.dart';
-import 'package:binary_success/helpers/theme/admin_theme.dart';
-import 'package:binary_success/helpers/theme/app_notifier.dart';
-import 'package:binary_success/helpers/theme/app_style.dart';
+import 'package:vantanceCA/helpers/localizations/language.dart';
+import 'package:vantanceCA/helpers/localizations/translator.dart';
+import 'package:vantanceCA/helpers/services/json_decoder.dart';
+import 'package:vantanceCA/helpers/services/navigation_service.dart';
+import 'package:vantanceCA/helpers/theme/admin_theme.dart';
+import 'package:vantanceCA/helpers/theme/app_notifier.dart';
+import 'package:vantanceCA/helpers/theme/app_style.dart';
 
 typedef ThemeChangeCallback = void Function(
     ThemeCustomizer oldVal, ThemeCustomizer newVal);

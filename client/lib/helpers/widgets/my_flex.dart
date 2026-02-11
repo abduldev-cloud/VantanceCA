@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:binary_success/helpers/widgets/my_flex_item.dart';
-import 'package:binary_success/helpers/widgets/my_list_extension.dart';
-import 'package:binary_success/helpers/widgets/my_responsiv.dart';
-import 'package:binary_success/helpers/widgets/my_spacing.dart';
-import 'package:binary_success/helpers/widgets/responsive.dart';
+import 'package:vantanceCA/helpers/widgets/my_flex_item.dart';
+import 'package:vantanceCA/helpers/widgets/my_list_extension.dart';
+import 'package:vantanceCA/helpers/widgets/my_responsiv.dart';
+import 'package:vantanceCA/helpers/widgets/my_spacing.dart';
+import 'package:vantanceCA/helpers/widgets/responsive.dart';
 
 class MyFlex extends StatelessWidget {
   final List<MyFlexItem> children;

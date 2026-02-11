@@ -1,4 +1,4 @@
-import 'package:binary_success/helpers/constant/app_constant.dart';
+import 'package:vantanceCA/helpers/constant/app_constant.dart';
 import 'package:dio/dio.dart';
 
 class WebClient {

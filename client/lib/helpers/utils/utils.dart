@@ -1,5 +1,5 @@
-import 'package:binary_success/helpers/extensions/date_time_extention.dart';
-import 'package:binary_success/helpers/storage/local_storage.dart';
+import 'package:vantanceCA/helpers/extensions/date_time_extention.dart';
+import 'package:vantanceCA/helpers/storage/local_storage.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:url_launcher/url_launcher.dart';
 

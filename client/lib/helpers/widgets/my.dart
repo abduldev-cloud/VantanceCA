@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:binary_success/helpers/theme/app_theme.dart';
-import 'package:binary_success/helpers/widgets/my_constant.dart';
-import 'package:binary_success/helpers/widgets/my_text_style.dart';
-import 'package:binary_success/helpers/widgets/responsive.dart';
+import 'package:vantanceCA/helpers/theme/app_theme.dart';
+import 'package:vantanceCA/helpers/widgets/my_constant.dart';
+import 'package:vantanceCA/helpers/widgets/my_text_style.dart';
+import 'package:vantanceCA/helpers/widgets/responsive.dart';
 
 class My {
   // entry point of the package

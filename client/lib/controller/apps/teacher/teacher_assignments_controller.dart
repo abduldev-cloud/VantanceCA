@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
-import 'package:binary_success/helpers/services/teacher_service.dart';
-import 'package:binary_success/models/teachers_assignments_model.dart';
-import 'package:binary_success/models/teacher_assignment_detail_model.dart';
-import 'package:binary_success/models/teacher_assignment_review_response.dart';
-import 'package:binary_success/helpers/storage/local_storage.dart';
+import 'package:vantanceCA/helpers/services/teacher_service.dart';
+import 'package:vantanceCA/models/teachers_assignments_model.dart';
+import 'package:vantanceCA/models/teacher_assignment_detail_model.dart';
+import 'package:vantanceCA/models/teacher_assignment_review_response.dart';
+import 'package:vantanceCA/helpers/storage/local_storage.dart';
 
 class TeacherAssignmentsController extends GetxController {
   // ===== Assignment tabs: 0 = Active, 1 = Scheduled, 2 = Draft

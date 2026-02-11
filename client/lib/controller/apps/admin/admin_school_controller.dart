@@ -1,12 +1,12 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:binary_success/models/platform_admin_school_model.dart';
-import 'package:binary_success/helpers/network/api_service.dart';
-import 'package:binary_success/helpers/constant/app_constant.dart'; 
+import 'package:vantanceCA/models/platform_admin_school_model.dart';
+import 'package:vantanceCA/helpers/network/api_service.dart';
+import 'package:vantanceCA/helpers/constant/app_constant.dart';
 
 class AdminSchoolController extends GetxController {
-  RxList<InstituteDetail> institutes = <InstituteDetail>[].obs; 
-  List<InstituteDetail> allInstitutes = [];                    
+  RxList<InstituteDetail> institutes = <InstituteDetail>[].obs;
+  List<InstituteDetail> allInstitutes = [];
   Rxn<InstituteSummaryCounts> summaryCounts = Rxn<InstituteSummaryCounts>();
   RxInt currentPage = 1.obs;
   RxBool isLoading = false.obs;
@@ -20,7 +20,7 @@ class AdminSchoolController extends GetxController {
   RxString instituteStatus = "ACTIVE".obs;
 
   RxString searchText = "".obs;
-  RxString sortOrder = "A-Z".obs;  
+  RxString sortOrder = "A-Z".obs;
 
   int get totalCount {
     if (instituteStatus.value == "ACTIVE") {
@@ -30,12 +30,16 @@ class AdminSchoolController extends GetxController {
     }
   }
 
-  int get totalPages => (totalCount / AppConstant.defaultPageSize).ceil(); 
+  int get totalPages => (totalCount / AppConstant.defaultPageSize).ceil();
 
   @override
   void onInit() {
     super.onInit();
-    fetchInstitutes(page: 1);
+    // Use Future.delayed to ensure fetchInstitutes is called after the initial build
+    // to avoid "setState() or markNeedsBuild() called during build" errors.
+    Future.delayed(Duration.zero, () {
+      fetchInstitutes(page: 1);
+    });
   }
 
   Future<void> fetchInstitutes({int page = 1}) async {
@@ -52,11 +56,12 @@ class AdminSchoolController extends GetxController {
         final resp = InstituteListResponse.fromJson(data);
 
         summaryCounts.value = resp.summaryCounts;
-        allInstitutes = resp.instituteDetails;       
+        allInstitutes = resp.instituteDetails;
 
-        applySearchAndSort();                        
+        applySearchAndSort();
 
-        hasMore.value = resp.instituteDetails.length == AppConstant.defaultPageSize;
+        hasMore.value =
+            resp.instituteDetails.length == AppConstant.defaultPageSize;
         currentPage.value = page;
       } else {
         hasMore.value = false;
@@ -74,7 +79,9 @@ class AdminSchoolController extends GetxController {
 
     if (searchText.value.isNotEmpty) {
       filteredList = filteredList.where((inst) {
-        return inst.instituteName.toLowerCase().contains(searchText.value.toLowerCase());
+        return inst.instituteName
+            .toLowerCase()
+            .contains(searchText.value.toLowerCase());
       }).toList();
     }
 
@@ -84,7 +91,7 @@ class AdminSchoolController extends GetxController {
       filteredList.sort((a, b) => b.instituteName.compareTo(a.instituteName));
     }
 
-    institutes.value = filteredList;  
+    institutes.value = filteredList;
   }
 
   void onSearchTextChanged(String text) {

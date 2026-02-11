@@ -1,4 +1,4 @@
-import 'package:binary_success/helpers/validators/basic_validator.dart';
+import 'package:vantanceCA/helpers/validators/basic_validator.dart';
 import 'package:get/get.dart';
 
 class ForgotPasswordController extends GetxController {

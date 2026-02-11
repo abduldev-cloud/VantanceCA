@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:binary_success/helpers/theme/app_theme.dart';
-import 'package:binary_success/helpers/utils/constant_data.dart';
-import 'package:binary_success/helpers/widgets/my_spacing.dart';
+import 'package:vantanceCA/helpers/theme/app_theme.dart';
+import 'package:vantanceCA/helpers/utils/constant_data.dart';
+import 'package:vantanceCA/helpers/widgets/my_spacing.dart';
 
 class MyContainer extends StatelessWidget {
   final Widget? child;

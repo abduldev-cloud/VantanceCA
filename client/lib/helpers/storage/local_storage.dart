@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:binary_success/helpers/localizations/language.dart';
-import 'package:binary_success/helpers/services/auth_services.dart';
-import 'package:binary_success/helpers/theme/theme_customizer.dart';
+import 'package:vantanceCA/helpers/localizations/language.dart';
+import 'package:vantanceCA/helpers/services/auth_services.dart';
+import 'package:vantanceCA/helpers/theme/theme_customizer.dart';
 
 class LocalStorage {
   static const String _loggedInUserKey = "user";

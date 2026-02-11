@@ -1,7 +1,7 @@
 // import 'dart:convert';
 // import 'package:http/http.dart' as http;
 // import 'package:url_launcher/url_launcher.dart';
-// import 'package:binary_success/helpers/constant/app_constant.dart'; // Ensure this has API.baseURl
+// import 'package:vantanceCA/helpers/constant/app_constant.dart'; // Ensure this has API.baseURl
 
 // class DodoService {
 //   static Future<void> subscribe(String planKey, String userEmail, String userId) async {

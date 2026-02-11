@@ -1,5 +1,5 @@
 import 'dart:math' as math;
-import 'package:binary_success/controller/apps/student/practice_controller.dart';
+import 'package:vantanceCA/controller/apps/student/practice_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:google_fonts/google_fonts.dart';

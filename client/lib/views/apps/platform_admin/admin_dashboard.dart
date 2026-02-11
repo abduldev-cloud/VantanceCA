@@ -1,14 +1,14 @@
-import 'package:binary_success/controller/apps/admin/admin_dashboard_controller.dart';
-import 'package:binary_success/helpers/storage/local_storage.dart';
-import 'package:binary_success/helpers/utils/ui_mixins.dart';
-import 'package:binary_success/helpers/widgets/my_card.dart';
-import 'package:binary_success/helpers/widgets/my_spacing.dart';
-import 'package:binary_success/helpers/widgets/my_text.dart';
-import 'package:binary_success/images.dart';
+import 'package:vantanceCA/controller/apps/admin/admin_dashboard_controller.dart';
+import 'package:vantanceCA/helpers/storage/local_storage.dart';
+import 'package:vantanceCA/helpers/utils/ui_mixins.dart';
+import 'package:vantanceCA/helpers/widgets/my_card.dart';
+import 'package:vantanceCA/helpers/widgets/my_spacing.dart';
+import 'package:vantanceCA/helpers/widgets/my_text.dart';
+import 'package:vantanceCA/images.dart';
 
-import 'package:binary_success/views/apps/school/ai_usage_monthly_chart.dart';
-import 'package:binary_success/views/layouts/layout.dart';
-import 'package:binary_success/widgets/comman_popupmenu.dart';
+import 'package:vantanceCA/views/apps/school/ai_usage_monthly_chart.dart';
+import 'package:vantanceCA/views/layouts/layout.dart';
+import 'package:vantanceCA/widgets/comman_popupmenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -1043,7 +1043,7 @@ class AdminDashboardPageState extends State<AdminDashboardPage>
                                 ),
                               )),
                           MyText.bodySmall(
-                            "Students using Deskpad in the last 24h",
+                            "Students using VantanceCA in the last 24h",
                             style: GoogleFonts.inter(
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w400,

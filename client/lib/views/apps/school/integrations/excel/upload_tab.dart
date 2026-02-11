@@ -1,10 +1,10 @@
-import 'package:binary_success/controller/apps/school/lms_integration_controller.dart';
-import 'package:binary_success/helpers/constant/app_constant.dart';
-import 'package:binary_success/helpers/utils/utils.dart';
-import 'package:binary_success/helpers/widgets/app_button.dart';
-import 'package:binary_success/images.dart';
-import 'package:binary_success/views/apps/school/integrations/excel/widgets/upload_option.dart';
-import 'package:binary_success/views/apps/school/integrations/widgets/upload_file_dialog.dart';
+import 'package:vantanceCA/controller/apps/school/lms_integration_controller.dart';
+import 'package:vantanceCA/helpers/constant/app_constant.dart';
+import 'package:vantanceCA/helpers/utils/utils.dart';
+import 'package:vantanceCA/helpers/widgets/app_button.dart';
+import 'package:vantanceCA/images.dart';
+import 'package:vantanceCA/views/apps/school/integrations/excel/widgets/upload_option.dart';
+import 'package:vantanceCA/views/apps/school/integrations/widgets/upload_file_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

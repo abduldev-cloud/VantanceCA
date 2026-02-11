@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:binary_success/controller/my_controller.dart';
-import 'package:binary_success/helpers/services/auth_services.dart';
-import 'package:binary_success/helpers/widgets/my_form_validator.dart';
-import 'package:binary_success/helpers/widgets/my_validators.dart';
+import 'package:vantanceCA/controller/my_controller.dart';
+import 'package:vantanceCA/helpers/services/auth_services.dart';
+import 'package:vantanceCA/helpers/widgets/my_form_validator.dart';
+import 'package:vantanceCA/helpers/widgets/my_validators.dart';
 
 class ResetPasswordController extends MyController {
   MyFormValidator basicValidator = MyFormValidator();

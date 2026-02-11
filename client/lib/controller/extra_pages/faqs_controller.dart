@@ -1,5 +1,5 @@
-import 'package:binary_success/controller/my_controller.dart';
-import 'package:binary_success/helpers/widgets/my_text_utils.dart';
+import 'package:vantanceCA/controller/my_controller.dart';
+import 'package:vantanceCA/helpers/widgets/my_text_utils.dart';
 
 class FaqsController extends MyController {
   List<String> dummyTexts =

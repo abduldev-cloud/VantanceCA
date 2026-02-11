@@ -1,8 +1,8 @@
-import 'package:binary_success/helpers/constant/app_constant.dart';
+import 'package:vantanceCA/helpers/constant/app_constant.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:binary_success/helpers/services/user_services.dart';
-import 'package:binary_success/models/user_model.dart';
+import 'package:vantanceCA/helpers/services/user_services.dart';
+import 'package:vantanceCA/models/user_model.dart';
 import 'package:dio/dio.dart';
 
 class AdminUsersController extends GetxController {

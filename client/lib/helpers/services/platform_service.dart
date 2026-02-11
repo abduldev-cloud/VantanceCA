@@ -1,11 +1,11 @@
-import 'package:binary_success/helpers/logger/logger.dart';
-import 'package:binary_success/helpers/network/api_service.dart';
-import 'package:binary_success/models/platform_ticket_model.dart';
+import 'package:vantanceCA/helpers/logger/logger.dart';
+import 'package:vantanceCA/helpers/network/api_service.dart';
+import 'package:vantanceCA/models/platform_ticket_model.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:binary_success/models/platform_admin_school_model.dart';
-import 'package:binary_success/models/platform_support_model.dart';
-import 'package:binary_success/helpers/constant/app_constant.dart';
+import 'package:vantanceCA/models/platform_admin_school_model.dart';
+import 'package:vantanceCA/models/platform_support_model.dart';
+import 'package:vantanceCA/helpers/constant/app_constant.dart';
 
 class PlatformService {
 

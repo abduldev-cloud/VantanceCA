@@ -1,17 +1,17 @@
-import 'package:binary_success/helpers/services/notification_service.dart';
-import 'package:binary_success/helpers/services/teacher_service.dart';
-import 'package:binary_success/helpers/theme/admin_theme.dart';
-import 'package:binary_success/helpers/widgets/my_spacing.dart';
-import 'package:binary_success/helpers/widgets/my_text.dart';
-import 'package:binary_success/models/create_task_model.dart';
-import 'package:binary_success/widgets/comman_dialog_texfield.dart';
-import 'package:binary_success/widgets/custom_textfield.dart';
+import 'package:vantanceCA/helpers/services/notification_service.dart';
+import 'package:vantanceCA/helpers/services/teacher_service.dart';
+import 'package:vantanceCA/helpers/theme/admin_theme.dart';
+import 'package:vantanceCA/helpers/widgets/my_spacing.dart';
+import 'package:vantanceCA/helpers/widgets/my_text.dart';
+import 'package:vantanceCA/models/create_task_model.dart';
+import 'package:vantanceCA/widgets/comman_dialog_texfield.dart';
+import 'package:vantanceCA/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:binary_success/helpers/storage/local_storage.dart';
-import 'package:binary_success/widgets/common_dialog_numberfield.dart';
+import 'package:vantanceCA/helpers/storage/local_storage.dart';
+import 'package:vantanceCA/widgets/common_dialog_numberfield.dart';
 import 'package:flutter/services.dart';
 
 class TeacherWritingFingerprintDialogTwo extends StatefulWidget {

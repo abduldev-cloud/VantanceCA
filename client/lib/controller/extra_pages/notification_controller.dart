@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:binary_success/models/notification_model.dart';
-import 'package:binary_success/helpers/services/notification_service.dart';
+import 'package:vantanceCA/models/notification_model.dart';
+import 'package:vantanceCA/helpers/services/notification_service.dart';
 
 class NotificationController extends GetxController {
   final _service = NotificationService();

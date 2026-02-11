@@ -4,7 +4,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:binary_success/helpers/theme/app_style.dart';
+import 'package:vantanceCA/helpers/theme/app_style.dart';
 
 class BarChartSample1 extends StatefulWidget {
   BarChartSample1({super.key});

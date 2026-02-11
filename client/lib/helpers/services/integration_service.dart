@@ -1,16 +1,16 @@
-import 'package:binary_success/helpers/constant/app_constant.dart';
-import 'package:binary_success/helpers/network/api_service.dart';
-import 'package:binary_success/helpers/storage/local_storage.dart';
-import 'package:binary_success/models/integration_log_model.dart';
-import 'package:binary_success/models/integration_mode_model.dart';
-import 'package:binary_success/models/lms_integration_model.dart';
-import 'package:binary_success/models/middleware_assignment_model.dart';
-import 'package:binary_success/models/middleware_class_model.dart';
-import 'package:binary_success/models/middleware_enrollments_model.dart';
-import 'package:binary_success/models/middleware_grade_model.dart';
-import 'package:binary_success/models/middleware_student_model.dart';
-import 'package:binary_success/models/middleware_teacher_model.dart';
-import 'package:binary_success/models/paginated_data_model.dart';
+import 'package:vantanceCA/helpers/constant/app_constant.dart';
+import 'package:vantanceCA/helpers/network/api_service.dart';
+import 'package:vantanceCA/helpers/storage/local_storage.dart';
+import 'package:vantanceCA/models/integration_log_model.dart';
+import 'package:vantanceCA/models/integration_mode_model.dart';
+import 'package:vantanceCA/models/lms_integration_model.dart';
+import 'package:vantanceCA/models/middleware_assignment_model.dart';
+import 'package:vantanceCA/models/middleware_class_model.dart';
+import 'package:vantanceCA/models/middleware_enrollments_model.dart';
+import 'package:vantanceCA/models/middleware_grade_model.dart';
+import 'package:vantanceCA/models/middleware_student_model.dart';
+import 'package:vantanceCA/models/middleware_teacher_model.dart';
+import 'package:vantanceCA/models/paginated_data_model.dart';
 import 'package:dio/dio.dart';
 
 class IntegrationService {

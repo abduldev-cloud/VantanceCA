@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:binary_success/controller/my_controller.dart';
-import 'package:binary_success/models/platform_support_model.dart';
-import 'package:binary_success/helpers/services/platform_service.dart';
-import 'package:binary_success/views/apps/platform_admin/admin_support_view.dart';
+import 'package:vantanceCA/controller/my_controller.dart';
+import 'package:vantanceCA/models/platform_support_model.dart';
+import 'package:vantanceCA/helpers/services/platform_service.dart';
+import 'package:vantanceCA/views/apps/platform_admin/admin_support_view.dart';
 
 class AdminSupportController extends MyController {
   final RxInt selectedTabIndex = 0.obs;

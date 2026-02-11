@@ -1,11 +1,11 @@
-import 'package:binary_success/helpers/services/teacher_service.dart';
-import 'package:binary_success/models/teacher_classes_model.dart';
-import 'package:binary_success/models/create_class_model.dart';
+import 'package:vantanceCA/helpers/services/teacher_service.dart';
+import 'package:vantanceCA/models/teacher_classes_model.dart';
+import 'package:vantanceCA/models/create_class_model.dart';
 import 'package:get/get.dart';
-import 'package:binary_success/controller/my_controller.dart';
-import 'package:binary_success/helpers/storage/local_storage.dart';
+import 'package:vantanceCA/controller/my_controller.dart';
+import 'package:vantanceCA/helpers/storage/local_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:binary_success/widgets/common_status_dialog.dart';
+import 'package:vantanceCA/widgets/common_status_dialog.dart';
 
 class TeacherClassesController extends MyController {
   RxInt selectedIndex = 0.obs; // start with Active (0)
@@ -44,23 +44,38 @@ class TeacherClassesController extends MyController {
     isLoading(true);
     try {
       final entityId = LocalStorage.getDBEntityID();
-      if (entityId == null || entityId.isEmpty) return;
+      print("🔍 Teacher ID from storage: $entityId");
+      if (entityId == null || entityId.isEmpty) {
+        print("❌ No teacher ID found in storage");
+        return;
+      }
 
+      print("📡 Fetching active classes...");
       final TeacherClassSummaryResponse? activeResp =
           await TeacherService.getTeacherClassAPI(
         teacherId: entityId,
         classStatus: "Active",
       );
 
+      print("✅ Active response received: ${activeResp != null}");
+      print(
+          "📊 Active classes count: ${activeResp?.classDetails?.length ?? 0}");
+      print("📋 Active class details: ${activeResp?.classDetails}");
+
       teacherActiveClassList.value = activeResp?.classDetails ?? [];
       activeClassesCount.value =
           activeResp?.classStatusCount?.first.activeClasses ?? 0;
 
+      print("📡 Fetching archived classes...");
       final TeacherClassSummaryResponse? archivedResp =
           await TeacherService.getTeacherClassAPI(
         teacherId: entityId,
         classStatus: "Archived",
       );
+
+      print("✅ Archived response received: ${archivedResp != null}");
+      print(
+          "📊 Archived classes count: ${archivedResp?.classDetails?.length ?? 0}");
 
       teacherArchivedClassList.value = archivedResp?.classDetails ?? [];
       archivedClassesCount.value =
@@ -68,7 +83,12 @@ class TeacherClassesController extends MyController {
 
       _updateDisplayedClassList();
       _updateTotalCurrentStudents(activeResp, archivedResp);
+
+      print("🎯 Final classList length: ${classList.length}");
+      print(
+          "🎯 Final teacherActiveClassList length: ${teacherActiveClassList.length}");
     } catch (e) {
+      print("❌ Error fetching teacher class data: $e");
       teacherActiveClassList.clear();
       teacherArchivedClassList.clear();
       classList.clear();

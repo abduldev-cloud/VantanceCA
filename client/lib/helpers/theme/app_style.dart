@@ -7,11 +7,11 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:binary_success/helpers/theme/admin_theme.dart';
-import 'package:binary_success/helpers/widgets/my.dart';
-import 'package:binary_success/helpers/widgets/my_breadcrumb_item.dart';
-import 'package:binary_success/helpers/widgets/my_constant.dart';
-import 'package:binary_success/helpers/widgets/my_text_style.dart';
+import 'package:vantanceCA/helpers/theme/admin_theme.dart';
+import 'package:vantanceCA/helpers/widgets/my.dart';
+import 'package:vantanceCA/helpers/widgets/my_breadcrumb_item.dart';
+import 'package:vantanceCA/helpers/widgets/my_constant.dart';
+import 'package:vantanceCA/helpers/widgets/my_text_style.dart';
 
 import 'theme_customizer.dart';
 

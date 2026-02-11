@@ -1,4 +1,4 @@
-import 'package:binary_success/helpers/widgets/my_breadcrumb_item.dart';
+import 'package:vantanceCA/helpers/widgets/my_breadcrumb_item.dart';
 
 class MyConstantData {
   final double containerRadius;

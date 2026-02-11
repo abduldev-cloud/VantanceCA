@@ -1,15 +1,15 @@
-import 'package:binary_success/controller/apps/school/lms_integration_controller.dart';
-import 'package:binary_success/views/apps/school/integrations/lms_tabs/connection_tab.dart';
-import 'package:binary_success/views/apps/school/integrations/lms_tabs/data_tab.dart';
-import 'package:binary_success/views/apps/school/integrations/lms_tabs/guide_tab.dart';
-import 'package:binary_success/views/apps/school/integrations/lms_tabs/log_tab.dart';
-import 'package:binary_success/views/apps/school/integrations/schoology/schoology_data_tab.dart';
-import 'package:binary_success/views/apps/school/integrations/schoology/schoology_guide_tab.dart';
-import 'package:binary_success/views/apps/school/integrations/widgets/custom_tab_bar.dart';
-import 'package:binary_success/views/apps/school/integrations/widgets/integration_tabs_widget.dart';
-import 'package:binary_success/views/layouts/layout.dart';
+import 'package:vantanceCA/controller/apps/school/lms_integration_controller.dart';
+import 'package:vantanceCA/views/apps/school/integrations/lms_tabs/connection_tab.dart';
+import 'package:vantanceCA/views/apps/school/integrations/lms_tabs/data_tab.dart';
+import 'package:vantanceCA/views/apps/school/integrations/lms_tabs/guide_tab.dart';
+import 'package:vantanceCA/views/apps/school/integrations/lms_tabs/log_tab.dart';
+import 'package:vantanceCA/views/apps/school/integrations/schoology/schoology_data_tab.dart';
+import 'package:vantanceCA/views/apps/school/integrations/schoology/schoology_guide_tab.dart';
+import 'package:vantanceCA/views/apps/school/integrations/widgets/custom_tab_bar.dart';
+import 'package:vantanceCA/views/apps/school/integrations/widgets/integration_tabs_widget.dart';
+import 'package:vantanceCA/views/layouts/layout.dart';
 import 'package:flutter/material.dart';
-import 'package:binary_success/images.dart';
+import 'package:vantanceCA/images.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 

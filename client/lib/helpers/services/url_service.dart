@@ -1,4 +1,4 @@
-import 'package:binary_success/helpers/constant/app_constant.dart';
+import 'package:vantanceCA/helpers/constant/app_constant.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class UrlService {

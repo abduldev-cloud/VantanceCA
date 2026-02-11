@@ -1,9 +1,9 @@
-import 'package:binary_success/helpers/services/teacher_service.dart';
+import 'package:vantanceCA/helpers/services/teacher_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:binary_success/controller/my_controller.dart';
-import 'package:binary_success/helpers/storage/local_storage.dart';
-import 'package:binary_success/models/teachers_grading_model.dart';
+import 'package:vantanceCA/controller/my_controller.dart';
+import 'package:vantanceCA/helpers/storage/local_storage.dart';
+import 'package:vantanceCA/models/teachers_grading_model.dart';
 
 class TeacherGradingController extends MyController {
   /// 🔹 Tabs: 0 = Submitted, 1 = Graded, 2 = All

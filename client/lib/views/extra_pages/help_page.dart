@@ -1,12 +1,12 @@
-import 'package:binary_success/views/extra_pages/widgets/chat_content.dart';
+import 'package:vantanceCA/views/extra_pages/widgets/chat_content.dart';
 import 'package:flutter/material.dart';
-import 'package:binary_success/views/extra_pages/widgets/faqs_content.dart';
-// import 'package:binary_success/views/extra_pages/widgets/chat_page_content.dart';
-import 'package:binary_success/views/extra_pages/widgets/support_content.dart';
-import 'package:binary_success/helpers/utils/ui_mixins.dart';
-import 'package:binary_success/views/layouts/layout.dart';
+import 'package:vantanceCA/views/extra_pages/widgets/faqs_content.dart';
+// import 'package:vantanceCA/views/extra_pages/widgets/chat_page_content.dart';
+import 'package:vantanceCA/views/extra_pages/widgets/support_content.dart';
+import 'package:vantanceCA/helpers/utils/ui_mixins.dart';
+import 'package:vantanceCA/views/layouts/layout.dart';
 
-import 'package:binary_success/helpers/storage/local_storage.dart';
+import 'package:vantanceCA/helpers/storage/local_storage.dart';
 class HelpPage extends StatefulWidget {
   const HelpPage({super.key});
 

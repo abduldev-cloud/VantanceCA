@@ -1,8 +1,8 @@
-import 'package:binary_success/helpers/constant/app_constant.dart';
-import 'package:binary_success/helpers/utils/utils.dart';
+import 'package:vantanceCA/helpers/constant/app_constant.dart';
+import 'package:vantanceCA/helpers/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:binary_success/helpers/network/api_service.dart';
+import 'package:vantanceCA/helpers/network/api_service.dart';
 
 class FAQPageContent extends StatefulWidget {
   const FAQPageContent({super.key});

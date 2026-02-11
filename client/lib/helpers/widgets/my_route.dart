@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:binary_success/helpers/widgets/my_middleware.dart';
+import 'package:vantanceCA/helpers/widgets/my_middleware.dart';
 
 class MyRoute {
   String name;

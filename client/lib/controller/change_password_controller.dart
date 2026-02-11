@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:binary_success/helpers/constant/app_constant.dart';
+import 'package:vantanceCA/helpers/constant/app_constant.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:binary_success/models/change_password_model.dart';
+import 'package:vantanceCA/models/change_password_model.dart';
 
 class PasswordChangeController {
   static  String baseUrl = API.baseURl;
