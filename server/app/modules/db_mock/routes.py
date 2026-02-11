@@ -513,7 +513,7 @@ async def get_all_institute_summary(
     page_number: int = 1,
     page_size: int = 10
 ):
-    """Get all institutes with pagination and status filtering"""
+    """Get all institutes with pagination and status filtering - FAST & ACCURATE"""
     from app.core.database_mysql import get_mysql_connection
     
     try:
@@ -521,7 +521,7 @@ async def get_all_institute_summary(
         cursor = conn.cursor(dictionary=True)
         
         try:
-            # Build query with optional status filter
+            # 1. Fetch basic info for the requested page (Very Fast)
             query = """
                 SELECT 
                     i.institute_id,
@@ -530,17 +530,9 @@ async def get_all_institute_summary(
                     i.is_demo,
                     i.created_at,
                     s.status_code,
-                    s.status_name,
-                    COUNT(DISTINCT u.user_id) as total_users,
-                    COUNT(DISTINCT t.teacher_id) as total_teachers,
-                    COUNT(DISTINCT l.learner_id) as total_students,
-                    COUNT(DISTINCT c.class_id) as total_classes
+                    s.status_name
                 FROM BINARY_SUCCESS_PLATFORM_INSTITUTES i
                 LEFT JOIN BINARY_SUCCESS_STATUSES s ON i.institute_status_id = s.status_id
-                LEFT JOIN BINARY_SUCCESS_PLATFORM_USERS u ON i.institute_id = u.institute_id
-                LEFT JOIN BINARY_SUCCESS_TEACHERS t ON u.user_id = t.user_id
-                LEFT JOIN BINARY_SUCCESS_LEARNERS l ON u.user_id = l.user_id
-                LEFT JOIN BINARY_SUCCESS_CLASSES c ON i.institute_id = c.institute_id
             """
             
             params = []
@@ -548,10 +540,7 @@ async def get_all_institute_summary(
                 query += " WHERE s.status_code = %s"
                 params.append(institute_status)
             
-            query += " GROUP BY i.institute_id, i.institute_name, i.institute_code, i.is_demo, i.created_at, s.status_code, s.status_name"
             query += " ORDER BY i.created_at DESC"
-            
-            # Add pagination
             offset = (page_number - 1) * page_size
             query += " LIMIT %s OFFSET %s"
             params.extend([page_size, offset])
@@ -559,49 +548,72 @@ async def get_all_institute_summary(
             cursor.execute(query, tuple(params))
             institutes = cursor.fetchall()
             
-            # Add fields expected by Flutter model
-            for idx, institute in enumerate(institutes, 1):
-                institute['total_learners'] = institute.get('total_students', 0)
-                institute['assignment_count'] = 0  # TODO: Calculate actual assignment count
-                institute['fingerprint_submitted_count'] = 0  # TODO: Calculate actual fingerprint count
-                institute['rn'] = idx  # Row number for display
-                # Keep the empty lists for compatibility
-                institute['users'] = []
-                institute['classes'] = []
-                institute['teachers'] = []
-                institute['students'] = []
+            if institutes:
+                # 2. Extract IDs to fetch counts in one go for ONLY these schools (Efficient)
+                inst_ids = [inst['institute_id'] for inst in institutes]
+                id_placeholder = ', '.join(['%s'] * len(inst_ids))
+                
+                # Fetch student/teacher counts
+                counts_query = f"""
+                    SELECT 
+                        institute_id,
+                        COUNT(CASE WHEN role_id = 'role-004' THEN 1 END) as student_count,
+                        COUNT(CASE WHEN role_id = 'role-003' THEN 1 END) as teacher_count
+                    FROM BINARY_SUCCESS_PLATFORM_USERS
+                    WHERE institute_id IN ({id_placeholder})
+                    GROUP BY institute_id
+                """
+                cursor.execute(counts_query, tuple(inst_ids))
+                user_counts = {row['institute_id']: row for row in cursor.fetchall()}
+                
+                # Fetch class counts
+                class_query = f"""
+                    SELECT institute_id, COUNT(*) as class_count
+                    FROM BINARY_SUCCESS_CLASSES
+                    WHERE institute_id IN ({id_placeholder})
+                    GROUP BY institute_id
+                """
+                cursor.execute(class_query, tuple(inst_ids))
+                class_counts = {row['institute_id']: row for row in cursor.fetchall()}
+                
+                # 3. Merge counts into institute data
+                for idx, institute in enumerate(institutes, 1):
+                    iid = institute['institute_id']
+                    uc = user_counts.get(iid, {})
+                    cc = class_counts.get(iid, {})
+                    
+                    institute['total_users'] = uc.get('student_count', 0) + uc.get('teacher_count', 0)
+                    institute['total_teachers'] = uc.get('teacher_count', 0)
+                    institute['total_students'] = uc.get('student_count', 0)
+                    institute['total_learners'] = uc.get('student_count', 0)
+                    institute['total_classes'] = cc.get('class_count', 0)
+                    institute['assignment_count'] = 0 # Placeholder for now as it's a separate complex table
+                    institute['fingerprint_submitted_count'] = 0
+                    institute['rn'] = offset + idx
+                    institute['users'] = []
+                    institute['classes'] = []
+                    institute['teachers'] = []
+                    institute['students'] = []
             
-            # Get total count
-            count_query = """
-                SELECT COUNT(DISTINCT i.institute_id) as total
-                FROM BINARY_SUCCESS_PLATFORM_INSTITUTES i
-                LEFT JOIN BINARY_SUCCESS_STATUSES s ON i.institute_status_id = s.status_id
+            # 4. Get summary counts for the tabs
+            summary_query = """
+                SELECT 
+                    (SELECT COUNT(*) FROM BINARY_SUCCESS_PLATFORM_INSTITUTES i 
+                     LEFT JOIN BINARY_SUCCESS_STATUSES s ON i.institute_status_id = s.status_id 
+                     WHERE s.status_code = 'ACTIVE') as active_count,
+                    (SELECT COUNT(*) FROM BINARY_SUCCESS_PLATFORM_INSTITUTES i 
+                     LEFT JOIN BINARY_SUCCESS_STATUSES s ON i.institute_status_id = s.status_id 
+                     WHERE s.status_code = 'ARCHIVED') as archived_count,
+                    (SELECT COUNT(*) FROM BINARY_SUCCESS_PLATFORM_USERS) as total_users_count
             """
-            count_params = []
-            if institute_status:
-                count_query += " WHERE s.status_code = %s"
-                count_params.append(institute_status)
+            cursor.execute(summary_query)
+            summary_result = cursor.fetchone()
             
-            cursor.execute(count_query, tuple(count_params))
-            total_result = cursor.fetchone()
-            total_count = total_result['total'] if total_result else 0
-            
-            # Count active and archived institutes
-            cursor.execute("SELECT COUNT(*) as count FROM BINARY_SUCCESS_PLATFORM_INSTITUTES i LEFT JOIN BINARY_SUCCESS_STATUSES s ON i.institute_status_id = s.status_id WHERE s.status_code = 'ACTIVE'")
-            active_count = cursor.fetchone()['count']
-            
-            cursor.execute("SELECT COUNT(*) as count FROM BINARY_SUCCESS_PLATFORM_INSTITUTES i LEFT JOIN BINARY_SUCCESS_STATUSES s ON i.institute_status_id = s.status_id WHERE s.status_code = 'ARCHIVED'")
-            archived_count = cursor.fetchone()['count']
-            
-            cursor.execute("SELECT COUNT(*) as count FROM BINARY_SUCCESS_PLATFORM_USERS")
-            total_users_count = cursor.fetchone()['count']
-            
-            # Return response in format expected by Flutter model
             return {
                 "summary_counts": [{
-                    "active_institutes": active_count,
-                    "archived_institutes": archived_count,
-                    "total_users": total_users_count
+                    "active_institutes": summary_result['active_count'],
+                    "archived_institutes": summary_result['archived_count'],
+                    "total_users": summary_result['total_users_count']
                 }],
                 "institute_details": institutes,
                 "out_status": "SUCCESS"
@@ -691,6 +703,134 @@ async def get_all_platform_users(
     
     except Exception as e:
         logger.error(f"Error fetching users: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ============================================================================
+# TEACHER ENDPOINTS
+# ============================================================================
+
+@router.get("/teacher/get_class_summary/")
+async def get_teacher_class_summary(
+    teacher_id: str,
+    class_status: str = "Active"
+):
+    """Get teacher's class summary with status filtering"""
+    from app.core.database_mysql import get_mysql_connection
+    
+    try:
+        conn = get_mysql_connection()
+        cursor = conn.cursor(dictionary=True)
+        
+        try:
+            # 1. Get class details for the teacher
+            class_query = """
+                SELECT 
+                    c.class_id,
+                    c.class_name,
+                    c.class_code,
+                    c.institute_id,
+                    c.grade_level_id,
+                    c.term,
+                    c.academic_year,
+                    c.teacher_id,
+                    gl.grade_name,
+                    %s as class_status,
+                    '' as description,
+                    '' as alfresco_class_id
+                FROM BINARY_SUCCESS_CLASSES c
+                LEFT JOIN BINARY_SUCCESS_GRADE_LEVELS gl ON c.grade_level_id = gl.grade_level_id
+                WHERE c.teacher_id = %s
+                ORDER BY c.created_at DESC
+            """
+            
+            cursor.execute(class_query, (class_status, teacher_id))
+            classes = cursor.fetchall()
+            
+            # 2. For each class, get student count and active assignments count
+            for cls in classes:
+                class_id = cls['class_id']
+                
+                # Count enrolled students
+                cursor.execute("""
+                    SELECT COUNT(*) as count 
+                    FROM BINARY_SUCCESS_ENROLLMENTS 
+                    WHERE class_id = %s AND status = 'ACTIVE'
+                """, (class_id,))
+                student_count = cursor.fetchone()
+                cls['num_students'] = student_count['count'] if student_count else 0
+                
+                # Count active assignments
+                cursor.execute("""
+                    SELECT COUNT(*) as count 
+                    FROM BINARY_SUCCESS_TEACHER_TASKS tt
+                    WHERE tt.class_id = %s
+                """, (class_id,))
+                assignment_count = cursor.fetchone()
+                cls['num_active_assignments'] = assignment_count['count'] if assignment_count else 0
+                
+                # Count recent fingerprint submissions (placeholder)
+                cls['num_last_fingerprint_submitted'] = 0
+            
+            # 3. Get teacher summary
+            teacher_query = """
+                SELECT 
+                    t.teacher_id,
+                    u.first_name,
+                    u.last_name,
+                    u.email,
+                    t.institute_id,
+                    '' as salutation,
+                    '' as alfresco_user_id,
+                    '' as alfresco_site_id
+                FROM BINARY_SUCCESS_TEACHERS t
+                JOIN BINARY_SUCCESS_PLATFORM_USERS u ON t.user_id = u.user_id
+                WHERE t.teacher_id = %s
+            """
+            
+            cursor.execute(teacher_query, (teacher_id,))
+            teacher = cursor.fetchone()
+            
+            # Calculate total learners across all classes
+            cursor.execute("""
+                SELECT COUNT(DISTINCT e.learner_id) as total_learners
+                FROM BINARY_SUCCESS_CLASSES c
+                JOIN BINARY_SUCCESS_ENROLLMENTS e ON c.class_id = e.class_id
+                WHERE c.teacher_id = %s AND e.status = 'ACTIVE'
+            """, (teacher_id,))
+            learner_count = cursor.fetchone()
+            
+            if teacher:
+                teacher['total_learners'] = learner_count['total_learners'] if learner_count else 0
+            
+            # 4. Get class status counts
+            cursor.execute("""
+                SELECT COUNT(*) as total_classes
+                FROM BINARY_SUCCESS_CLASSES
+                WHERE teacher_id = %s
+            """, (teacher_id,))
+            total_classes = cursor.fetchone()
+            
+            # Since we don't have a status column, we'll return all as active
+            class_status_count = {
+                "active_classes": total_classes['total_classes'] if total_classes else 0,
+                "archived_classes": 0
+            }
+            
+            # 5. Format response
+            return {
+                "class_status_count": [class_status_count],
+                "teacher_summary": [teacher] if teacher else [],
+                "class_details": classes,
+                "out_status": "SUCCESS"
+            }
+            
+        finally:
+            cursor.close()
+            conn.close()
+    
+    except Exception as e:
+        logger.error(f"Error fetching teacher class summary: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 

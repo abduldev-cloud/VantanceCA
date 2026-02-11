@@ -303,37 +303,33 @@ async def get_ai_usage_analytics(
             FROM BINARY_SUCCESS_LEARNER_TASKS lt
             JOIN BINARY_SUCCESS_TEACHER_TASKS tt ON tt.task_id = lt.task_id
             LEFT JOIN BINARY_SUCCESS_AI_USAGE_STATS aus ON aus.task_id = lt.task_id AND aus.learner_id = lt.learner_id
-            WHERE tt.task_type_id = :task_type_id
-            AND lt.assigned_at >= DATE_SUB(NOW(), INTERVAL :days_back DAY)
+            WHERE tt.task_type_id = %s
+            AND lt.assigned_at >= DATE_SUB(NOW(), INTERVAL %s DAY)
             AND lt.deviation_percentage IS NOT NULL
             AND lt.deviation_percentage REGEXP '^[0-9]+\.?[0-9]*$'
         """
         
-        params = {
-            "task_type_id": assignment_task_type_id,
-            "days_back": days_back
-        }
+        params = (assignment_task_type_id, days_back)
         
         kpis = fetch_one_mysql(kpis_query, params)
         
         # Simplified trend data (last 6 months)
         trend_query = """
             SELECT 
-                DATE_FORMAT(lt.assigned_at, '%b') AS label,
+                DATE_FORMAT(lt.assigned_at, '%b %Y') AS label,
                 IFNULL(ROUND(AVG(CAST(lt.deviation_percentage AS DECIMAL(10,2))), 2), 0) AS avg_deviation,
                 COUNT(DISTINCT lt.learner_task_id) AS total_submission
             FROM BINARY_SUCCESS_LEARNER_TASKS lt
             JOIN BINARY_SUCCESS_TEACHER_TASKS tt ON tt.task_id = lt.task_id
             JOIN BINARY_SUCCESS_TASK_STATUSES ts ON ts.status_id = lt.status_id
-            WHERE tt.task_type_id = :task_type_id
+            WHERE tt.task_type_id = %s
             AND lt.assigned_at >= DATE_SUB(NOW(), INTERVAL 6 MONTH)
             AND ts.status IN ('SUBMITTED', 'GRADED')
-            GROUP BY DATE_FORMAT(lt.assigned_at, '%Y-%m')
+            GROUP BY DATE_FORMAT(lt.assigned_at, '%b %Y'), DATE_FORMAT(lt.assigned_at, '%Y-%m')
             ORDER BY DATE_FORMAT(lt.assigned_at, '%Y-%m')
-            LIMIT 12
         """
         
-        trend_data = fetch_all_mysql(trend_query, params)
+        trend_data = fetch_all_mysql(trend_query, (assignment_task_type_id,))
 
         duration = (datetime.now() - request_start_time).total_seconds()
         logger.info(f"✅ AI usage analytics retrieved in {duration:.2f}s")
