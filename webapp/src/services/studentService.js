@@ -23,11 +23,14 @@ const studentService = {
         }
     },
 
-    submitAssignment: async (learnerTaskId, submissionData) => {
-        // Note: Need to verify if there's a specific student submission endpoint in db_mock
-        // For now, using a generic POST if needed or mock behavior
+    submitAssignment: async (learnerTaskId, content, wordCount) => {
         try {
-            return { success: true, message: 'Submission simulated' };
+            const response = await api.post('/db/assignments/submit', {
+                learner_task_id: learnerTaskId,
+                content,
+                word_count: wordCount
+            });
+            return response.data;
         } catch (error) {
             console.error('Error submitting assignment:', error);
             throw error;
@@ -40,6 +43,16 @@ const studentService = {
             return response.data;
         } catch (error) {
             console.error('Error fetching classes:', error);
+            throw error;
+        }
+    },
+
+    getGradeLevels: async () => {
+        try {
+            const response = await api.get('/db/grade_levels');
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching grade levels:', error);
             throw error;
         }
     }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import MainLayout from '../../components/layout/MainLayout';
 import Typography from '../../components/common/Typography';
 import studentService from '../../services/studentService';
@@ -8,6 +9,7 @@ import ClockIcon from '../../assets/icon/clock.png';
 import styles from './Student.module.css';
 
 const StudentPractices = () => {
+    const navigate = useNavigate();
     const [selectedTab, setSelectedTab] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState('');
@@ -121,7 +123,10 @@ const StudentPractices = () => {
                                 </div>
                             </div>
 
-                            <button className={styles.startBtn}>
+                            <button
+                                className={styles.startBtn}
+                                onClick={() => navigate(`/student/writingpad?id=${practice.id}`)}
+                            >
                                 Start Practices
                             </button>
                         </div>

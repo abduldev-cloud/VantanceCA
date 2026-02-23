@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Users,
     FileText,
@@ -6,15 +6,19 @@ import {
     GraduationCap,
     Fingerprint,
     Eye,
-    School
+    School,
+    Plus,
+    RefreshCw
 } from 'lucide-react';
 import MainLayout from '../../components/layout/MainLayout';
 import TitleBar from '../../components/layout/TitleBar';
 import teacherService from '../../services/teacherService';
+import CreateClassDialog from './CreateClassDialog';
 import styles from './TeacherClasses.module.css';
 
 const TeacherClasses = () => {
     const [selectedTab, setSelectedTab] = useState(0); // 0: Active, 1: Archived, 2: Students
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [classes, setClasses] = useState([]);
     const [error, setError] = useState('');
@@ -22,38 +26,40 @@ const TeacherClasses = () => {
     const userData = JSON.parse(localStorage.getItem('userData') || '{}');
     const teacherId = userData.role_entity_id;
 
+    const fetchClasses = async () => {
+        if (!teacherId) {
+            setError('Teacher ID not found.');
+            setIsLoading(false);
+            return;
+        }
+
+        setIsLoading(true);
+        try {
+            const response = await teacherService.getClasses(teacherId);
+            if (response.success) {
+                const mappedClasses = response.data.map(cls => ({
+                    id: cls.class_id,
+                    className: cls.class_name,
+                    description: `Class taught at ${cls.institute_name}`,
+                    status: 'active', // For now default to active
+                    studentCount: cls.student_count,
+                    assignmentCount: cls.assignments_count || 0,
+                    term: cls.term,
+                    grade: cls.grade_name || 'N/A',
+                    academicYear: cls.academic_year,
+                    fingerprintCount: 0
+                }));
+                setClasses(mappedClasses);
+            }
+        } catch (err) {
+            console.error('Error fetching classes:', err);
+            setError('Failed to load classes.');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     useEffect(() => {
-        const fetchClasses = async () => {
-            if (!teacherId) {
-                setError('Teacher ID not found.');
-                setIsLoading(false);
-                return;
-            }
-
-            try {
-                const response = await teacherService.getClasses(teacherId);
-                if (response.success) {
-                    const mappedClasses = response.data.map(cls => ({
-                        id: cls.class_id,
-                        className: cls.class_name,
-                        description: `Class taught at ${cls.institute_name}`,
-                        status: 'active',
-                        studentCount: cls.student_count,
-                        assignmentCount: cls.assignments_count || 0,
-                        term: cls.term,
-                        grade: cls.grade_name || 'N/A',
-                        fingerprintCount: 0
-                    }));
-                    setClasses(mappedClasses);
-                }
-            } catch (err) {
-                console.error('Error fetching classes:', err);
-                setError('Failed to load classes.');
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
         fetchClasses();
     }, [teacherId]);
 
@@ -78,6 +84,8 @@ const TeacherClasses = () => {
             <TitleBar
                 title="Classes"
                 subTitle="Manage your classes and view student rosters"
+                buttonTitle="Create Class"
+                onTap={() => setIsModalOpen(true)}
             />
 
             <div className={styles.container}>
@@ -96,7 +104,10 @@ const TeacherClasses = () => {
 
                 <div className={styles.classList}>
                     {isLoading ? (
-                        <div className={styles.emptyState}>Loading classes...</div>
+                        <div className={styles.emptyState}>
+                            <RefreshCw className={styles.spin} size={40} color="#004AAD" />
+                            <p style={{ marginTop: '16px' }}>Loading classes...</p>
+                        </div>
                     ) : error ? (
                         <div className={styles.emptyState} style={{ color: '#EF4444' }}>{error}</div>
                     ) : filteredClasses.length > 0 ? (
@@ -125,7 +136,7 @@ const TeacherClasses = () => {
                                         </div>
                                         <div className={styles.metaItem}>
                                             <Calendar className={styles.metaIcon} size={18} />
-                                            <span>{cls.term}</span>
+                                            <span>{cls.term} {cls.academicYear}</span>
                                         </div>
                                         <div className={styles.metaItem}>
                                             <GraduationCap className={styles.metaIcon} size={18} />
@@ -157,6 +168,12 @@ const TeacherClasses = () => {
                     )}
                 </div>
             </div>
+
+            <CreateClassDialog
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onClassCreated={fetchClasses}
+            />
         </MainLayout>
     );
 };

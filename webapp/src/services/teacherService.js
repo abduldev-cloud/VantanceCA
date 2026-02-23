@@ -73,6 +73,16 @@ const teacherService = {
             console.error('Error creating assignment:', error);
             throw error;
         }
+    },
+
+    createClass: async (classData) => {
+        try {
+            const response = await api.post('/db/classes/create', classData);
+            return response.data;
+        } catch (error) {
+            console.error('Error creating class:', error);
+            throw error;
+        }
     }
 };
 

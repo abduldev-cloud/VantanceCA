@@ -1,27 +1,69 @@
 import React, { useState, useEffect } from 'react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { Book, Calendar, Clock, Layout, Pencil, Save, Play, CheckCircle2 } from 'lucide-react';
 import WritingPadLeft from './WritingPadLeft';
+import studentService from '../../../services/studentService';
 import styles from './WritingPad.module.css';
 
 const WritingPad = () => {
+    const [searchParams] = useSearchParams();
+    const navigate = useNavigate();
+    const taskId = searchParams.get('id');
+
     const [content, setContent] = useState('');
     const [wordCount, setWordCount] = useState(0);
     const [zoom, setZoom] = useState(1);
+    const [taskData, setTaskData] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [lastSavedTime, setLastSavedTime] = useState('Not saved yet');
 
-    // Mock data
-    const taskData = {
-        title: "The Impact of Climate Change",
-        prompt: "Write a 500-word essay discussing the primary causes and effects of climate change on global biodiversity.",
-        dueDate: "March 15, 2026",
-        dueTime: "11:59 PM PST",
-        targetWords: 500,
-        learnerName: "John Doe",
-        className: "Environmental Science",
-        gradeName: "Grade 12",
-        taskType: "ASSIGNMENT",
-        lastSaved: "2 minutes ago"
+    useEffect(() => {
+        const fetchTask = async () => {
+            if (!taskId) return;
+            try {
+                const response = await studentService.getAssignmentDetails(taskId);
+                if (response.success) {
+                    const data = response.data;
+                    setTaskData({
+                        id: data.task_id,
+                        learnerTaskId: data.learner_task_id,
+                        title: data.task_title,
+                        prompt: data.task_description,
+                        dueDate: data.due_date ? new Date(data.due_date).toLocaleDateString() : 'No due date',
+                        dueTime: data.due_date ? new Date(data.due_date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '',
+                        targetWords: 500, // Default if not in DB
+                        learnerName: JSON.parse(localStorage.getItem('userData') || '{}').username || 'Student',
+                        className: data.class_name,
+                        gradeName: data.grade_name || 'N/A',
+                        taskType: data.task_type || 'ASSIGNMENT',
+                    });
+                }
+            } catch (err) {
+                console.error('Error fetching task:', err);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        fetchTask();
+    }, [taskId]);
+
+    const handleSubmit = async () => {
+        if (!taskData?.learnerTaskId) return;
+
+        setIsSubmitting(true);
+        try {
+            await studentService.submitAssignment(taskData.learnerTaskId, content, wordCount);
+            alert('Assignment submitted successfully!');
+            navigate('/student/assignment');
+        } catch (err) {
+            console.error('Error submitting:', err);
+            alert('Failed to submit assignment.');
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     const calculateWordCount = (html) => {
@@ -43,6 +85,9 @@ const WritingPad = () => {
             ['clean']
         ],
     };
+
+    if (isLoading) return <div className={styles.page}>Loading task...</div>;
+    if (!taskData) return <div className={styles.page}>Task not found</div>;
 
     return (
         <div className={styles.page}>
@@ -124,7 +169,7 @@ const WritingPad = () => {
                             <div className={styles.savedIndicator}>
                                 <CheckCircle2 size={20} color="black" />
                                 <span className={styles.savedText}>Saved </span>
-                                <span className={styles.savedTime}>{taskData.lastSaved}</span>
+                                <span className={styles.savedTime}>{lastSavedTime}</span>
                             </div>
 
                             <button className={styles.btn}>
@@ -132,9 +177,13 @@ const WritingPad = () => {
                                 <span>Save Draft</span>
                             </button>
 
-                            <button className={styles.btn}>
+                            <button
+                                className={styles.btn}
+                                onClick={handleSubmit}
+                                disabled={isSubmitting}
+                            >
                                 <Play size={16} />
-                                <span>Submit</span>
+                                <span>{isSubmitting ? 'Submitting...' : 'Submit'}</span>
                             </button>
                         </div>
                     </div>
