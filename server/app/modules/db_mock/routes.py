@@ -19,50 +19,58 @@ async def get_all_classes(
 ):
     """Get all classes with optional filters"""
     try:
-        query = """
-            SELECT 
-                c.class_id,
-                c.class_name,
-                c.class_code,
-                c.term,
-                c.academic_year,
-                i.institute_name,
-                i.institute_id,
-                gl.grade_name,
-                gl.grade_level_id,
-                t.teacher_id,
-                u.first_name AS teacher_first_name,
-                u.last_name AS teacher_last_name,
-                COUNT(DISTINCT e.learner_id) AS student_count,
-                (SELECT COUNT(*) FROM BINARY_SUCCESS_TEACHER_TASKS tt WHERE tt.class_id = c.class_id) as assignments_count
-            FROM BINARY_SUCCESS_CLASSES c
-            LEFT JOIN BINARY_SUCCESS_PLATFORM_INSTITUTES i ON c.institute_id = i.institute_id
-            LEFT JOIN BINARY_SUCCESS_GRADE_LEVELS gl ON c.grade_level_id = gl.grade_level_id
-            LEFT JOIN BINARY_SUCCESS_TEACHERS t ON c.teacher_id = t.teacher_id
-            LEFT JOIN BINARY_SUCCESS_PLATFORM_USERS u ON t.user_id = u.user_id
-            LEFT JOIN BINARY_SUCCESS_ENROLLMENTS e ON c.class_id = e.class_id AND e.status = 'ACTIVE'
-        """
+        conn = get_mysql_connection()
+        cursor = conn.cursor(dictionary=True)
         
-        conditions = []
-        params = {}
-        
-        if institute_id:
-            conditions.append("c.institute_id = :institute_id")
-            params["institute_id"] = institute_id
-        if teacher_id:
-            conditions.append("c.teacher_id = :teacher_id")
-            params["teacher_id"] = teacher_id
-        if grade_level_id:
-            conditions.append("c.grade_level_id = :grade_level_id")
-            params["grade_level_id"] = grade_level_id
+        try:
+            query = """
+                SELECT 
+                    c.class_id,
+                    c.class_name,
+                    c.class_code,
+                    c.term,
+                    c.academic_year,
+                    i.institute_name,
+                    i.institute_id,
+                    gl.grade_name,
+                    gl.grade_level_id,
+                    t.teacher_id,
+                    u.first_name AS teacher_first_name,
+                    u.last_name AS teacher_last_name,
+                    COUNT(DISTINCT e.learner_id) AS student_count,
+                    (SELECT COUNT(*) FROM BINARY_SUCCESS_TEACHER_TASKS tt WHERE tt.class_id = c.class_id) as assignments_count
+                FROM BINARY_SUCCESS_CLASSES c
+                LEFT JOIN BINARY_SUCCESS_PLATFORM_INSTITUTES i ON c.institute_id = i.institute_id
+                LEFT JOIN BINARY_SUCCESS_GRADE_LEVELS gl ON c.grade_level_id = gl.grade_level_id
+                LEFT JOIN BINARY_SUCCESS_TEACHERS t ON c.teacher_id = t.teacher_id
+                LEFT JOIN BINARY_SUCCESS_PLATFORM_USERS u ON t.user_id = u.user_id
+                LEFT JOIN BINARY_SUCCESS_ENROLLMENTS e ON c.class_id = e.class_id AND e.status = 'ACTIVE'
+            """
             
-        if conditions:
-            query += " WHERE " + " AND ".join(conditions)
+            conditions = []
+            params = []
             
-        query += " GROUP BY c.class_id ORDER BY c.class_name"
-        
-        classes = crud.fetch_all(query, params)
-        return {"success": True, "data": classes, "count": len(classes)}
+            if institute_id:
+                conditions.append("c.institute_id = %s")
+                params.append(institute_id)
+            if teacher_id:
+                conditions.append("c.teacher_id = %s")
+                params.append(teacher_id)
+            if grade_level_id:
+                conditions.append("c.grade_level_id = %s")
+                params.append(grade_level_id)
+                
+            if conditions:
+                query += " WHERE " + " AND ".join(conditions)
+                
+            query += " GROUP BY c.class_id ORDER BY c.class_name"
+            
+            cursor.execute(query, tuple(params))
+            classes = cursor.fetchall()
+            return {"success": True, "data": classes, "count": len(classes)}
+        finally:
+            cursor.close()
+            conn.close()
         
     except Exception as e:
         logger.error(f"Error fetching classes: {e}")
@@ -73,7 +81,6 @@ async def get_all_classes(
 async def get_teacher_stats(teacher_id: str):
     """Get statistics for the teacher dashboard"""
     try:
-        from app.core.database_mysql import get_mysql_connection
         conn = get_mysql_connection()
         cursor = conn.cursor(dictionary=True)
         
@@ -148,28 +155,35 @@ async def get_teacher_stats(teacher_id: str):
 async def get_class_by_id(class_id: str):
     """Get class details by ID"""
     try:
-        query = """
-            SELECT 
-                c.*,
-                i.institute_name,
-                gl.grade_name,
-                u.first_name AS teacher_first_name,
-                u.last_name AS teacher_last_name,
-                u.email AS teacher_email
-            FROM BINARY_SUCCESS_CLASSES c
-            LEFT JOIN BINARY_SUCCESS_PLATFORM_INSTITUTES i ON c.institute_id = i.institute_id
-            LEFT JOIN BINARY_SUCCESS_GRADE_LEVELS gl ON c.grade_level_id = gl.grade_level_id
-            LEFT JOIN BINARY_SUCCESS_TEACHERS t ON c.teacher_id = t.teacher_id
-            LEFT JOIN BINARY_SUCCESS_PLATFORM_USERS u ON t.user_id = u.user_id
-            WHERE c.class_id = :class_id
-        """
+        conn = get_mysql_connection()
+        cursor = conn.cursor(dictionary=True)
         
-        class_data = crud.fetch_one(query, {"class_id": class_id})
-        
-        if not class_data:
-            raise HTTPException(status_code=404, detail="Class not found")
+        try:
+            cursor.execute("""
+                SELECT 
+                    c.*,
+                    i.institute_name,
+                    gl.grade_name,
+                    u.first_name AS teacher_first_name,
+                    u.last_name AS teacher_last_name,
+                    u.email AS teacher_email
+                FROM BINARY_SUCCESS_CLASSES c
+                LEFT JOIN BINARY_SUCCESS_PLATFORM_INSTITUTES i ON c.institute_id = i.institute_id
+                LEFT JOIN BINARY_SUCCESS_GRADE_LEVELS gl ON c.grade_level_id = gl.grade_level_id
+                LEFT JOIN BINARY_SUCCESS_TEACHERS t ON c.teacher_id = t.teacher_id
+                LEFT JOIN BINARY_SUCCESS_PLATFORM_USERS u ON t.user_id = u.user_id
+                WHERE c.class_id = %s
+            """, (class_id,))
             
-        return {"success": True, "data": class_data}
+            class_data = cursor.fetchone()
+            
+            if not class_data:
+                raise HTTPException(status_code=404, detail="Class not found")
+                
+            return {"success": True, "data": class_data}
+        finally:
+            cursor.close()
+            conn.close()
         
     except HTTPException:
         raise
@@ -182,27 +196,34 @@ async def get_class_by_id(class_id: str):
 async def get_class_students(class_id: str):
     """Get all students enrolled in a class"""
     try:
-        query = """
-            SELECT 
-                l.learner_id,
-                l.learner_code,
-                u.user_id,
-                u.first_name,
-                u.last_name,
-                u.email,
-                gl.grade_name,
-                e.enrollment_date,
-                e.status AS enrollment_status
-            FROM BINARY_SUCCESS_ENROLLMENTS e
-            JOIN BINARY_SUCCESS_LEARNERS l ON e.learner_id = l.learner_id
-            JOIN BINARY_SUCCESS_PLATFORM_USERS u ON l.user_id = u.user_id
-            LEFT JOIN BINARY_SUCCESS_GRADE_LEVELS gl ON l.grade_level_id = gl.grade_level_id
-            WHERE e.class_id = :class_id
-            ORDER BY u.last_name, u.first_name
-        """
+        conn = get_mysql_connection()
+        cursor = conn.cursor(dictionary=True)
         
-        students = crud.fetch_all(query, {"class_id": class_id})
-        return {"success": True, "data": students, "count": len(students)}
+        try:
+            cursor.execute("""
+                SELECT 
+                    l.learner_id,
+                    l.learner_code,
+                    u.user_id,
+                    u.first_name,
+                    u.last_name,
+                    u.email,
+                    gl.grade_name,
+                    e.enrollment_date,
+                    e.status AS enrollment_status
+                FROM BINARY_SUCCESS_ENROLLMENTS e
+                JOIN BINARY_SUCCESS_LEARNERS l ON e.learner_id = l.learner_id
+                JOIN BINARY_SUCCESS_PLATFORM_USERS u ON l.user_id = u.user_id
+                LEFT JOIN BINARY_SUCCESS_GRADE_LEVELS gl ON l.grade_level_id = gl.grade_level_id
+                WHERE e.class_id = %s
+                ORDER BY u.last_name, u.first_name
+            """, (class_id,))
+            
+            students = cursor.fetchall()
+            return {"success": True, "data": students, "count": len(students)}
+        finally:
+            cursor.close()
+            conn.close()
         
     except Exception as e:
         logger.error(f"Error fetching students for class {class_id}: {e}")
@@ -213,7 +234,6 @@ async def get_class_students(class_id: str):
 async def get_teacher_submissions(teacher_id: str):
     """Get all submissions for tasks created by a teacher"""
     try:
-        from app.core.database_mysql import get_mysql_connection
         conn = get_mysql_connection()
         cursor = conn.cursor(dictionary=True)
         
@@ -254,33 +274,110 @@ async def get_teacher_submissions(teacher_id: str):
 async def get_learner_classes(learner_id: str):
     """Get all classes a student is enrolled in"""
     try:
-        query = """
-            SELECT 
-                c.class_id,
-                c.class_name,
-                c.class_code,
-                c.term,
-                c.academic_year,
-                i.institute_name,
-                gl.grade_name,
-                u.first_name AS teacher_first_name,
-                u.last_name AS teacher_last_name,
-                (SELECT COUNT(*) FROM BINARY_SUCCESS_ENROLLMENTS e2 WHERE e2.class_id = c.class_id AND e2.status = 'ACTIVE') as student_count,
-                (SELECT COUNT(*) FROM BINARY_SUCCESS_TEACHER_TASKS tt WHERE tt.class_id = c.class_id) as assignments_count
-            FROM BINARY_SUCCESS_CLASSES c
-            JOIN BINARY_SUCCESS_ENROLLMENTS e ON c.class_id = e.class_id
-            LEFT JOIN BINARY_SUCCESS_PLATFORM_INSTITUTES i ON c.institute_id = i.institute_id
-            LEFT JOIN BINARY_SUCCESS_GRADE_LEVELS gl ON c.grade_level_id = gl.grade_level_id
-            LEFT JOIN BINARY_SUCCESS_TEACHERS t ON c.teacher_id = t.teacher_id
-            LEFT JOIN BINARY_SUCCESS_PLATFORM_USERS u ON t.user_id = u.user_id
-            WHERE e.learner_id = :learner_id AND e.status = 'ACTIVE'
-        """
-        
-        classes = crud.fetch_all(query, {"learner_id": learner_id})
-        return {"success": True, "data": classes, "count": len(classes)}
-        
+        conn = get_mysql_connection()
+        cursor = conn.cursor(dictionary=True)
+        try:
+            cursor.execute("""
+                SELECT 
+                    c.class_id, c.class_name, c.class_code, c.term, c.academic_year,
+                    i.institute_name, gl.grade_name,
+                    u.first_name AS teacher_first_name, u.last_name AS teacher_last_name,
+                    (SELECT COUNT(*) FROM BINARY_SUCCESS_ENROLLMENTS e2 WHERE e2.class_id = c.class_id AND e2.status = 'ACTIVE') as student_count,
+                    (SELECT COUNT(*) FROM BINARY_SUCCESS_TEACHER_TASKS tt WHERE tt.class_id = c.class_id) as assignments_count
+                FROM BINARY_SUCCESS_CLASSES c
+                JOIN BINARY_SUCCESS_ENROLLMENTS e ON c.class_id = e.class_id
+                LEFT JOIN BINARY_SUCCESS_PLATFORM_INSTITUTES i ON c.institute_id = i.institute_id
+                LEFT JOIN BINARY_SUCCESS_GRADE_LEVELS gl ON c.grade_level_id = gl.grade_level_id
+                LEFT JOIN BINARY_SUCCESS_TEACHERS t ON c.teacher_id = t.teacher_id
+                LEFT JOIN BINARY_SUCCESS_PLATFORM_USERS u ON t.user_id = u.user_id
+                WHERE e.learner_id = %s AND e.status = 'ACTIVE'
+            """, (learner_id,))
+            classes = cursor.fetchall()
+            return {"success": True, "data": classes, "count": len(classes)}
+        finally:
+            cursor.close()
+            conn.close()
     except Exception as e:
         logger.error(f"Error fetching classes for learner {learner_id}: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/grade_levels")
+async def get_grade_levels():
+    """Get all available grade levels"""
+    try:
+        conn = get_mysql_connection()
+        cursor = conn.cursor(dictionary=True)
+        try:
+            cursor.execute("SELECT grade_level_id, grade_name, grade_order FROM BINARY_SUCCESS_GRADE_LEVELS ORDER BY grade_order")
+            grade_levels = cursor.fetchall()
+            return {"success": True, "data": grade_levels}
+        finally:
+            cursor.close()
+            conn.close()
+    except Exception as e:
+        logger.error(f"Error fetching grade levels: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/classes/create")
+async def create_class(request: Request):
+    """Create a new class for a teacher"""
+    try:
+        import uuid
+        
+        data = await request.json()
+        
+        class_name = data.get("class_name")
+        teacher_id = data.get("teacher_id")
+        grade_level_id = data.get("grade_level_id")
+        academic_year = data.get("academic_year")
+        term = data.get("term", "Semester 1")
+        
+        if not all([class_name, teacher_id, grade_level_id]):
+            raise HTTPException(status_code=400, detail="Missing required fields: class_name, teacher_id, grade_level_id")
+            
+        conn = get_mysql_connection()
+        cursor = conn.cursor(dictionary=True)
+        
+        try:
+            # Get institute_id from teacher
+            cursor.execute("SELECT institute_id FROM BINARY_SUCCESS_TEACHERS WHERE teacher_id = %s", (teacher_id,))
+            teacher_data = cursor.fetchone()
+            
+            if not teacher_data:
+                raise HTTPException(status_code=404, detail="Teacher not found")
+                
+            institute_id = teacher_data["institute_id"]
+            class_id = f"class-{uuid.uuid4().hex[:12]}"
+            class_code = f"CL{uuid.uuid4().hex[:6].upper()}"
+            
+            cursor.execute("""
+                INSERT INTO BINARY_SUCCESS_CLASSES 
+                (class_id, class_name, class_code, institute_id, grade_level_id, teacher_id, term, academic_year, created_at)
+                VALUES 
+                (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+            """, (class_id, class_name, class_code, institute_id, grade_level_id, teacher_id, term, academic_year, datetime.now()))
+            
+            conn.commit()
+            
+            return {
+                "success": True,
+                "message": "Class created successfully",
+                "data": {
+                    "class_id": class_id,
+                    "class_name": class_name,
+                    "class_code": class_code
+                }
+            }
+        finally:
+            cursor.close()
+            conn.close()
+            
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error creating class: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 
@@ -296,78 +393,49 @@ async def get_assignments(
 ):
     """Get assignments with optional filters"""
     try:
-        if learner_id:
-            # Get assignments for a specific learner
-            query = """
-                SELECT 
-                    tt.task_id,
-                    tt.task_title,
-                    tt.task_description,
-                    tt.due_date,
-                    tt.max_score,
-                    tt.created_at,
-                    ttype.task_type,
-                    c.class_name,
-                    c.class_id,
-                    lt.learner_task_id,
-                    lt.status_id,
-                    ts.status,
-                    lt.score,
-                    lt.submitted_at,
-                    lt.graded_at,
-                    lt.deviation_percentage
-                FROM BINARY_SUCCESS_TEACHER_TASKS tt
-                JOIN BINARY_SUCCESS_TASK_TYPES ttype ON tt.task_type_id = ttype.task_type_id
-                LEFT JOIN BINARY_SUCCESS_CLASSES c ON tt.class_id = c.class_id
-                LEFT JOIN BINARY_SUCCESS_LEARNER_TASKS lt ON tt.task_id = lt.task_id AND lt.learner_id = :learner_id
-                LEFT JOIN BINARY_SUCCESS_TASK_STATUSES ts ON lt.status_id = ts.status_id
-                WHERE EXISTS (
-                    SELECT 1 FROM BINARY_SUCCESS_ENROLLMENTS e 
-                    WHERE e.class_id = tt.class_id AND e.learner_id = :learner_id
-                )
-                ORDER BY tt.due_date DESC
-            """
-            params = {"learner_id": learner_id}
-        else:
-            # Get assignments for teacher/class
-            query = """
-                SELECT 
-                    tt.task_id,
-                    tt.task_title,
-                    tt.task_description,
-                    tt.due_date,
-                    tt.max_score,
-                    tt.created_at,
-                    ttype.task_type,
-                    c.class_name,
-                    c.class_id,
+        conn = get_mysql_connection()
+        cursor = conn.cursor(dictionary=True)
+        try:
+            if learner_id:
+                cursor.execute("""
+                    SELECT tt.task_id, tt.task_title, tt.task_description, tt.due_date, tt.max_score, tt.created_at,
+                        ttype.task_type, c.class_name, c.class_id, lt.learner_task_id, lt.status_id, ts.status,
+                        lt.score, lt.submitted_at, lt.graded_at, lt.deviation_percentage
+                    FROM BINARY_SUCCESS_TEACHER_TASKS tt
+                    JOIN BINARY_SUCCESS_TASK_TYPES ttype ON tt.task_type_id = ttype.task_type_id
+                    LEFT JOIN BINARY_SUCCESS_CLASSES c ON tt.class_id = c.class_id
+                    LEFT JOIN BINARY_SUCCESS_LEARNER_TASKS lt ON tt.task_id = lt.task_id AND lt.learner_id = %s
+                    LEFT JOIN BINARY_SUCCESS_TASK_STATUSES ts ON lt.status_id = ts.status_id
+                    WHERE EXISTS (SELECT 1 FROM BINARY_SUCCESS_ENROLLMENTS e WHERE e.class_id = tt.class_id AND e.learner_id = %s)
+                    ORDER BY tt.due_date DESC
+                """, (learner_id, learner_id))
+            else:
+                query = """SELECT tt.task_id, tt.task_title, tt.task_description, tt.due_date, tt.max_score, tt.created_at,
+                    ttype.task_type, c.class_name, c.class_id,
                     COUNT(DISTINCT lt.learner_task_id) AS submission_count,
                     COUNT(DISTINCT CASE WHEN ts.status = 'GRADED' THEN lt.learner_task_id END) AS graded_count
-                FROM BINARY_SUCCESS_TEACHER_TASKS tt
-                JOIN BINARY_SUCCESS_TASK_TYPES ttype ON tt.task_type_id = ttype.task_type_id
-                LEFT JOIN BINARY_SUCCESS_CLASSES c ON tt.class_id = c.class_id
-                LEFT JOIN BINARY_SUCCESS_LEARNER_TASKS lt ON tt.task_id = lt.task_id
-                LEFT JOIN BINARY_SUCCESS_TASK_STATUSES ts ON lt.status_id = ts.status_id
-            """
-            
-            conditions = []
-            params = {}
-            
-            if class_id:
-                conditions.append("tt.class_id = :class_id")
-                params["class_id"] = class_id
-            if teacher_id:
-                conditions.append("tt.teacher_id = :teacher_id")
-                params["teacher_id"] = teacher_id
-                
-            if conditions:
-                query += " WHERE " + " AND ".join(conditions)
-                
-            query += " GROUP BY tt.task_id ORDER BY tt.due_date DESC"
-        
-        assignments = crud.fetch_all(query, params)
-        return {"success": True, "data": assignments, "count": len(assignments)}
-        
+                    FROM BINARY_SUCCESS_TEACHER_TASKS tt
+                    JOIN BINARY_SUCCESS_TASK_TYPES ttype ON tt.task_type_id = ttype.task_type_id
+                    LEFT JOIN BINARY_SUCCESS_CLASSES c ON tt.class_id = c.class_id
+                    LEFT JOIN BINARY_SUCCESS_LEARNER_TASKS lt ON tt.task_id = lt.task_id
+                    LEFT JOIN BINARY_SUCCESS_TASK_STATUSES ts ON lt.status_id = ts.status_id"""
+                conditions = []
+                params = []
+                if class_id:
+                    conditions.append("tt.class_id = %s")
+                    params.append(class_id)
+                if teacher_id:
+                    conditions.append("tt.teacher_id = %s")
+                    params.append(teacher_id)
+                if conditions:
+                    query += " WHERE " + " AND ".join(conditions)
+                query += " GROUP BY tt.task_id ORDER BY tt.due_date DESC"
+                cursor.execute(query, tuple(params))
+            assignments = cursor.fetchall()
+            return {"success": True, "data": assignments, "count": len(assignments)}
+        finally:
+            cursor.close()
+            conn.close()
     except Exception as e:
         logger.error(f"Error fetching assignments: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -377,28 +445,26 @@ async def get_assignments(
 async def get_assignment_by_id(task_id: str):
     """Get assignment details by ID"""
     try:
-        query = """
-            SELECT 
-                tt.*,
-                ttype.task_type,
-                c.class_name,
-                u.first_name AS teacher_first_name,
-                u.last_name AS teacher_last_name
-            FROM BINARY_SUCCESS_TEACHER_TASKS tt
-            JOIN BINARY_SUCCESS_TASK_TYPES ttype ON tt.task_type_id = ttype.task_type_id
-            LEFT JOIN BINARY_SUCCESS_CLASSES c ON tt.class_id = c.class_id
-            LEFT JOIN BINARY_SUCCESS_TEACHERS t ON tt.teacher_id = t.teacher_id
-            LEFT JOIN BINARY_SUCCESS_PLATFORM_USERS u ON t.user_id = u.user_id
-            WHERE tt.task_id = :task_id
-        """
-        
-        assignment = crud.fetch_one(query, {"task_id": task_id})
-        
-        if not assignment:
-            raise HTTPException(status_code=404, detail="Assignment not found")
-            
-        return {"success": True, "data": assignment}
-        
+        conn = get_mysql_connection()
+        cursor = conn.cursor(dictionary=True)
+        try:
+            cursor.execute("""
+                SELECT tt.*, ttype.task_type, c.class_name,
+                    u.first_name AS teacher_first_name, u.last_name AS teacher_last_name
+                FROM BINARY_SUCCESS_TEACHER_TASKS tt
+                JOIN BINARY_SUCCESS_TASK_TYPES ttype ON tt.task_type_id = ttype.task_type_id
+                LEFT JOIN BINARY_SUCCESS_CLASSES c ON tt.class_id = c.class_id
+                LEFT JOIN BINARY_SUCCESS_TEACHERS t ON tt.teacher_id = t.teacher_id
+                LEFT JOIN BINARY_SUCCESS_PLATFORM_USERS u ON t.user_id = u.user_id
+                WHERE tt.task_id = %s
+            """, (task_id,))
+            assignment = cursor.fetchone()
+            if not assignment:
+                raise HTTPException(status_code=404, detail="Assignment not found")
+            return {"success": True, "data": assignment}
+        finally:
+            cursor.close()
+            conn.close()
     except HTTPException:
         raise
     except Exception as e:
@@ -410,25 +476,23 @@ async def get_assignment_by_id(task_id: str):
 async def get_assignment_submissions(task_id: str):
     """Get all submissions for an assignment"""
     try:
-        query = """
-            SELECT 
-                lt.*,
-                ts.status,
-                l.learner_code,
-                u.first_name,
-                u.last_name,
-                u.email
-            FROM BINARY_SUCCESS_LEARNER_TASKS lt
-            JOIN BINARY_SUCCESS_TASK_STATUSES ts ON lt.status_id = ts.status_id
-            JOIN BINARY_SUCCESS_LEARNERS l ON lt.learner_id = l.learner_id
-            JOIN BINARY_SUCCESS_PLATFORM_USERS u ON l.user_id = u.user_id
-            WHERE lt.task_id = :task_id
-            ORDER BY lt.submitted_at DESC
-        """
-        
-        submissions = crud.fetch_all(query, {"task_id": task_id})
-        return {"success": True, "data": submissions, "count": len(submissions)}
-        
+        conn = get_mysql_connection()
+        cursor = conn.cursor(dictionary=True)
+        try:
+            cursor.execute("""
+                SELECT lt.*, ts.status, l.learner_code, u.first_name, u.last_name, u.email
+                FROM BINARY_SUCCESS_LEARNER_TASKS lt
+                JOIN BINARY_SUCCESS_TASK_STATUSES ts ON lt.status_id = ts.status_id
+                JOIN BINARY_SUCCESS_LEARNERS l ON lt.learner_id = l.learner_id
+                JOIN BINARY_SUCCESS_PLATFORM_USERS u ON l.user_id = u.user_id
+                WHERE lt.task_id = %s
+                ORDER BY lt.submitted_at DESC
+            """, (task_id,))
+            submissions = cursor.fetchall()
+            return {"success": True, "data": submissions, "count": len(submissions)}
+        finally:
+            cursor.close()
+            conn.close()
     except Exception as e:
         logger.error(f"Error fetching submissions for task {task_id}: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -440,7 +504,6 @@ async def create_assignment(request: Request):
     try:
         import uuid
         from datetime import datetime, timedelta
-        from app.core.database_mysql import get_mysql_connection
         
         data = await request.json()
         
@@ -543,8 +606,6 @@ async def create_assignment(request: Request):
 @router.get("/users/get_user_entity_details/{keycloak_id}")
 async def get_user_entity_details(keycloak_id: str):
     """Get user entity details by Keycloak ID"""
-    from app.core.database_mysql import get_mysql_connection
-    
     try:
         conn = get_mysql_connection()
         cursor = conn.cursor(dictionary=True)
@@ -605,21 +666,28 @@ async def get_user_entity_details(keycloak_id: str):
 async def get_all_institutes():
     """Get all institutes/schools"""
     try:
-        query = """
-            SELECT 
-                i.*,
-                s.status_code,
-                s.status_name,
-                COUNT(DISTINCT u.user_id) AS user_count
-            FROM BINARY_SUCCESS_PLATFORM_INSTITUTES i
-            LEFT JOIN BINARY_SUCCESS_STATUSES s ON i.institute_status_id = s.status_id
-            LEFT JOIN BINARY_SUCCESS_PLATFORM_USERS u ON i.institute_id = u.institute_id
-            GROUP BY i.institute_id
-            ORDER BY i.institute_name
-        """
+        conn = get_mysql_connection()
+        cursor = conn.cursor(dictionary=True)
         
-        institutes = crud.fetch_all(query)
-        return {"success": True, "data": institutes, "count": len(institutes)}
+        try:
+            cursor.execute("""
+                SELECT 
+                    i.*,
+                    s.status_code,
+                    s.status_name,
+                    COUNT(DISTINCT u.user_id) AS user_count
+                FROM BINARY_SUCCESS_PLATFORM_INSTITUTES i
+                LEFT JOIN BINARY_SUCCESS_STATUSES s ON i.institute_status_id = s.status_id
+                LEFT JOIN BINARY_SUCCESS_PLATFORM_USERS u ON i.institute_id = u.institute_id
+                GROUP BY i.institute_id
+                ORDER BY i.institute_name
+            """)
+            
+            institutes = cursor.fetchall()
+            return {"success": True, "data": institutes, "count": len(institutes)}
+        finally:
+            cursor.close()
+            conn.close()
         
     except Exception as e:
         logger.error(f"Error fetching institutes: {e}")
@@ -630,22 +698,29 @@ async def get_all_institutes():
 async def get_institute_by_id(institute_id: str):
     """Get institute details by ID"""
     try:
-        query = """
-            SELECT 
-                i.*,
-                s.status_code,
-                s.status_name
-            FROM BINARY_SUCCESS_PLATFORM_INSTITUTES i
-            LEFT JOIN BINARY_SUCCESS_STATUSES s ON i.institute_status_id = s.status_id
-            WHERE i.institute_id = :institute_id
-        """
+        conn = get_mysql_connection()
+        cursor = conn.cursor(dictionary=True)
         
-        institute = crud.fetch_one(query, {"institute_id": institute_id})
-        
-        if not institute:
-            raise HTTPException(status_code=404, detail="Institute not found")
+        try:
+            cursor.execute("""
+                SELECT 
+                    i.*,
+                    s.status_code,
+                    s.status_name
+                FROM BINARY_SUCCESS_PLATFORM_INSTITUTES i
+                LEFT JOIN BINARY_SUCCESS_STATUSES s ON i.institute_status_id = s.status_id
+                WHERE i.institute_id = %s
+            """, (institute_id,))
             
-        return {"success": True, "data": institute}
+            institute = cursor.fetchone()
+            
+            if not institute:
+                raise HTTPException(status_code=404, detail="Institute not found")
+                
+            return {"success": True, "data": institute}
+        finally:
+            cursor.close()
+            conn.close()
         
     except HTTPException:
         raise
@@ -661,8 +736,6 @@ async def get_institute_by_id(institute_id: str):
 @router.get("/platform_admin/stats/")
 async def get_platform_admin_stats():
     """Get overall platform statistics for the admin dashboard"""
-    from app.core.database_mysql import get_mysql_connection
-    
     try:
         conn = get_mysql_connection()
         cursor = conn.cursor(dictionary=True)
@@ -725,8 +798,6 @@ async def get_all_institute_summary(
     page_size: int = 10
 ):
     """Get all institutes with pagination and status filtering - FAST & ACCURATE"""
-    from app.core.database_mysql import get_mysql_connection
-    
     try:
         conn = get_mysql_connection()
         cursor = conn.cursor(dictionary=True)
@@ -846,8 +917,6 @@ async def get_all_platform_users(
     page_size: int = 10
 ):
     """Get all platform users with pagination and status filtering"""
-    from app.core.database_mysql import get_mysql_connection
-    
     try:
         conn = get_mysql_connection()
         cursor = conn.cursor(dictionary=True)
@@ -927,8 +996,6 @@ async def get_teacher_class_summary(
     class_status: str = "Active"
 ):
     """Get teacher's class summary with status filtering"""
-    from app.core.database_mysql import get_mysql_connection
-    
     try:
         conn = get_mysql_connection()
         cursor = conn.cursor(dictionary=True)
@@ -1060,8 +1127,6 @@ async def get_class_tasks_stats_and_learners(
     class_id: str
 ):
     """Get class details with students list and task statistics"""
-    from app.core.database_mysql import get_mysql_connection
-    
     try:
         conn = get_mysql_connection()
         cursor = conn.cursor(dictionary=True)
@@ -1139,8 +1204,6 @@ async def get_assignment_overview(
     task_status: str = "active"
 ):
     """Get teacher's assignment overview with task counts and summaries"""
-    from app.core.database_mysql import get_mysql_connection
-    
     try:
         conn = get_mysql_connection()
         cursor = conn.cursor(dictionary=True)
@@ -1226,8 +1289,6 @@ async def get_assignment_overview(
 @router.get("/teacher/get_stats_and_learners_for_task/")
 async def get_stats_and_learners_for_task(task_id: str):
     """Get task statistics and per-student details for a specific assignment"""
-    from app.core.database_mysql import get_mysql_connection
-    
     try:
         conn = get_mysql_connection()
         cursor = conn.cursor(dictionary=True)
@@ -1353,6 +1414,51 @@ async def get_stats_and_learners_for_task(task_id: str):
     
     except Exception as e:
         logger.error(f"Error fetching task stats and learners: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/assignments/submit")
+async def submit_assignment(request: Request):
+    """Submit a learner task"""
+    try:
+        data = await request.json()
+        
+        learner_task_id = data.get("learner_task_id")
+        content = data.get("content")
+        word_count = data.get("word_count", 0)
+        
+        if not learner_task_id:
+            raise HTTPException(status_code=400, detail="Missing learner_task_id")
+            
+        conn = get_mysql_connection()
+        cursor = conn.cursor(dictionary=True)
+        
+        try:
+            # Check if task exists and get status_id for 'SUBMITTED'
+            cursor.execute("SELECT status_id FROM BINARY_SUCCESS_TASK_STATUSES WHERE status = 'SUBMITTED'")
+            status_row = cursor.fetchone()
+            if not status_row:
+                raise HTTPException(status_code=500, detail="Task status 'SUBMITTED' not found in database")
+            
+            submitted_status_id = status_row['status_id']
+            
+            # Update learner task
+            cursor.execute("""
+                UPDATE BINARY_SUCCESS_LEARNER_TASKS 
+                SET status_id = %s, submitted_at = %s
+                WHERE learner_task_id = %s
+            """, (submitted_status_id, datetime.now(), learner_task_id))
+            
+            # Here we would normally save the actual content to a separate table or storage
+            # For this mock, we'll just log it or assuming it's handled
+            
+            conn.commit()
+            return {"success": True, "message": "Assignment submitted successfully"}
+        finally:
+            cursor.close()
+            conn.close()
+    except Exception as e:
+        logger.error(f"Error submitting assignment: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 
