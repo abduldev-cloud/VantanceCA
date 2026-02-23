@@ -7,10 +7,10 @@ from fastapi.middleware.cors import CORSMiddleware
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    logger.info("🚀 Binary Success Orchestration API is starting up...")
+    logger.info("🚀 Orchestration API is starting up...")
     logger.info(f"🌍 Environment: {settings.APP_ENV}")
     yield
-    logger.error("🛑 Binary Success Orchestration API is shutting down...")
+    logger.error("🛑 Orchestration API is shutting down...")
 
 app = FastAPI(
     title="Binary Success Orchestration API",

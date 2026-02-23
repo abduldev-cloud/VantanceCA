@@ -1,0 +1,143 @@
+.container {
+    padding: 24px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.kpiCard {
+    background: white;
+    border: 1px solid #EEE;
+    border-radius: 25px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.kpiHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.kpiTitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: #142228;
+}
+
+.mainContent {
+    display: grid;
+    grid-template-columns: 1fr 2.5fr;
+    gap: 30px;
+}
+
+.kpiGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.miniStatCard {
+    background: linear-gradient(135deg, #EEECFF 0%, #EEECFF 50%, #DBEBFF 100%);
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.miniStatTitle {
+    font-size: 14px;
+    font-weight: 600;
+    color: #142228;
+}
+
+.miniStatSub {
+    font-size: 12px;
+    font-weight: 500;
+    color: #142228;
+}
+
+.miniStatValueRow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 10px 0;
+}
+
+.miniStatValue {
+    font-size: 30px;
+    font-weight: 600;
+    color: #6C5DD3;
+}
+
+.miniStatPeriod {
+    font-size: 10px;
+    color: #142228;
+}
+
+.miniStatPeriod span {
+    color: #6C5DD3;
+}
+
+.chartsColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.filterGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.filterHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.filterGroup {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+}
+
+.select {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #D0D5DD;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    background: white;
+}
+
+.chartCard {
+    background: white;
+    border: 1px solid #EEE;
+    border-radius: 22px;
+    padding: 20px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+}
+
+.chartTitle {
+    font-size: 15px;
+    font-weight: 600;
+    color: #142228;
+    margin-bottom: 12px;
+}
+
+.divider {
+    height: 1px;
+    background: #EEE;
+    margin-bottom: 15px;
+}

@@ -1,0 +1,58 @@
+{
+  "class_status_count": [
+    {
+      "active_classes": 2,
+      "archived_classes": 0
+    }
+  ],
+  "teacher_summary": [
+    {
+      "teacher_id": "teacher-001",
+      "first_name": "Emma",
+      "last_name": "Thompson",
+      "email": "ah303130@gmail.com",
+      "institute_id": "inst-001",
+      "salutation": "",
+      "alfresco_user_id": "",
+      "alfresco_site_id": "",
+      "total_learners": 4
+    }
+  ],
+  "class_details": [
+    {
+      "class_id": "class-001",
+      "class_name": "English 9A",
+      "class_code": "ENG9A",
+      "institute_id": "inst-001",
+      "grade_level_id": "grade-004",
+      "term": "Fall",
+      "academic_year": 2025,
+      "teacher_id": "teacher-001",
+      "grade_name": "Grade 9",
+      "class_status": "Active",
+      "description": "",
+      "alfresco_class_id": "",
+      "num_students": 2,
+      "num_active_assignments": 3,
+      "num_last_fingerprint_submitted": 0
+    },
+    {
+      "class_id": "class-002",
+      "class_name": "English 10B",
+      "class_code": "ENG10B",
+      "institute_id": "inst-001",
+      "grade_level_id": "grade-005",
+      "term": "Fall",
+      "academic_year": 2025,
+      "teacher_id": "teacher-001",
+      "grade_name": "Grade 10",
+      "class_status": "Active",
+      "description": "",
+      "alfresco_class_id": "",
+      "num_students": 2,
+      "num_active_assignments": 2,
+      "num_last_fingerprint_submitted": 0
+    }
+  ],
+  "out_status": "SUCCESS"
+}

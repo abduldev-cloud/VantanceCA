@@ -1,0 +1,69 @@
+.header {
+    margin-bottom: 40px;
+}
+
+.subtitle {
+    margin-top: 8px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.footerRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: -4px;
+    margin-bottom: 4px;
+}
+
+.checkboxLabel {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.87);
+    cursor: pointer;
+}
+
+.checkboxLabel input {
+    width: 20px;
+    height: 20px;
+    accent-color: black;
+}
+
+.link {
+    font-size: 12px;
+    font-weight: 600;
+    color: black;
+}
+
+.googleBtn {
+    margin-top: -4px;
+}
+
+.googleIcon {
+    width: 24px;
+    height: 24px;
+}
+
+.footerLinks {
+    margin-top: 12px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.boldLink {
+    font-weight: 700;
+    color: #667085;
+}
+
+.mt20 {
+    margin-top: 20px;
+}

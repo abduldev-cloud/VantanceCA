@@ -1,0 +1,154 @@
+.container {
+    padding: 24px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.statCard {
+    background: white;
+    border: 1px solid #EEE;
+    border-radius: 25px;
+    padding: 20px 25px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.statCardActive {
+    background: linear-gradient(135deg, #EEECFF 0%, #DBEBFF 100%);
+    border-color: transparent;
+}
+
+.statTitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: #142228;
+}
+
+.statValue {
+    font-size: 35px;
+    font-weight: 600;
+}
+
+/* Class Cards */
+.classList {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.classCard {
+    background: white;
+    border: 1px solid #EEE;
+    border-radius: 25px;
+    padding: 18px 25px 18px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.classMain {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.classNameRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.className {
+    font-size: 20px;
+    font-weight: 600;
+    color: #142228;
+}
+
+.statusBadge {
+    padding: 4px 12px;
+    border-radius: 25px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: lowercase;
+    border: 2px solid currentColor;
+}
+
+.classDescription {
+    font-size: 14px;
+    color: #142228;
+    margin-bottom: 20px;
+}
+
+.classMeta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.metaItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #142228;
+}
+
+.metaIcon {
+    width: 18px;
+    height: 18px;
+    color: #666;
+}
+
+.viewDetailsButton {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border: 1.5px solid #142228;
+    border-radius: 25px;
+    background: transparent;
+    color: #142228;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.viewDetailsButton:hover {
+    background: #142228;
+    color: white;
+}
+
+.emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 0;
+    gap: 16px;
+    color: #666;
+}
+
+.emptyTitle {
+    font-size: 16px;
+    font-weight: 600;
+    color: #142228;
+}
+
+.emptySubtitle {
+    font-size: 14px;
+    font-style: italic;
+}

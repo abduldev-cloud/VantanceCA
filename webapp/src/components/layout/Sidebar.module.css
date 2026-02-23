@@ -1,0 +1,131 @@
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 4px 0 30px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    overflow: hidden;
+}
+
+.condensed {
+    width: 70px;
+}
+
+.logoSection {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 12px;
+    cursor: pointer;
+}
+
+.logo {
+    max-height: 40px;
+    object-fit: contain;
+}
+
+.nav {
+    flex: 1;
+    padding: 24px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.navItem {
+    height: 48px;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #667085;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.navItem:hover {
+    background: rgba(0, 0, 0, 0.04);
+    color: #000;
+}
+
+.active {
+    background: rgba(0, 0, 0, 0.04);
+    color: #000;
+    font-weight: 600;
+}
+
+.icon {
+    width: 24px;
+    display: flex;
+    justify-content: center;
+}
+
+.title {
+    margin-left: 16px;
+    font-size: 14px;
+}
+
+.spacer {
+    flex: 1;
+}
+
+.userProfile {
+    padding: 16px 12px;
+    border-top: 1px solid #F0F0F0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #F2F2F2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.userInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.userName {
+    font-size: 14px;
+    font-weight: 600;
+    color: black;
+}
+
+.userId {
+    font-size: 11px;
+    color: #667085;
+}
+
+.logoutBtn {
+    margin-left: auto;
+    background: transparent;
+    border: none;
+    color: #98A2B3;
+    padding: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logoutBtn:hover {
+    background: #FEF3F2;
+    color: #D92D20;
+}

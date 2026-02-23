@@ -1,0 +1,131 @@
+.container {
+    padding: 24px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.statCard {
+    background: white;
+    border: 1px solid #EEE;
+    border-radius: 25px;
+    padding: 20px 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.statTitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: #142228;
+}
+
+.statValue {
+    font-size: 36px;
+    font-weight: 600;
+}
+
+.tableContainer {
+    background: white;
+    border: 1px solid #EEE;
+    border-radius: 25px;
+    padding: 30px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.tableHeader {
+    padding: 0 40px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tableTitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: black;
+}
+
+.controls {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.searchWrapper {
+    position: relative;
+    width: 280px;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6B7280;
+}
+
+.searchInput {
+    width: 100%;
+    padding: 10px 12px 10px 40px;
+    border-radius: 10px;
+    border: 1px solid #E1E1E1;
+    font-size: 14px;
+    outline: none;
+}
+
+.gridHeader {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.5fr 1fr 1fr 1.2fr;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #142228;
+    text-align: center;
+    border-bottom: 1px solid #EEE;
+}
+
+.gridRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.5fr 1fr 1fr 1.2fr;
+    padding: 20px 24px;
+    align-items: center;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    border-top: 1px solid #EEE;
+}
+
+.actionButton {
+    padding: 4px 12px;
+    border-radius: 50px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid #C6C3C3;
+    background: white;
+    min-width: 100px;
+}
+
+.btnGradient {
+    background: linear-gradient(90deg, #004AAD 0%, #CB6CE6 100%);
+    color: white;
+    border: none;
+}
+
+.btnRemind {
+    background: #BED3F6;
+    border-color: #C6C3C3;
+}

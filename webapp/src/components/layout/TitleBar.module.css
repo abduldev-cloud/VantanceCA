@@ -1,0 +1,12 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.textSection {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}

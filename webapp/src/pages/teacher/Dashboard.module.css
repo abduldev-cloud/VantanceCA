@@ -1,0 +1,323 @@
+.container {
+    padding: 24px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.welcomeText {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.welcomeTitle {
+    font-size: 28px;
+    font-weight: 600;
+    color: #142228;
+}
+
+.userName {
+    color: #CB6CE6;
+}
+
+.welcomeSubtitle {
+    font-size: 16px;
+    color: #142228;
+}
+
+.createButton {
+    background: linear-gradient(90deg, #004AAD 0%, #CB6CE6 100%);
+    color: white;
+    padding: 10px 24px;
+    border-radius: 50px;
+    border: none;
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.createButton:hover {
+    transform: translateY(-2px);
+}
+
+/* Stats Cards */
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.statsCard {
+    background: white;
+    border: 1px solid #EEE;
+    border-radius: 25px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.statsTitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: #142228;
+}
+
+.statsValue {
+    font-size: 35px;
+    font-weight: 600;
+}
+
+.statsDesc {
+    font-size: 14px;
+    color: #142228;
+    margin-bottom: 12px;
+}
+
+.viewAllButton {
+    background: linear-gradient(90deg, #004AAD 0%, #CB6CE6 100%);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 50px;
+    border: none;
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    width: fit-content;
+}
+
+/* Main Content Layout */
+.mainGrid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+}
+
+.chartCard {
+    background: white;
+    border: 1px solid #EEE;
+    border-radius: 25px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.chartHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chartTitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: #142228;
+}
+
+.filters {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+}
+
+.trendingGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.trendingCard {
+    background: linear-gradient(135deg, #EEECFF 0%, #DBEBFF 100%);
+    border-radius: 25px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 4px;
+    min-height: 140px;
+}
+
+.trendingTitle {
+    font-size: 10px;
+    font-weight: 600;
+    color: #142228;
+}
+
+.trendingSubtitle {
+    font-size: 10px;
+    font-weight: 500;
+    color: #142228;
+}
+
+.trendingValueWrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 4px 0;
+}
+
+.trendingValue {
+    font-size: 20px;
+    font-weight: 600;
+    color: #CB6CE6;
+}
+
+.trendingPeriod {
+    font-size: 10px;
+    color: #142228;
+}
+
+.trendingPeriod span {
+    color: #CB6CE6;
+}
+
+/* Alerts Section */
+.alertsCard {
+    background: white;
+    border: 1px solid #EEE;
+    border-radius: 25px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.alertsTitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: #142228;
+    margin-bottom: 16px;
+}
+
+.alertsSubtitle {
+    font-size: 15px;
+    font-weight: 700;
+    color: #142228;
+    margin-bottom: 4px;
+}
+
+.alertsHint {
+    font-size: 12px;
+    font-style: italic;
+    color: rgba(20, 34, 40, 0.75);
+    margin-bottom: 24px;
+}
+
+.alertsList {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.alertItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 0;
+    border-top: 2px solid #F5F5F5;
+}
+
+.alertItem:first-child {
+    border-top: none;
+}
+
+.alertStudent {
+    font-size: 15px;
+    font-weight: 600;
+    color: #142228;
+}
+
+.alertDeviation {
+    font-size: 13px;
+    color: rgba(20, 34, 40, 0.85);
+}
+
+.noAnomalies {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: #0A8041;
+}
+
+.noAnomaliesTitle {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.noAnomaliesSubtitle {
+    font-size: 12px;
+    font-style: italic;
+    color: rgba(20, 34, 40, 0.7);
+}
+
+/* Bar Chart Section */
+.usageChartWrapper {
+    border: 1px solid #EEE;
+    border-radius: 22px;
+    padding: 20px;
+    margin-top: 12px;
+}
+
+.chartRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.chartRowTitle {
+    font-size: 15px;
+    font-weight: 600;
+    color: #142228;
+}
+
+.chartFilters {
+    display: flex;
+    gap: 12px;
+}
+
+.select {
+    border: none;
+    background: #F8F9FA;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 12px;
+    color: #142228;
+    outline: none;
+}
+
+@media (max-width: 1200px) {
+    .mainGrid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 800px) {
+    .statsGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .trendingGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

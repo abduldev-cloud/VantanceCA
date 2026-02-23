@@ -1,0 +1,128 @@
+.header {
+    margin-bottom: 30px;
+}
+
+.calendarCard {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+}
+
+.calendarHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.navControls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.navBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #616161;
+    display: flex;
+    align-items: center;
+    padding: 4px;
+}
+
+.currentMonth {
+    font-size: 16px;
+    font-weight: 500;
+    color: #1A1A1A;
+}
+
+.viewTabs {
+    display: flex;
+    gap: 8px;
+}
+
+.tabBtn {
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid #E0E0E0;
+    background: none;
+    font-size: 14px;
+    color: #616161;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.activeTab {
+    border-color: #8E8E93;
+    color: #8E8E93;
+    font-weight: 600;
+}
+
+.calendarGrid {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.weekHeader {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 12px;
+}
+
+.weekDay {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: #757575;
+    padding: 8px;
+}
+
+.daysGrid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    flex: 1;
+}
+
+.day,
+.dayEmpty {
+    min-height: 100px;
+    border: 0.5px solid #F0F0F0;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.day span {
+    font-size: 14px;
+    color: black;
+}
+
+.today span {
+    background: #2196F3;
+    color: white;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.eventMarker {
+    background: #EEECFF;
+    color: #6155F5;
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

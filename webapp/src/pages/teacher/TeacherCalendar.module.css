@@ -1,0 +1,160 @@
+.header {
+    padding: 24px 0 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.calendarCard {
+    background: white;
+    border-radius: 25px;
+    margin: 24px 0;
+    padding: 25px;
+    border: 1px solid #EEE;
+    min-height: 600px;
+}
+
+.calendarHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.navControls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.navBtn {
+    background: #F8F9FA;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #142228;
+}
+
+.navBtn:hover {
+    background: #EEE;
+}
+
+.currentMonth {
+    font-size: 18px;
+    font-weight: 600;
+    color: #142228;
+}
+
+.viewTabs {
+    display: flex;
+    background: #F3F4F6;
+    padding: 4px;
+    border-radius: 12px;
+    gap: 4px;
+}
+
+.tabBtn {
+    padding: 6px 16px;
+    border-radius: 8px;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    background: transparent;
+    color: #6B7280;
+    cursor: pointer;
+}
+
+.activeTab {
+    background: white;
+    color: #142228;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.calendarGrid {
+    display: flex;
+    flex-direction: column;
+}
+
+.weekHeader {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    border-bottom: 1px solid #EEE;
+}
+
+.weekDay {
+    padding: 12px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: #142228;
+}
+
+.daysGrid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+    background: #EEE;
+}
+
+.day {
+    background: white;
+    min-height: 100px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    position: relative;
+}
+
+.dayEmpty {
+    background: #F9FAFB;
+}
+
+.dayNumber {
+    font-size: 14px;
+    color: #142228;
+}
+
+.todayCircle {
+    width: 25px;
+    height: 25px;
+    background: #004AAD;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.event {
+    background: rgba(0, 74, 173, 0.1);
+    border-left: 3px solid #004AAD;
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.eventClass {
+    font-size: 9px;
+    font-weight: 600;
+    color: #666;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.eventTitle {
+    font-size: 10px;
+    font-weight: 700;
+    color: #142228;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

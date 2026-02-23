@@ -379,8 +379,11 @@ async def mock_login(
     except Exception as e:
         logger.error(f"Login error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
-        cursor.close()
-        conn.close()
+    finally:
+        if 'cursor' in locals() and cursor:
+            cursor.close()
+        if 'conn' in locals() and conn:
+            conn.close()
 
 
 @router.get("/db/users/get_user_entity_details/{keycloak_id}")

@@ -1,0 +1,231 @@
+.container {
+    padding: 24px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.statCard {
+    background: white;
+    border: 1px solid #EEE;
+    border-radius: 20px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.statCardActive {
+    background: linear-gradient(135deg, #EEECFF 0%, #EEECFF 50%, #DBEBFF 100%);
+    border-color: transparent;
+}
+
+.statTitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: #142228;
+}
+
+.statValue {
+    font-size: 35px;
+    font-weight: 600;
+}
+
+.schoolList {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.schoolCard {
+    background: white;
+    border: 1px solid #EEE;
+    border-radius: 20px;
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.schoolMain {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+}
+
+.schoolNameRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.schoolName {
+    font-size: 18px;
+    font-weight: 600;
+    color: #142228;
+}
+
+.statusBadge {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.schoolDescription {
+    font-size: 14px;
+    color: #667085;
+    max-width: 600px;
+}
+
+.schoolMeta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.metaItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #142228;
+}
+
+.metaIcon {
+    color: #667085;
+}
+
+.viewDetailsButton {
+    background: white;
+    border: 1px solid #D0D5DD;
+    border-radius: 25px;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #142228;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.viewDetailsButton:hover {
+    background: #F9FAFB;
+}
+
+/* Modal Styles */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal {
+    background: white;
+    border-radius: 25px;
+    padding: 25px 35px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+}
+
+.btnClose {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #666;
+}
+
+.modalHeader {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.modalTitle {
+    font-size: 26px;
+    font-weight: 600;
+    color: #1C244B;
+    margin: 0;
+}
+
+.modalSubtitle {
+    font-size: 16px;
+    color: #172640;
+    margin-top: 8px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.field label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #1C244B;
+}
+
+.input,
+.select {
+    padding: 10px 15px;
+    border: 1px solid #D0D5DD;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.toggleRow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.toggleLabel {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.btnAdd {
+    background: linear-gradient(90deg, #004AAD 0%, #CB6CE6 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 8px 45px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}

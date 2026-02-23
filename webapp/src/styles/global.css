@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --primary: #CB6CE6;
+  --secondary: #004AAD;
+  --bg-color: #F8F9FA;
+  --surface-color: #FFFFFF;
+  --text-primary: #000000;
+  --text-secondary: #666666;
+  --border-color: #D0D5DD;
+  --font-inter: 'Inter', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-inter);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* Flexbox Helpers mapping to Flutter Row/Column */
+.flex-row { display: flex; flex-direction: row; }
+.flex-col { display: flex; flex-direction: column; }
+.expand { flex: 1; }
+.center { display: flex; align-items: center; justify-content: center; }

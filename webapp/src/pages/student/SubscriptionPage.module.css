@@ -1,0 +1,144 @@
+.container {
+    padding: 32px 40px;
+}
+
+.header {
+    margin-bottom: 32px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #000;
+    margin: 0;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #666;
+    margin-top: 4px;
+}
+
+.plansGrid {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    padding-bottom: 16px;
+    scrollbar-width: thin;
+}
+
+.planCard {
+    min-width: 260px;
+    max-width: 260px;
+    background: white;
+    border-radius: 16px;
+    border: 1px solid #E5E7EB;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.planCard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.activeCard {
+    border: 2px solid #CB6CE6;
+}
+
+.badge {
+    background: rgba(203, 108, 230, 0.1);
+    color: #CB6CE6;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    display: inline-block;
+}
+
+.planName {
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 8px;
+}
+
+.planDesc {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 24px;
+    line-height: 1.4;
+}
+
+.price {
+    font-size: 32px;
+    font-weight: 700;
+    color: #000;
+}
+
+.period {
+    font-size: 14px;
+    font-weight: 400;
+    color: #9CA3AF;
+}
+
+.features {
+    margin-top: 24px;
+    flex: 1;
+}
+
+.featureItem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: #374151;
+}
+
+.checkIcon {
+    color: #10B981;
+    flex-shrink: 0;
+}
+
+.actionBtn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 32px;
+    transition: background 0.2s;
+}
+
+.upgradeBtn {
+    background: #000;
+    color: #fff;
+}
+
+.upgradeBtn:hover {
+    background: #333;
+}
+
+.activeBtn {
+    background: #F3F4F6;
+    color: #9CA3AF;
+    cursor: default;
+}
+
+@media (max-width: 800px) {
+    .plansGrid {
+        flex-direction: column;
+        overflow-x: visible;
+    }
+
+    .planCard {
+        min-width: 100%;
+        max-width: 100%;
+    }
+}

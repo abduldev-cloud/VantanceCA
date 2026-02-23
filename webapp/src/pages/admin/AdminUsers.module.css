@@ -1,0 +1,205 @@
+.container {
+    padding: 24px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.statCard {
+    background: white;
+    border: 1px solid #EEE;
+    border-radius: 20px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.statCardActive {
+    background: linear-gradient(135deg, #EEECFF 0%, #EEECFF 50%, #DBEBFF 100%);
+    border-color: transparent;
+}
+
+.statTitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: #142228;
+}
+
+.statValue {
+    font-size: 35px;
+    font-weight: 600;
+}
+
+.tableContainer {
+    background: white;
+    border: 1px solid #EEE;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.tableHeader {
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #EEE;
+}
+
+.tableTitle {
+    font-size: 18px;
+    font-weight: 600;
+    color: #142228;
+}
+
+.controls {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.searchWrapper {
+    position: relative;
+    width: 250px;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #667085;
+}
+
+.searchInput {
+    width: 100%;
+    padding: 8px 12px 8px 36px;
+    border: 1px solid #D0D5DD;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+}
+
+.gridHeader {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1.5fr 1.5fr 1fr 1fr;
+    padding: 12px 24px;
+    background: #F9FAFB;
+    font-size: 12px;
+    font-weight: 600;
+    color: #667085;
+    text-transform: uppercase;
+}
+
+.gridRow {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1.5fr 1.5fr 1fr 1fr;
+    padding: 16px 24px;
+    border-bottom: 1px solid #EEE;
+    align-items: center;
+    font-size: 14px;
+    color: #142228;
+}
+
+.gridRow:last-child {
+    border-bottom: none;
+}
+
+.userName {
+    font-weight: 600;
+}
+
+.roleBadge {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.roleTeacher {
+    background: #E6F4EA;
+    color: #1E7E34;
+}
+
+.roleStudent {
+    background: #E8F0FE;
+    color: #1967D2;
+}
+
+.roleAdmin {
+    background: #FDE8E8;
+    color: #C81E1E;
+}
+
+.statusActive {
+    color: #0A8041;
+    font-weight: 600;
+}
+
+.statusInactive {
+    color: #667085;
+}
+
+.actionButton {
+    background: white;
+    border: 1px solid #D0D5DD;
+    border-radius: 8px;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #667085;
+    transition: all 0.2s;
+}
+
+.actionButton:hover {
+    background: #F9FAFB;
+    color: #142228;
+}
+
+.tableFooter {
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #F9FAFB;
+}
+
+.footerInfo {
+    font-size: 14px;
+    color: #667085;
+}
+
+.pagination {
+    display: flex;
+    gap: 8px;
+}
+
+.pageBox {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #D0D5DD;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    background: white;
+}
+
+.pageBoxActive {
+    background: #6C5DD3;
+    color: white;
+    border-color: #6C5DD3;
+}

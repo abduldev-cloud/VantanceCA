@@ -1,0 +1,239 @@
+.container {
+    padding: 24px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.welcomeSection {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.welcomeTitle {
+    font-size: 28px;
+    font-weight: 600;
+    color: #142228;
+    margin: 0;
+}
+
+.welcomeSubtitle {
+    font-size: 16px;
+    color: #142228;
+    margin-top: 4px;
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.statCard {
+    background: white;
+    border: 1px solid #EEE;
+    border-radius: 20px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: all 0.3s ease;
+}
+
+.statCardActive {
+    background: linear-gradient(135deg, #EEECFF 0%, #EEECFF 50%, #DBEBFF 100%);
+    border-color: transparent;
+}
+
+.statTitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: #142228;
+}
+
+.statValue {
+    font-size: 35px;
+    font-weight: 600;
+}
+
+.mainGrid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 25px;
+}
+
+.aiUsageCard {
+    background: white;
+    border: 1px solid #EEE;
+    border-radius: 25px;
+    padding: 25px 35px;
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.cardTitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: #142228;
+}
+
+.filterRow {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.filterItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #142228;
+}
+
+.select {
+    border: none;
+    background: transparent;
+    font-weight: 600;
+    color: #004AAD;
+    cursor: pointer;
+    outline: none;
+}
+
+.miniStatsGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.miniStatCard {
+    background: linear-gradient(135deg, #EEECFF 0%, #EEECFF 50%, #DBEBFF 100%);
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.miniStatTitle {
+    font-size: 10px;
+    font-weight: 600;
+    color: #142228;
+}
+
+.miniStatSub {
+    font-size: 10px;
+    font-weight: 500;
+    color: #142228;
+}
+
+.miniStatValueRow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 5px 0;
+}
+
+.miniStatValue {
+    font-size: 20px;
+    font-weight: 600;
+    color: #6C5DD3;
+}
+
+.miniStatPeriod {
+    font-size: 10px;
+    color: #142228;
+}
+
+.miniStatPeriod span {
+    color: #6C5DD3;
+}
+
+.chartSection {
+    background: #FFF;
+    border: 1px solid #EEE;
+    border-radius: 22px;
+    padding: 20px;
+}
+
+.chartHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.chartTitle {
+    font-size: 15px;
+    font-weight: 600;
+    color: #142228;
+}
+
+.supportCard {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    border: 1px solid #EEE;
+}
+
+.supportTitle {
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.ticketList {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.ticketItem {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #EEE;
+}
+
+.ticketItem:last-child {
+    border-bottom: none;
+}
+
+.ticketNumberRow {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.ticketNumber {
+    color: #6C5DD3;
+}
+
+.ticketUser {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.ticketPriority {
+    font-size: 14px;
+    color: #666;
+}
+
+.divider {
+    height: 1px;
+    background: #EEE;
+    margin: 15px 0;
+}

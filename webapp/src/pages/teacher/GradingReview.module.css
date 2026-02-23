@@ -1,0 +1,201 @@
+.container {
+    padding: 24px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.mainRow {
+    display: flex;
+    gap: 25px;
+    align-items: flex-start;
+}
+
+.leftCol {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.rightCol {
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    border-radius: 25px;
+    padding: 30px 40px;
+    border: 1px solid #EEE;
+}
+
+.studentHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 25px;
+}
+
+.studentInfo h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.studentInfo p {
+    font-size: 14px;
+    color: #142228;
+    margin: 2px 0 0;
+}
+
+.metaRow {
+    display: flex;
+    gap: 30px;
+    font-size: 12px;
+    color: #142228;
+    align-items: center;
+}
+
+.metaItem {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.contentArea {
+    min-height: 400px;
+    background: #F8F9FA;
+    border-radius: 12px;
+    padding: 20px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #142228;
+}
+
+.tabsContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.tabHeader {
+    display: flex;
+    padding-left: 5%;
+}
+
+.tab {
+    padding: 8px 20px;
+    border-radius: 10px 10px 0 0;
+    border: 1px solid #EEE;
+    border-bottom: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    background: white;
+}
+
+.tabActive {
+    background: linear-gradient(90deg, #EEECFF 0%, #DBEBFF 100%);
+}
+
+.tabContent {
+    border: 1px solid #EEE;
+    border-radius: 10px;
+    padding: 20px;
+    min-height: 200px;
+    background: linear-gradient(90deg, #EEECFF 0%, #DBEBFF 100%);
+}
+
+.gradeCard {
+    background: white;
+    border-radius: 25px;
+    padding: 20px;
+    border: 1px solid #EEE;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.gradeTitle {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.gradeInput {
+    font-size: 65px;
+    font-weight: 500;
+    color: #CB6CE6;
+    width: 100%;
+    text-align: center;
+    border: none;
+    outline: none;
+    background: transparent;
+}
+
+.totalPoints {
+    font-size: 28px;
+    font-weight: 500;
+}
+
+.totalPoints span:first-child {
+    color: #CB6CE6;
+}
+
+.btnSubmit {
+    margin-top: 10px;
+    background: linear-gradient(180deg, #CB6CE6 0%, #004AAD 100%);
+    color: white;
+    border: none;
+    padding: 8px 30px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.chatMessage {
+    background: white;
+    border: 1px solid #EEE;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 10px;
+    max-width: 80%;
+}
+
+.chatMe {
+    align-self: flex-end;
+    margin-left: auto;
+}
+
+.chatAI {
+    align-self: flex-start;
+}
+
+.rubricRow {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.rubricTitle {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.rubricPoints {
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.criterion {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-size: 14px;
+}

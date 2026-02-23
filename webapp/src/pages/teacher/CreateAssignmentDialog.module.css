@@ -1,0 +1,124 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal {
+    background: white;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 25px;
+    padding: 30px 40px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.header p {
+    font-size: 14px;
+    color: #666;
+    margin: 4px 0 0;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.field label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #142228;
+}
+
+.input,
+.select,
+.textarea {
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 1px solid #E1E1E1;
+    font-size: 14px;
+    outline: none;
+}
+
+.textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.footer {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.btnNext {
+    background: linear-gradient(90deg, #004AAD 0%, #CB6CE6 100%);
+    color: white;
+    border: none;
+    padding: 12px 60px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btnClose {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+}
+
+/* Rubric Styles */
+.rubricGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.rubricLevel {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.rubricLevel label {
+    font-size: 12px;
+    font-weight: 600;
+}

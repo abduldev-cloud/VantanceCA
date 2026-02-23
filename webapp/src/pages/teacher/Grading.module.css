@@ -1,0 +1,186 @@
+.container {
+    padding: 24px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.statCard {
+    background: white;
+    border: 1px solid #EEE;
+    border-radius: 25px;
+    padding: 20px 25px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.statCardActive {
+    background: #E6F0FF;
+    border-color: transparent;
+}
+
+.statTitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: #142228;
+}
+
+.statValue {
+    font-size: 36px;
+    font-weight: 600;
+}
+
+/* Table Section */
+.tableContainer {
+    background: white;
+    border: 1px solid #EEE;
+    border-radius: 25px;
+    padding: 30px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.tableHeader {
+    padding: 0 40px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tableTitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: black;
+}
+
+.controls {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.searchWrapper {
+    position: relative;
+    width: 180px;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6B7280;
+}
+
+.searchInput {
+    width: 100%;
+    padding: 8px 10px 8px 36px;
+    border-radius: 8px;
+    border: 1px solid #E5E7EB;
+    font-size: 12px;
+    outline: none;
+}
+
+/* Table Grid */
+.gridHeader {
+    display: grid;
+    grid-template-columns: 140px 120px 1fr 180px 120px 100px 140px;
+    padding: 8px 24px;
+    background: white;
+    color: #142228;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.gridRow {
+    display: grid;
+    grid-template-columns: 140px 120px 1fr 180px 120px 100px 140px;
+    padding: 16px 24px;
+    align-items: center;
+    text-align: center;
+    font-size: 15px;
+    color: black;
+    border-top: 1px solid #E5E7EB;
+}
+
+.studentName,
+.assignmentTitle {
+    font-weight: 500;
+}
+
+.actionButton {
+    width: 110px;
+    height: 34px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    margin: 0 auto;
+}
+
+.btnReview {
+    background: linear-gradient(90deg, #9C27FF 0%, #0066FF 100%);
+    color: white;
+}
+
+.btnView {
+    background: white;
+    border: 1px solid #C6C3C3;
+    color: #142228;
+}
+
+.btnRemind {
+    background: #E0E7FF;
+    color: #111827;
+}
+
+/* Pagination */
+.tableFooter {
+    padding: 12px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #E5E7EB;
+}
+
+.footerInfo {
+    font-size: 12px;
+    color: #6B7280;
+}
+
+.pagination {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.pageBox {
+    padding: 6px 10px;
+    border-radius: 8px;
+    background: #F3F4F6;
+    font-size: 12px;
+    color: #374151;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.pageBoxActive {
+    background: linear-gradient(90deg, #6441EF 0%, #0D63E0 100%);
+    color: white;
+    font-weight: 700;
+}
