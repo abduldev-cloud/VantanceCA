@@ -43,17 +43,19 @@ const Sidebar = () => {
         teacher: [
             { title: 'Dashboard', icon: <LayoutDashboard size={20} />, path: '/teacher/dashboard' },
             { title: 'Classes', icon: <BookOpen size={20} />, path: '/teacher/classes' },
-            { title: 'Writing Fingerprint', icon: <Fingerprint size={20} />, path: '/teacher/fingerprint' },
+            { title: 'Study Material', icon: <Layers size={20} />, path: '/teacher/study-material' },
+            // { title: 'Writing Fingerprint', icon: <Fingerprint size={20} />, path: '/teacher/fingerprint' },
             { title: 'Assignments', icon: <ClipboardList size={20} />, path: '/teacher/assignments' },
             { title: 'Grading', icon: <GraduationCap size={20} />, path: '/teacher/grading' },
             { title: 'Calendar', icon: <Calendar size={20} />, path: '/teacher/calendar' },
-            { title: 'Analytics', icon: <BarChart2 size={20} />, path: '/teacher/analytics' },
+            // { title: 'Analytics', icon: <BarChart2 size={20} />, path: '/teacher/analytics' },
             { type: 'spacer' },
             { title: 'Settings', icon: <Settings size={20} />, path: '/school/setting' },
             { title: 'Help', icon: <HelpCircle size={20} />, path: '/teacher/faqs' },
         ],
         student: [
             { title: 'Papers', icon: <BookOpen size={20} />, path: '/student/class' },
+            { title: 'Study Material', icon: <Layers size={20} />, path: '/student/study-material' },
             { title: 'Practices', icon: <ClipboardList size={20} />, path: '/student/assignment' },
             { title: 'Result', icon: <GraduationCap size={20} />, path: '/student/result' },
             { title: 'Calendar', icon: <Calendar size={20} />, path: '/student/calendar' },
@@ -64,7 +66,7 @@ const Sidebar = () => {
             { title: 'Dashboard', icon: <LayoutDashboard size={20} />, path: '/admin/dashboard' },
             { title: 'Schools', icon: <BookOpen size={20} />, path: '/admin/school' },
             { title: 'Users', icon: <User size={20} />, path: '/admin/user' },
-            { title: 'Analytics', icon: <BarChart2 size={20} />, path: '/admin/analytics' },
+            // { title: 'Analytics', icon: <BarChart2 size={20} />, path: '/admin/analytics' },
             { type: 'spacer' },
             { title: 'Settings', icon: <Settings size={20} />, path: '/school/setting' },
             { title: 'Help', icon: <HelpCircle size={20} />, path: '/admin/faqs' },
@@ -75,7 +77,7 @@ const Sidebar = () => {
         ? menuItems.teacher
         : isStudent
             ? menuItems.student
-            : isPlatformAdmin
+            : isPlatformAdmin || isInstituteAdmin
                 ? menuItems.platform_admin
                 : [];
 

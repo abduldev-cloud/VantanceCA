@@ -43,7 +43,7 @@ const SettingsPage = () => {
                         </button>
                     </div>
 
-                    <div className={styles.actionRow}>
+                    {/* <div className={styles.actionRow}>
                         <div className={styles.actionLeft}>
                             <span className={styles.infoLabel}>Plan & Subscription</span>
                             <p className={styles.actionDesc}>Manage your subscription plans and billing details.</p>
@@ -54,7 +54,7 @@ const SettingsPage = () => {
                         >
                             View
                         </button>
-                    </div>
+                    </div> */}
 
                     <div className={styles.actionRow}>
                         <div className={styles.actionLeft}>

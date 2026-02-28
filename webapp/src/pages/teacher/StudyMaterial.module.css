@@ -1,0 +1,187 @@
+.container {
+    padding: 24px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.searchWrapper {
+    position: relative;
+    width: 320px;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6B7280;
+}
+
+.searchInput {
+    width: 100%;
+    padding: 10px 12px 10px 40px;
+    border-radius: 12px;
+    border: 1px solid #E5E7EB;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.searchInput:focus {
+    border-color: #004AAD;
+    box-shadow: 0 0 0 4px rgba(0, 74, 173, 0.05);
+}
+
+.loading {
+    padding: 60px;
+    text-align: center;
+    color: #6B7280;
+}
+
+.emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+    background: white;
+    border-radius: 20px;
+    border: 1px dashed #D1D5DB;
+    gap: 12px;
+    text-align: center;
+    color: #6B7280;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+}
+
+.card {
+    background: white;
+    border-radius: 20px;
+    border: 1px solid #F3F4F6;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s, box-shadow 0.2s;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
+}
+
+.cardHeader {
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.typeIcon {
+    width: 44px;
+    height: 44px;
+    background: #F9FAFB;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.moreBtn {
+    padding: 4px;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    color: #9CA3AF;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.moreBtn:hover {
+    background: #F3F4F6;
+    color: #374151;
+}
+
+.cardBody {
+    padding: 0 24px 20px;
+    flex: 1;
+}
+
+.materialTitle {
+    font-size: 18px;
+    font-weight: 600;
+    color: #111827;
+    margin: 0 0 8px;
+    line-height: 1.4;
+}
+
+.materialDesc {
+    font-size: 14px;
+    color: #6B7280;
+    margin: 0 0 16px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.5;
+}
+
+.meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.gradeTag {
+    font-size: 12px;
+    font-weight: 500;
+    color: #004AAD;
+    background: #EBF5FF;
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+.date {
+    font-size: 11px;
+    color: #9CA3AF;
+}
+
+.cardFooter {
+    padding: 16px 24px;
+    background: #F9FAFB;
+    border-top: 1px solid #F3F4F6;
+}
+
+.actionBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    background: white;
+    border: 1px solid #E5E7EB;
+    color: #374151;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.actionBtn:hover {
+    border-color: #004AAD;
+    color: #004AAD;
+    background: #F0F7FF;
+}

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Eye } from 'lucide-react';
 import MainLayout from '../../components/layout/MainLayout';
 import TitleBar from '../../components/layout/TitleBar';
@@ -12,6 +13,7 @@ import CalendarIcon from '../../assets/icon/calendar.png';
 import styles from './Assignments.module.css';
 
 const TeacherAssignmentsPage = () => {
+    const navigate = useNavigate();
     const [selectedTab, setSelectedTab] = useState(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
@@ -111,7 +113,10 @@ const TeacherAssignmentsPage = () => {
                                     </span>
                                 </div>
                             </div>
-                            <button className={styles.viewBtn}>
+                            <button
+                                className={styles.viewBtn}
+                                onClick={() => navigate(`/teacher/assignments/${assignment.id}`)}
+                            >
                                 <Eye size={18} /> View Details
                             </button>
                         </div>

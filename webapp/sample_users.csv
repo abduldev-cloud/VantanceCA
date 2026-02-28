@@ -1,0 +1,4 @@
+first_name,last_name,email,role_id,institute_id
+Sarah,Student,sarah.s@springfield.edu,role-004,inst-001
+Mike,Teacher,mike.t@springfield.edu,role-003,inst-001
+Demo,Learner500,learner500@example.com,role-004,inst-003

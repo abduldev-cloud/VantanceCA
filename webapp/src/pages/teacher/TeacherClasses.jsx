@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
     Users,
     FileText,
@@ -17,6 +18,7 @@ import CreateClassDialog from './CreateClassDialog';
 import styles from './TeacherClasses.module.css';
 
 const TeacherClasses = () => {
+    const navigate = useNavigate();
     const [selectedTab, setSelectedTab] = useState(0); // 0: Active, 1: Archived, 2: Students
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
@@ -149,7 +151,10 @@ const TeacherClasses = () => {
                                     </div>
                                 </div>
 
-                                <button className={styles.viewDetailsButton}>
+                                <button
+                                    className={styles.viewDetailsButton}
+                                    onClick={() => navigate(`/teacher/classes/${cls.id}`)}
+                                >
                                     <Eye size={20} />
                                     <span>View Details</span>
                                 </button>

@@ -4,6 +4,8 @@ import { RoleProvider } from './hooks/useRole';
 import LoginPage from './pages/auth/LoginPage';
 import TeacherDashboard from './pages/teacher/Dashboard';
 import TeacherClasses from './pages/teacher/TeacherClasses';
+import TeacherClassDetail from './pages/teacher/TeacherClassDetail';
+import StudyMaterial from './pages/teacher/StudyMaterial';
 import WritingFingerprint from './pages/teacher/WritingFingerprint';
 import Grading from './pages/teacher/Grading';
 import TeacherCalendar from './pages/teacher/TeacherCalendar';
@@ -12,6 +14,7 @@ import AssignmentDetail from './pages/teacher/AssignmentDetail';
 import GradingReview from './pages/teacher/GradingReview';
 import TeacherAssignmentsPage from './pages/teacher/Assignments';
 import StudentPapers from './pages/student/StudentPapers';
+import StudentStudyMaterial from './pages/student/StudentStudyMaterial';
 import StudentPractices from './pages/student/StudentPractices';
 import StudentResults from './pages/student/StudentResults';
 import StudentCalendar from './pages/student/StudentCalendar';
@@ -36,11 +39,13 @@ function App() {
                     <Route path="/auth/login" element={<LoginPage />} />
                     <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
                     <Route path="/teacher/classes" element={<TeacherClasses />} />
+                    <Route path="/teacher/classes/:id" element={<TeacherClassDetail />} />
+                    <Route path="/teacher/study-material" element={<StudyMaterial />} />
                     <Route path="/teacher/fingerprint" element={<WritingFingerprint />} />
                     <Route path="/teacher/grading" element={<Grading />} />
                     <Route path="/teacher/calendar" element={<TeacherCalendar />} />
                     <Route path="/teacher/analytics" element={<Analytics />} />
-                    <Route path="/teacher/assignment-detail" element={<AssignmentDetail />} />
+                    <Route path="/teacher/assignments/:id" element={<AssignmentDetail />} />
                     <Route path="/teacher/grading-review" element={<GradingReview />} />
                     <Route path="/teacher/assignments" element={<TeacherAssignmentsPage />} />
 
@@ -52,6 +57,7 @@ function App() {
 
                     {/* Student Routes */}
                     <Route path="/student/class" element={<StudentPapers />} />
+                    <Route path="/student/study-material" element={<StudentStudyMaterial />} />
                     <Route path="/student/class/:id" element={<ClassDetail />} />
                     <Route path="/student/assignment" element={<StudentPractices />} />
                     <Route path="/student/result" element={<StudentResults />} />

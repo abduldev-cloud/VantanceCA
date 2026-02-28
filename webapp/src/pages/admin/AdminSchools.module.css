@@ -219,13 +219,203 @@
     font-weight: 500;
 }
 
-.btnAdd {
-    background: linear-gradient(90deg, #004AAD 0%, #CB6CE6 100%);
-    color: white;
-    border: none;
+.btnAdd:hover {
+    opacity: 0.9;
+}
+
+/* Detail Modal Specifics */
+.detailModal {
+    max-width: 650px;
+}
+
+.detailGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.detailStat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.statLabel {
+    font-size: 12px;
+    color: #667085;
+    font-weight: 500;
+}
+
+.statValueSmall {
+    font-size: 16px;
+    font-weight: 600;
+    color: #142228;
+}
+
+.statusActive {
+    color: #0A8041;
+}
+
+.statusArchived {
+    color: #FF9933;
+}
+
+.divider {
+    height: 1px;
+    background: #EEE;
+    margin: 20px 0;
+}
+
+.statsSummaryGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.summaryItem {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: #F9FAFB;
+    border-radius: 12px;
+}
+
+.summaryContent {
+    display: flex;
+    flex-direction: column;
+}
+
+.summaryValue {
+    font-size: 20px;
+    font-weight: 700;
+    color: #142228;
+}
+
+.summaryLabel {
+    font-size: 12px;
+    color: #667085;
+    font-weight: 500;
+}
+
+.modalFooter {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.btnSecondary {
+    padding: 10px 25px;
     border-radius: 50px;
-    padding: 8px 45px;
+    border: 1px solid #D0D5DD;
+    background: white;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
+}
+
+.btnPrimary {
+    padding: 10px 25px;
+    border-radius: 50px;
+    border: none;
+    background: linear-gradient(90deg, #004AAD 0%, #CB6CE6 100%);
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.spin {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Bulk Import Styles */
+.headerRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.bulkImportButton {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: white;
+    border: 1px dashed #6C5DD3;
+    color: #6C5DD3;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.bulkImportButton:hover {
+    background: #F4F3FF;
+}
+
+.uploadArea {
+    border: 2px dashed #D0D5DD;
+    border-radius: 12px;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    background: #FAFAFA;
+    transition: all 0.2s ease;
+    margin-bottom: 12px;
+}
+
+.uploadArea:hover {
+    background: #F4F3FF;
+    border-color: #6C5DD3;
+}
+
+.uploadText {
+    font-size: 14px;
+    color: #142228;
+    font-weight: 500;
+}
+
+.uploadHelpText {
+    font-size: 12px;
+    color: #667085;
+    background: #F9FAFB;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.errorMessage {
+    color: #EF4444;
+    background: #FEF2F2;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-bottom: 16px;
+}
+
+.toastSuccess {
+    background: #E6F4EA;
+    color: #1E7E34;
+    padding: 16px 20px;
+    border-radius: 12px;
+    font-weight: 500;
+    margin-bottom: 16px;
+    border: 1px solid #1E7E34;
 }

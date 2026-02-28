@@ -203,3 +203,245 @@
     color: white;
     border-color: #6C5DD3;
 }
+
+.backButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    margin-top: 16px;
+    background: white;
+    border: 1px solid #D0D5DD;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #142228;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.backButton:hover {
+    background: #F9FAFB;
+}
+
+.spin {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Modal Styles */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal {
+    background: white;
+    border-radius: 25px;
+    padding: 25px 35px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.btnClose {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #666;
+}
+
+.modalHeader {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.modalTitle {
+    font-size: 26px;
+    font-weight: 600;
+    color: #1C244B;
+    margin: 0;
+}
+
+.modalSubtitle {
+    font-size: 16px;
+    color: #172640;
+    margin-top: 8px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.field label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #1C244B;
+}
+
+.input,
+.select {
+    padding: 10px 15px;
+    border: 1px solid #D0D5DD;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+}
+
+.btnAdd {
+    padding: 10px 25px;
+    border-radius: 50px;
+    border: none;
+    background: linear-gradient(90deg, #004AAD 0%, #CB6CE6 100%);
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btnAdd:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btnAdd:hover:not(:disabled) {
+    opacity: 0.9;
+}
+
+/* Bulk Import Styles */
+.headerRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.bulkImportButton {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: white;
+    border: 1px dashed #6C5DD3;
+    color: #6C5DD3;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.bulkImportButton:hover {
+    background: #F4F3FF;
+}
+
+.uploadArea {
+    border: 2px dashed #D0D5DD;
+    border-radius: 12px;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    background: #FAFAFA;
+    transition: all 0.2s ease;
+    margin-bottom: 12px;
+}
+
+.uploadArea:hover {
+    background: #F4F3FF;
+    border-color: #6C5DD3;
+}
+
+.uploadText {
+    font-size: 14px;
+    color: #142228;
+    font-weight: 500;
+}
+
+.uploadHelpText {
+    font-size: 12px;
+    color: #667085;
+    background: #F9FAFB;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.errorMessage {
+    color: #EF4444;
+    background: #FEF2F2;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-bottom: 16px;
+}
+
+.modalFooter {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.btnSecondary {
+    padding: 10px 25px;
+    border-radius: 50px;
+    border: 1px solid #D0D5DD;
+    background: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btnSecondary:disabled,
+.btnPrimary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btnPrimary {
+    padding: 10px 25px;
+    border-radius: 50px;
+    border: none;
+    background: linear-gradient(90deg, #004AAD 0%, #CB6CE6 100%);
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}

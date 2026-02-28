@@ -8,7 +8,7 @@ export const RoleProvider = ({ children }) => {
     const isTeacher = role?.toUpperCase() === 'TEACHER';
     const isStudent = role?.toUpperCase() === 'LEARNER';
     const isInstituteAdmin = role?.toUpperCase() === 'INSTITUTE_ADMIN';
-    const isPlatformAdmin = role?.toUpperCase() === 'ADMIN';
+    const isPlatformAdmin = role?.toUpperCase() === 'PLATFORM_ADMIN' || role?.toUpperCase() === 'ADMIN';
 
     return (
         <RoleContext.Provider value={{ role, setRole, isTeacher, isStudent, isInstituteAdmin, isPlatformAdmin }}>

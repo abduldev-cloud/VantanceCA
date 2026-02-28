@@ -1,0 +1,4 @@
+institute_name,institute_code,admin_email,admin_first_name,admin_last_name,city,state,is_demo
+Harvard University,HARV001,admin@harvard.edu,John,Harvard,Cambridge,MA,N
+Stanford Academy,STAN002,admin@stanford.edu,Leland,Stanford,Stanford,CA,N
+Demo Central High,DCH003,demo_admin_cx@example.com,Demo,Admin,Austin,TX,Y

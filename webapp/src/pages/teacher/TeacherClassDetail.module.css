@@ -1,0 +1,223 @@
+.container {
+    padding: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.backButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: none;
+    color: #004AAD;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 8px 0;
+    margin-bottom: 16px;
+    transition: opacity 0.2s;
+}
+
+.backButton:hover {
+    opacity: 0.7;
+}
+
+/* Header */
+.header {
+    background: linear-gradient(135deg, #004AAD 0%, #0066E0 100%);
+    border-radius: 16px;
+    padding: 32px;
+    color: white;
+    margin-bottom: 24px;
+}
+
+.headerTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.className {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.classCode {
+    font-size: 14px;
+    opacity: 0.8;
+    font-weight: 500;
+}
+
+.statusBadge {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.headerMeta {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.headerMetaItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* Stats Row */
+.statsRow {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.statCard {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid #E5E7EB;
+    text-align: center;
+}
+
+.statValue {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.statLabel {
+    font-size: 13px;
+    color: #6B7280;
+    font-weight: 500;
+}
+
+/* Students Section */
+.section {
+    background: white;
+    border-radius: 16px;
+    border: 1px solid #E5E7EB;
+    overflow: hidden;
+    margin-bottom: 24px;
+}
+
+.sectionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid #E5E7EB;
+}
+
+.sectionTitle {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1F2937;
+}
+
+.studentCount {
+    font-size: 13px;
+    color: #6B7280;
+    background: #F3F4F6;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-weight: 500;
+}
+
+/* Table */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th {
+    text-align: left;
+    padding: 12px 24px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #6B7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: #F9FAFB;
+    border-bottom: 1px solid #E5E7EB;
+}
+
+.table td {
+    padding: 14px 24px;
+    font-size: 14px;
+    color: #374151;
+    border-bottom: 1px solid #F3F4F6;
+}
+
+.table tr:last-child td {
+    border-bottom: none;
+}
+
+.table tr:hover {
+    background: #F9FAFB;
+}
+
+.studentName {
+    font-weight: 600;
+    color: #1F2937;
+}
+
+.studentEmail {
+    font-size: 13px;
+    color: #6B7280;
+}
+
+/* Loading & Empty States */
+.loadingState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+    color: #6B7280;
+}
+
+.spin {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    color: #9CA3AF;
+}
+
+.emptyState p {
+    margin-top: 12px;
+    font-size: 14px;
+}
+
+.errorState {
+    text-align: center;
+    padding: 60px 20px;
+    color: #EF4444;
+    font-size: 15px;
+}

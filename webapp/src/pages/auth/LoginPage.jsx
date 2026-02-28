@@ -63,7 +63,7 @@ const LoginPage = () => {
                 navigate('/student/class');
             } else if (roleName.toUpperCase() === 'TEACHER') {
                 navigate('/teacher/dashboard');
-            } else if (roleName.toUpperCase() === 'ADMIN' || roleName.toUpperCase() === 'INSTITUTE_ADMIN') {
+            } else if (roleName.toUpperCase() === 'ADMIN' || roleName.toUpperCase() === 'INSTITUTE_ADMIN' || roleName.toUpperCase() === 'PLATFORM_ADMIN') {
                 navigate('/admin/dashboard');
             }
         } catch (err) {

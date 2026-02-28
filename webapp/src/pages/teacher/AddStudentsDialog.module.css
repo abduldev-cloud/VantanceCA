@@ -1,0 +1,199 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.modal {
+    background: white;
+    border-radius: 16px;
+    width: 560px;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    position: relative;
+}
+
+.btnClose {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    color: #9CA3AF;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.btnClose:hover {
+    background: #F3F4F6;
+    color: #374151;
+}
+
+.header {
+    padding: 24px 24px 16px;
+    border-bottom: 1px solid #E5E7EB;
+}
+
+.header h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1F2937;
+    margin: 0 0 4px;
+}
+
+.header p {
+    font-size: 14px;
+    color: #6B7280;
+    margin: 0;
+}
+
+.searchBox {
+    padding: 12px 24px;
+    border-bottom: 1px solid #E5E7EB;
+}
+
+.searchInput {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #E5E7EB;
+    border-radius: 10px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+
+.searchInput:focus {
+    border-color: #004AAD;
+}
+
+.studentList {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 0;
+    max-height: 380px;
+}
+
+.studentItem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 24px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.studentItem:hover {
+    background: #F9FAFB;
+}
+
+.checkbox {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #D1D5DB;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s;
+}
+
+.checkboxChecked {
+    background: #004AAD;
+    border-color: #004AAD;
+}
+
+.studentInfo {
+    flex: 1;
+    min-width: 0;
+}
+
+.studentName {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1F2937;
+}
+
+.studentMeta {
+    font-size: 12px;
+    color: #6B7280;
+    margin-top: 2px;
+}
+
+.noResults {
+    padding: 40px 20px;
+    text-align: center;
+    color: #9CA3AF;
+    font-size: 14px;
+}
+
+.footer {
+    padding: 16px 24px;
+    border-top: 1px solid #E5E7EB;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.selectedCount {
+    font-size: 13px;
+    color: #6B7280;
+}
+
+.selectedCount strong {
+    color: #004AAD;
+}
+
+.btnEnroll {
+    background: #004AAD;
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btnEnroll:hover {
+    background: #003A8C;
+}
+
+.btnEnroll:disabled {
+    background: #D1D5DB;
+    cursor: not-allowed;
+}
+
+.loadingState {
+    padding: 40px 20px;
+    text-align: center;
+    color: #6B7280;
+}
+
+.spin {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
