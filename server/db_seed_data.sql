@@ -23,15 +23,13 @@ INSERT INTO BINARY_SUCCESS_STATUSES (status_id, status_code, status_name, status
 ('status-003', 'PENDING', 'Pending', 'Entity is pending approval'),
 ('status-004', 'SUSPENDED', 'Suspended', 'Entity is temporarily suspended');
 
--- Grade Levels
+-- CA Exam Grade Levels
 INSERT INTO BINARY_SUCCESS_GRADE_LEVELS (grade_level_id, grade_name, grade_order) VALUES
-('grade-001', 'Grade 6', 6),
-('grade-002', 'Grade 7', 7),
-('grade-003', 'Grade 8', 8),
-('grade-004', 'Grade 9', 9),
-('grade-005', 'Grade 10', 10),
-('grade-006', 'Grade 11', 11),
-('grade-007', 'Grade 12', 12);
+('grade-001', 'CA Foundation', 1),
+('grade-002', 'CA Intermediate - Group I', 2),
+('grade-003', 'CA Intermediate - Group II', 3),
+('grade-004', 'CA Final - Group I', 4),
+('grade-005', 'CA Final - Group II', 5);
 
 -- Task Types
 INSERT INTO BINARY_SUCCESS_TASK_TYPES (task_type_id, task_type, task_type_description) VALUES

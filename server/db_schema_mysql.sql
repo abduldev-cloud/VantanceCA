@@ -209,6 +209,24 @@ CREATE TABLE BINARY_SUCCESS_LEARNER_TASKS (
     FOREIGN KEY (status_id) REFERENCES BINARY_SUCCESS_TASK_STATUSES(status_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Study Materials
+CREATE TABLE BINARY_SUCCESS_STUDY_MATERIALS (
+    material_id VARCHAR(36) PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    material_type ENUM('PDF', 'VIDEO', 'DOCUMENT', 'LINK') NOT NULL,
+    file_url VARCHAR(500),
+    external_link VARCHAR(500),
+    teacher_id VARCHAR(36),
+    institute_id VARCHAR(36),
+    grade_level_id VARCHAR(36),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (teacher_id) REFERENCES BINARY_SUCCESS_TEACHERS(teacher_id),
+    FOREIGN KEY (institute_id) REFERENCES BINARY_SUCCESS_PLATFORM_INSTITUTES(institute_id),
+    FOREIGN KEY (grade_level_id) REFERENCES BINARY_SUCCESS_GRADE_LEVELS(grade_level_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- ============================================================================
 -- AI/ANALYTICS TABLES
 -- ============================================================================

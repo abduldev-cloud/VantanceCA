@@ -4,6 +4,12 @@ from app.api.router import router as api_router
 from app.core.logger import logger
 from app.core.config import settings   # <-- now includes CRM, Alfresco, etc.
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+import os
+
+# Create uploads directory if it doesn't exist
+if not os.path.exists("uploads"):
+    os.makedirs("uploads")
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -13,7 +19,7 @@ async def lifespan(app: FastAPI):
     logger.error("🛑 Orchestration API is shutting down...")
 
 app = FastAPI(
-    title="Binary Success Orchestration API",
+    title="VantanceCA Orchestration API",
     version="1.0.0",
     lifespan=lifespan
 )
@@ -28,3 +34,6 @@ app.add_middleware(
 
 # Include all routers
 app.include_router(api_router)
+
+# Mount uploads for static files
+app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")

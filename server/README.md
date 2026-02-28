@@ -1,10 +1,10 @@
-# 🧠 Binary Success Orchestration – FastAPI + Keycloak (Oracle Ready)
+#  VantanceCA Orchestration – FastAPI + Keycloak (Oracle Ready)
 
 This project is a production-level FastAPI application built with modular structure and integrates Keycloak for authentication.
 
 ---
 
-## 🗂 Folder Structure
+##  Folder Structure
 
 ```
 app/
@@ -24,13 +24,13 @@ requirements.txt
 
 ---
 
-## 🚀 Setup Instructions
+##  Setup Instructions
 
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/colakin-devops/binarysuccess-orchestration.git
-cd binarysuccess-orchestration
+git clone https://github.com/abduldev-cloud/VantanceCA.git
+cd server
 ```
 
 ### 2. Create a virtual environment

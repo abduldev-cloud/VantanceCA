@@ -1,11 +1,16 @@
-from fastapi import APIRouter, HTTPException, Request
+from fastapi import APIRouter, HTTPException, Request, File, UploadFile
+import shutil
+import os
+import csv
+import io
+import uuid
+from pydantic import BaseModel
 from app.core.logger import logger
-from app.common.crud_base import CRUDBase
+from app.core.database_mysql import get_mysql_connection
 from typing import Dict, List, Any, Optional
 from datetime import datetime
 
 router = APIRouter(prefix="/db", tags=["Database Mock"])
-crud = CRUDBase()
 
 # ============================================================================
 # CLASSES ENDPOINTS
@@ -270,6 +275,111 @@ async def get_teacher_submissions(teacher_id: str):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@router.get("/learners")
+async def get_learners(
+    institute_id: Optional[str] = None,
+    exclude_class_id: Optional[str] = None
+):
+    """Get all learners, optionally filtered by institute and excluding those already in a class"""
+    try:
+        conn = get_mysql_connection()
+        cursor = conn.cursor(dictionary=True)
+        try:
+            query = """
+                SELECT 
+                    l.learner_id, l.learner_code,
+                    u.user_id, u.first_name, u.last_name, u.email,
+                    gl.grade_name,
+                    i.institute_name
+                FROM BINARY_SUCCESS_LEARNERS l
+                JOIN BINARY_SUCCESS_PLATFORM_USERS u ON l.user_id = u.user_id
+                LEFT JOIN BINARY_SUCCESS_GRADE_LEVELS gl ON l.grade_level_id = gl.grade_level_id
+                LEFT JOIN BINARY_SUCCESS_PLATFORM_INSTITUTES i ON l.institute_id = i.institute_id
+            """
+            conditions = []
+            params = []
+
+            if institute_id:
+                conditions.append("l.institute_id = %s")
+                params.append(institute_id)
+            if exclude_class_id:
+                conditions.append("""l.learner_id NOT IN (
+                    SELECT e.learner_id FROM BINARY_SUCCESS_ENROLLMENTS e 
+                    WHERE e.class_id = %s AND e.status = 'ACTIVE'
+                )""")
+                params.append(exclude_class_id)
+
+            if conditions:
+                query += " WHERE " + " AND ".join(conditions)
+            query += " ORDER BY u.first_name, u.last_name"
+
+            cursor.execute(query, tuple(params))
+            learners = cursor.fetchall()
+            return {"success": True, "data": learners, "count": len(learners)}
+        finally:
+            cursor.close()
+            conn.close()
+    except Exception as e:
+        logger.error(f"Error fetching learners: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/classes/{class_id}/enroll")
+async def enroll_students(class_id: str, request: Request):
+    """Enroll one or more students into a class"""
+    try:
+        import uuid
+
+        data = await request.json()
+        learner_ids = data.get("learner_ids", [])
+
+        if not learner_ids:
+            raise HTTPException(status_code=400, detail="No learner_ids provided")
+
+        conn = get_mysql_connection()
+        cursor = conn.cursor(dictionary=True)
+        try:
+            # Verify class exists
+            cursor.execute("SELECT class_id FROM BINARY_SUCCESS_CLASSES WHERE class_id = %s", (class_id,))
+            if not cursor.fetchone():
+                raise HTTPException(status_code=404, detail="Class not found")
+
+            enrolled = 0
+            skipped = 0
+            for learner_id in learner_ids:
+                # Check if already enrolled
+                cursor.execute(
+                    "SELECT enrollment_id FROM BINARY_SUCCESS_ENROLLMENTS WHERE learner_id = %s AND class_id = %s AND status = 'ACTIVE'",
+                    (learner_id, class_id)
+                )
+                if cursor.fetchone():
+                    skipped += 1
+                    continue
+
+                enrollment_id = f"enroll-{uuid.uuid4().hex[:12]}"
+                cursor.execute(
+                    "INSERT INTO BINARY_SUCCESS_ENROLLMENTS (enrollment_id, learner_id, class_id, status) VALUES (%s, %s, %s, 'ACTIVE')",
+                    (enrollment_id, learner_id, class_id)
+                )
+                enrolled += 1
+
+            conn.commit()
+            return {
+                "success": True,
+                "message": f"Enrolled {enrolled} student(s). {skipped} already enrolled.",
+                "enrolled": enrolled,
+                "skipped": skipped
+            }
+        finally:
+            cursor.close()
+            conn.close()
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error enrolling students in class {class_id}: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @router.get("/classes/learner/{learner_id}")
 async def get_learner_classes(learner_id: str):
     """Get all classes a student is enrolled in"""
@@ -413,7 +523,8 @@ async def get_assignments(
                 query = """SELECT tt.task_id, tt.task_title, tt.task_description, tt.due_date, tt.max_score, tt.created_at,
                     ttype.task_type, c.class_name, c.class_id,
                     COUNT(DISTINCT lt.learner_task_id) AS submission_count,
-                    COUNT(DISTINCT CASE WHEN ts.status = 'GRADED' THEN lt.learner_task_id END) AS graded_count
+                    COUNT(DISTINCT CASE WHEN ts.status = 'GRADED' THEN lt.learner_task_id END) AS graded_count,
+                    (SELECT COUNT(*) FROM BINARY_SUCCESS_ENROLLMENTS e WHERE e.class_id = tt.class_id AND e.status = 'ACTIVE') as student_count
                     FROM BINARY_SUCCESS_TEACHER_TASKS tt
                     JOIN BINARY_SUCCESS_TASK_TYPES ttype ON tt.task_type_id = ttype.task_type_id
                     LEFT JOIN BINARY_SUCCESS_CLASSES c ON tt.class_id = c.class_id
@@ -910,19 +1021,305 @@ async def get_all_institute_summary(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.get("/platform_admin/get_all_platform_users/")
-async def get_all_platform_users(
-    user_status: Optional[str] = None,
-    page_number: int = 1,
-    page_size: int = 10
-):
-    """Get all platform users with pagination and status filtering"""
+@router.post("/platform_admin/bulk_import_schools/")
+async def bulk_import_schools(file: UploadFile = File(...)):
+    """Bulk import schools and automatically assign an Institute Admin for each."""
+    if not file.filename.endswith(".csv"):
+        raise HTTPException(status_code=400, detail="Only CSV files are allowed.")
+    
+    try:
+        contents = await file.read()
+        try:
+            decoded_text = contents.decode("utf-8")
+        except UnicodeDecodeError:
+            decoded_text = contents.decode("utf-8-sig") # Fallback for BOM
+            
+        csv_reader = csv.DictReader(io.StringIO(decoded_text))
+        required_cols = ['institute_name', 'institute_code', 'admin_email', 'admin_first_name', 'admin_last_name']
+        missing_cols = [col for col in required_cols if col not in csv_reader.fieldnames]
+        
+        if missing_cols:
+            raise HTTPException(status_code=400, detail=f"Missing required columns: {', '.join(missing_cols)}")
+        
+        conn = get_mysql_connection()
+        cursor = conn.cursor()
+        
+        success_count = 0
+        errors = []
+        
+        try:
+            for i, row in enumerate(csv_reader, start=1):
+                i_name = row.get('institute_name', '').strip()
+                i_code = row.get('institute_code', '').strip()
+                a_email = row.get('admin_email', '').strip()
+                a_fname = row.get('admin_first_name', '').strip()
+                a_lname = row.get('admin_last_name', '').strip()
+                
+                if not all([i_name, i_code, a_email, a_fname, a_lname]):
+                    errors.append(f"Row {i}: Missing required data.")
+                    continue
+                
+                # Check if school code exists
+                cursor.execute("SELECT institute_id FROM BINARY_SUCCESS_PLATFORM_INSTITUTES WHERE institute_code = %s", (i_code,))
+                if cursor.fetchone():
+                    errors.append(f"Row {i}: Institute code '{i_code}' already exists.")
+                    continue
+                    
+                # Check if admin email exists
+                cursor.execute("SELECT user_id FROM BINARY_SUCCESS_PLATFORM_USERS WHERE email = %s", (a_email,))
+                if cursor.fetchone():
+                    errors.append(f"Row {i}: Email '{a_email}' already exists.")
+                    continue
+                
+                # Create institute
+                new_inst_id = f"inst-{uuid.uuid4().hex[:8]}"
+                cursor.execute("""
+                    INSERT INTO BINARY_SUCCESS_PLATFORM_INSTITUTES (
+                        institute_id, institute_name, institute_code, institute_email, 
+                        institute_city, institute_state, institute_status_id, is_demo
+                    ) VALUES (%s, %s, %s, %s, %s, %s, 'status-001', %s)
+                """, (
+                    new_inst_id, i_name, i_code, a_email, 
+                    row.get('city', ''), row.get('state', ''),
+                    row.get('is_demo', 'N').upper()
+                ))
+                
+                # Create user
+                new_user_id = f"user-{uuid.uuid4().hex[:8]}"
+                kc_id = f"kc-inst-{uuid.uuid4().hex[:8]}"
+                cursor.execute("""
+                    INSERT INTO BINARY_SUCCESS_PLATFORM_USERS (
+                        user_id, keycloak_id, email, username, first_name, last_name,
+                        role_id, institute_id, status_id
+                    ) VALUES (%s, %s, %s, %s, %s, %s, 'role-002', %s, 'status-001')
+                """, (
+                    new_user_id, kc_id, a_email, a_email.split('@')[0], a_fname, a_lname, new_inst_id
+                ))
+                
+                success_count += 1
+                
+            conn.commit()
+            
+        except Exception as inner_e:
+            conn.rollback()
+            raise inner_e
+            
+        finally:
+            cursor.close()
+            conn.close()
+            
+        return {
+            "out_status": "SUCCESS",
+            "message": f"Successfully imported {success_count} schools.",
+            "errors": errors,
+            "success_count": success_count
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Bulk import error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+class AddUserRequest(BaseModel):
+    first_name: str
+    last_name: str
+    email: str
+    role_id: str
+    institute_id: Optional[str] = None
+
+@router.post("/platform_admin/add_user/")
+async def add_platform_user(req: AddUserRequest):
+    """Manually add a single user (Teacher, Learner, or Admin)."""
     try:
         conn = get_mysql_connection()
         cursor = conn.cursor(dictionary=True)
         
         try:
-            # Build query with optional status filter
+            # Check if email already exists
+            cursor.execute("SELECT user_id FROM BINARY_SUCCESS_PLATFORM_USERS WHERE email = %s", (req.email,))
+            if cursor.fetchone():
+                raise HTTPException(status_code=400, detail="Email already exists.")
+            
+            # Create user
+            new_user_id = f"user-{uuid.uuid4().hex[:8]}"
+            kc_id = f"kc-user-{uuid.uuid4().hex[:8]}"
+            username = req.email.split('@')[0]
+            
+            cursor.execute("""
+                INSERT INTO BINARY_SUCCESS_PLATFORM_USERS (
+                    user_id, keycloak_id, email, username, first_name, last_name,
+                    role_id, institute_id, status_id
+                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, 'status-001')
+            """, (
+                new_user_id, kc_id, req.email, username, req.first_name, req.last_name, 
+                req.role_id, req.institute_id
+            ))
+            
+            # If TEACHER role ('role-003'), also add to TEACHERS table
+            if req.role_id == 'role-003':
+                teacher_id = f"teacher-{uuid.uuid4().hex[:8]}"
+                cursor.execute("""
+                    INSERT INTO BINARY_SUCCESS_TEACHERS (teacher_id, user_id, institute_id, teacher_code)
+                    VALUES (%s, %s, %s, %s)
+                """, (teacher_id, new_user_id, req.institute_id, f"T-{uuid.uuid4().hex[:4]}"))
+                
+            # If LEARNER role ('role-004'), also add to LEARNERS table
+            if req.role_id == 'role-004':
+                learner_id = f"learner-{uuid.uuid4().hex[:8]}"
+                cursor.execute("""
+                    INSERT INTO BINARY_SUCCESS_LEARNERS (learner_id, user_id, institute_id, learner_code)
+                    VALUES (%s, %s, %s, %s)
+                """, (learner_id, new_user_id, req.institute_id, f"S-{uuid.uuid4().hex[:4]}"))
+            
+            conn.commit()
+            
+            return {
+                "out_status": "SUCCESS",
+                "message": "User added successfully.",
+                "user_id": new_user_id
+            }
+            
+        except HTTPException:
+            raise
+        except Exception as inner_e:
+            conn.rollback()
+            raise inner_e
+            
+        finally:
+            cursor.close()
+            conn.close()
+            
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error adding user: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@router.post("/platform_admin/bulk_import_users/")
+async def bulk_import_users(
+    file: UploadFile = File(...),
+    institute_id: Optional[str] = None
+):
+    """Bulk import users (Students and Teachers) from CSV."""
+    if not file.filename.endswith(".csv"):
+        raise HTTPException(status_code=400, detail="Only CSV files are allowed.")
+    
+    try:
+        contents = await file.read()
+        try:
+            decoded_text = contents.decode("utf-8")
+        except UnicodeDecodeError:
+            decoded_text = contents.decode("utf-8-sig")
+            
+        csv_reader = csv.DictReader(io.StringIO(decoded_text))
+        required_cols = ['first_name', 'last_name', 'email', 'role_id']
+        missing_cols = [col for col in required_cols if col not in csv_reader.fieldnames]
+        
+        if missing_cols:
+            raise HTTPException(status_code=400, detail=f"Missing required columns: {', '.join(missing_cols)}")
+            
+        conn = get_mysql_connection()
+        cursor = conn.cursor(dictionary=True)
+        
+        success_count = 0
+        errors = []
+        
+        try:
+            for i, row in enumerate(csv_reader, start=1):
+                fname = row.get('first_name', '').strip()
+                lname = row.get('last_name', '').strip()
+                email = row.get('email', '').strip()
+                role_id = row.get('role_id', '').strip()
+                
+                # Use query parameter institute_id if available, otherwise read from CSV
+                row_inst_id = institute_id if institute_id else row.get('institute_id', '').strip()
+                
+                if not all([fname, lname, email, role_id]):
+                    errors.append(f"Row {i}: Missing required data.")
+                    continue
+                    
+                # Validate the role ID is among allowed ones
+                if role_id not in ['role-002', 'role-003', 'role-004']:
+                    errors.append(f"Row {i}: Invalid role_id '{role_id}'.")
+                    continue
+                
+                # Check email existence
+                cursor.execute("SELECT user_id FROM BINARY_SUCCESS_PLATFORM_USERS WHERE email = %s", (email,))
+                if cursor.fetchone():
+                    errors.append(f"Row {i}: Email '{email}' already exists.")
+                    continue
+                
+                # Create user
+                new_user_id = f"user-{uuid.uuid4().hex[:8]}"
+                kc_id = f"kc-user-{uuid.uuid4().hex[:8]}"
+                username = email.split('@')[0]
+                
+                cursor.execute("""
+                    INSERT INTO BINARY_SUCCESS_PLATFORM_USERS (
+                        user_id, keycloak_id, email, username, first_name, last_name,
+                        role_id, institute_id, status_id
+                    ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, 'status-001')
+                """, (
+                    new_user_id, kc_id, email, username, fname, lname, 
+                    role_id, row_inst_id if row_inst_id else None
+                ))
+                
+                if role_id == 'role-003':
+                    teacher_id = f"teacher-{uuid.uuid4().hex[:8]}"
+                    cursor.execute("""
+                        INSERT INTO BINARY_SUCCESS_TEACHERS (teacher_id, user_id, institute_id, teacher_code)
+                        VALUES (%s, %s, %s, %s)
+                    """, (teacher_id, new_user_id, row_inst_id if row_inst_id else None, f"T-{uuid.uuid4().hex[:4]}"))
+                    
+                if role_id == 'role-004':
+                    learner_id = f"learner-{uuid.uuid4().hex[:8]}"
+                    cursor.execute("""
+                        INSERT INTO BINARY_SUCCESS_LEARNERS (learner_id, user_id, institute_id, learner_code)
+                        VALUES (%s, %s, %s, %s)
+                    """, (learner_id, new_user_id, row_inst_id if row_inst_id else None, f"S-{uuid.uuid4().hex[:4]}"))
+                    
+                success_count += 1
+                
+            conn.commit()
+            
+        except Exception as inner_e:
+            conn.rollback()
+            raise inner_e
+            
+        finally:
+            cursor.close()
+            conn.close()
+            
+        return {
+            "out_status": "SUCCESS",
+            "message": f"Successfully imported {success_count} users.",
+            "errors": errors,
+            "success_count": success_count
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Bulk import error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/platform_admin/get_all_platform_users/")
+async def get_all_platform_users(
+    user_status: Optional[str] = None,
+    institute_id: Optional[str] = None,
+    page_number: int = 1,
+    page_size: int = 10
+):
+    """Get all platform users with pagination, status and institute filtering"""
+    try:
+        conn = get_mysql_connection()
+        cursor = conn.cursor(dictionary=True)
+        
+        try:
+            # Build query with optional filters
             query = """
                 SELECT 
                     u.user_id,
@@ -934,17 +1331,25 @@ async def get_all_platform_users(
                     s.status_code,
                     s.status_name,
                     r.role_name as role_display_name,
-                    i.institute_name as school_name
+                    i.institute_name as school_name,
+                    i.institute_id
                 FROM BINARY_SUCCESS_PLATFORM_USERS u
                 LEFT JOIN BINARY_SUCCESS_STATUSES s ON u.status_id = s.status_id
                 LEFT JOIN BINARY_SUCCESS_ROLES r ON u.role_id = r.role_id
                 LEFT JOIN BINARY_SUCCESS_PLATFORM_INSTITUTES i ON u.institute_id = i.institute_id
             """
             
+            conditions = []
             params = []
             if user_status:
-                query += " WHERE LOWER(s.status_code) = LOWER(%s)"
+                conditions.append("LOWER(s.status_code) = LOWER(%s)")
                 params.append(user_status)
+            if institute_id:
+                conditions.append("u.institute_id = %s")
+                params.append(institute_id)
+            
+            if conditions:
+                query += " WHERE " + " AND ".join(conditions)
             
             query += " ORDER BY u.created_at DESC"
             
@@ -956,15 +1361,21 @@ async def get_all_platform_users(
             cursor.execute(query, tuple(params))
             users = cursor.fetchall()
             
-            # Get user counts
-            cursor.execute("""
+            # Get user counts (scoped to institute if provided)
+            count_query = """
                 SELECT 
                     COUNT(*) as total_users,
                     SUM(CASE WHEN UPPER(s.status_code) = 'ACTIVE' THEN 1 ELSE 0 END) as active_users,
                     SUM(CASE WHEN UPPER(s.status_code) != 'ACTIVE' THEN 1 ELSE 0 END) as archived_users
                 FROM BINARY_SUCCESS_PLATFORM_USERS u
                 LEFT JOIN BINARY_SUCCESS_STATUSES s ON u.status_id = s.status_id
-            """)
+            """
+            count_params = []
+            if institute_id:
+                count_query += " WHERE u.institute_id = %s"
+                count_params.append(institute_id)
+            
+            cursor.execute(count_query, tuple(count_params))
             counts = cursor.fetchone()
             
             return {
@@ -1461,6 +1872,121 @@ async def submit_assignment(request: Request):
         logger.error(f"Error submitting assignment: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
+
+@router.get("/study-materials")
+async def get_study_materials(
+    teacher_id: Optional[str] = None,
+    grade_level_id: Optional[str] = None,
+    institute_id: Optional[str] = None
+):
+    """Get study materials with optional filters"""
+    try:
+        conn = get_mysql_connection()
+        cursor = conn.cursor(dictionary=True)
+        try:
+            query = """
+                SELECT sm.*, u.first_name, u.last_name, gl.grade_name
+                FROM BINARY_SUCCESS_STUDY_MATERIALS sm
+                LEFT JOIN BINARY_SUCCESS_TEACHERS t ON sm.teacher_id = t.teacher_id
+                LEFT JOIN BINARY_SUCCESS_PLATFORM_USERS u ON t.user_id = u.user_id
+                LEFT JOIN BINARY_SUCCESS_GRADE_LEVELS gl ON sm.grade_level_id = gl.grade_level_id
+            """
+            conditions = []
+            params = []
+            
+            if teacher_id:
+                conditions.append("sm.teacher_id = %s")
+                params.append(teacher_id)
+            if grade_level_id:
+                conditions.append("sm.grade_level_id = %s")
+                params.append(grade_level_id)
+            if institute_id:
+                conditions.append("sm.institute_id = %s")
+                params.append(institute_id)
+                
+            if conditions:
+                query += " WHERE " + " AND ".join(conditions)
+            
+            query += " ORDER BY sm.created_at DESC"
+            cursor.execute(query, tuple(params))
+            materials = cursor.fetchall()
+            return {"success": True, "data": materials}
+        finally:
+            cursor.close()
+            conn.close()
+    except Exception as e:
+        logger.error(f"Error fetching study materials: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@router.post("/study-materials/upload")
+async def upload_study_material(file: UploadFile = File(...)):
+    """Upload a file to the server and return the URL"""
+    try:
+        import uuid
+        file_extension = os.path.splitext(file.filename)[1]
+        unique_filename = f"{uuid.uuid4().hex}{file_extension}"
+        file_path = os.path.join("uploads", unique_filename)
+        
+        with open(file_path, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+            
+        # For simplicity, returning a relative URL that matches the mounted path
+        # In a real app, this might be a full URL like http://localhost:8000/uploads/...
+        file_url = f"/uploads/{unique_filename}"
+        
+        return {
+            "success": True, 
+            "file_url": file_url, 
+            "filename": file.filename,
+            "original_filename": file.filename
+        }
+    except Exception as e:
+        logger.error(f"Error uploading file: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@router.post("/study-materials/create")
+async def create_study_material(request: Request):
+    """Upload/Link new study material"""
+    try:
+        import uuid
+        data = await request.json()
+        
+        material_id = f"mat-{uuid.uuid4().hex[:12]}"
+        title = data.get("title")
+        description = data.get("description", "")
+        material_type = data.get("material_type") # PDF, VIDEO, etc.
+        file_url = data.get("file_url", "")
+        external_link = data.get("external_link", "")
+        teacher_id = data.get("teacher_id")
+        grade_level_id = data.get("grade_level_id")
+        
+        if not all([title, material_type, teacher_id, grade_level_id]):
+            raise HTTPException(status_code=400, detail="Missing required fields")
+            
+        conn = get_mysql_connection()
+        cursor = conn.cursor(dictionary=True)
+        try:
+            # Get institute from teacher
+            cursor.execute("SELECT institute_id FROM BINARY_SUCCESS_TEACHERS WHERE teacher_id = %s", (teacher_id,))
+            teacher_data = cursor.fetchone()
+            institute_id = teacher_data["institute_id"] if teacher_data else None
+            
+            cursor.execute("""
+                INSERT INTO BINARY_SUCCESS_STUDY_MATERIALS 
+                (material_id, title, description, material_type, file_url, external_link, 
+                 teacher_id, institute_id, grade_level_id, created_at)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, NOW())
+            """, (material_id, title, description, material_type, file_url, external_link, 
+                  teacher_id, institute_id, grade_level_id))
+            
+            conn.commit()
+            return {"success": True, "message": "Study material added successfully", "material_id": material_id}
+        finally:
+            cursor.close()
+            conn.close()
+    except Exception as e:
+        logger.error(f"Error creating study material: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 # ============================================================================
 # CATCH-ALL PROXY (for unimplemented endpoints)

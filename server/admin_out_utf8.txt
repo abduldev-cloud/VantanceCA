@@ -1,0 +1,11 @@
+﻿=== Admin Counts ===
+INSTITUTE_ADMIN: 3
+PLATFORM_ADMIN: 3
+
+=== Detailed Admin List ===
+- Carol Principal (principal@springfield.edu) | Role: INSTITUTE_ADMIN | Scope: Springfield High School
+- David Director (admin@riverside.edu) | Role: INSTITUTE_ADMIN | Scope: Riverside Academy
+- Demo Admin (demo@example.com) | Role: INSTITUTE_ADMIN | Scope: Demo School
+- System Admin (admin@gmail.com) | Role: PLATFORM_ADMIN | Scope: Global (All Schools)
+- Alice Admin (admin@binarysuccess.com) | Role: PLATFORM_ADMIN | Scope: Global (All Schools)
+- Bob SuperAdmin (superadmin@binarysuccess.com) | Role: PLATFORM_ADMIN | Scope: Global (All Schools)
