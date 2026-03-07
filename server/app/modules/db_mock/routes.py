@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Request, File, UploadFile
+from fastapi import APIRouter, HTTPException, Request, File, UploadFile, Form
 import shutil
 import os
 import csv
@@ -510,12 +510,15 @@ async def get_assignments(
                 cursor.execute("""
                     SELECT tt.task_id, tt.task_title, tt.task_description, tt.due_date, tt.max_score, tt.created_at,
                         ttype.task_type, c.class_name, c.class_id, lt.learner_task_id, lt.status_id, ts.status,
-                        lt.score, lt.submitted_at, lt.graded_at, lt.deviation_percentage
+                        lt.score, lt.submitted_at, lt.graded_at, lt.deviation_percentage, lt.feedback,
+                        u.first_name AS teacher_first_name, u.last_name AS teacher_last_name
                     FROM BINARY_SUCCESS_TEACHER_TASKS tt
                     JOIN BINARY_SUCCESS_TASK_TYPES ttype ON tt.task_type_id = ttype.task_type_id
                     LEFT JOIN BINARY_SUCCESS_CLASSES c ON tt.class_id = c.class_id
                     LEFT JOIN BINARY_SUCCESS_LEARNER_TASKS lt ON tt.task_id = lt.task_id AND lt.learner_id = %s
                     LEFT JOIN BINARY_SUCCESS_TASK_STATUSES ts ON lt.status_id = ts.status_id
+                    LEFT JOIN BINARY_SUCCESS_TEACHERS t ON tt.teacher_id = t.teacher_id
+                    LEFT JOIN BINARY_SUCCESS_PLATFORM_USERS u ON t.user_id = u.user_id
                     WHERE EXISTS (SELECT 1 FROM BINARY_SUCCESS_ENROLLMENTS e WHERE e.class_id = tt.class_id AND e.learner_id = %s)
                     ORDER BY tt.due_date DESC
                 """, (learner_id, learner_id))
@@ -553,22 +556,39 @@ async def get_assignments(
 
 
 @router.get("/assignments/{task_id}")
-async def get_assignment_by_id(task_id: str):
-    """Get assignment details by ID"""
+async def get_assignment_by_id(task_id: str, learner_id: Optional[str] = None):
+    """Get assignment details by ID, optionally including learner-specific data"""
     try:
         conn = get_mysql_connection()
         cursor = conn.cursor(dictionary=True)
         try:
-            cursor.execute("""
-                SELECT tt.*, ttype.task_type, c.class_name,
-                    u.first_name AS teacher_first_name, u.last_name AS teacher_last_name
-                FROM BINARY_SUCCESS_TEACHER_TASKS tt
-                JOIN BINARY_SUCCESS_TASK_TYPES ttype ON tt.task_type_id = ttype.task_type_id
-                LEFT JOIN BINARY_SUCCESS_CLASSES c ON tt.class_id = c.class_id
-                LEFT JOIN BINARY_SUCCESS_TEACHERS t ON tt.teacher_id = t.teacher_id
-                LEFT JOIN BINARY_SUCCESS_PLATFORM_USERS u ON t.user_id = u.user_id
-                WHERE tt.task_id = %s
-            """, (task_id,))
+            if learner_id:
+                cursor.execute("""
+                    SELECT tt.*, ttype.task_type, c.class_name,
+                        u.first_name AS teacher_first_name, u.last_name AS teacher_last_name,
+                        lt.learner_task_id, lt.status_id AS learner_status_id, 
+                        lt.score, lt.submitted_at, lt.submission_text,
+                        ts.status AS learner_status
+                    FROM BINARY_SUCCESS_TEACHER_TASKS tt
+                    JOIN BINARY_SUCCESS_TASK_TYPES ttype ON tt.task_type_id = ttype.task_type_id
+                    LEFT JOIN BINARY_SUCCESS_CLASSES c ON tt.class_id = c.class_id
+                    LEFT JOIN BINARY_SUCCESS_TEACHERS t ON tt.teacher_id = t.teacher_id
+                    LEFT JOIN BINARY_SUCCESS_PLATFORM_USERS u ON t.user_id = u.user_id
+                    LEFT JOIN BINARY_SUCCESS_LEARNER_TASKS lt ON tt.task_id = lt.task_id AND lt.learner_id = %s
+                    LEFT JOIN BINARY_SUCCESS_TASK_STATUSES ts ON lt.status_id = ts.status_id
+                    WHERE tt.task_id = %s
+                """, (learner_id, task_id))
+            else:
+                cursor.execute("""
+                    SELECT tt.*, ttype.task_type, c.class_name,
+                        u.first_name AS teacher_first_name, u.last_name AS teacher_last_name
+                    FROM BINARY_SUCCESS_TEACHER_TASKS tt
+                    JOIN BINARY_SUCCESS_TASK_TYPES ttype ON tt.task_type_id = ttype.task_type_id
+                    LEFT JOIN BINARY_SUCCESS_CLASSES c ON tt.class_id = c.class_id
+                    LEFT JOIN BINARY_SUCCESS_TEACHERS t ON tt.teacher_id = t.teacher_id
+                    LEFT JOIN BINARY_SUCCESS_PLATFORM_USERS u ON t.user_id = u.user_id
+                    WHERE tt.task_id = %s
+                """, (task_id,))
             assignment = cursor.fetchone()
             if not assignment:
                 raise HTTPException(status_code=404, detail="Assignment not found")
@@ -735,6 +755,8 @@ async def get_user_entity_details(keycloak_id: str):
                     i.institute_id,
                     i.institute_name,
                     i.is_demo,
+                    i.primary_color,
+                    i.logo_url,
                     s.status_code,
                     t.teacher_id,
                     t.teacher_code,
@@ -898,6 +920,58 @@ async def get_platform_admin_stats():
             cursor.close()
             conn.close()
     except Exception as e:
+        logger.error(f"Error fetching stats: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@router.get("/platform_admin/analytics")
+async def get_platform_admin_analytics():
+    """Get analytics data for platform admin"""
+    try:
+        conn = get_mysql_connection()
+        cursor = conn.cursor(dictionary=True)
+        try:
+            # Calculate average deviation score
+            cursor.execute("SELECT AVG(deviation_percentage) as avg_dev, COUNT(*) as total_fingerprints FROM BINARY_SUCCESS_LEARNER_TASKS WHERE deviation_percentage IS NOT NULL")
+            fingerprint_stats = cursor.fetchone()
+            avg_dev = round(fingerprint_stats['avg_dev'] or 0, 1)
+            total_fp = fingerprint_stats['total_fingerprints'] or 0
+
+            # Calculate total API quotas used
+            cursor.execute("SELECT SUM(tokens_used) as total_tokens FROM BINARY_SUCCESS_API_QUOTAS")
+            token_stats = cursor.fetchone()
+            total_tokens = token_stats['total_tokens'] or 0
+
+            kpis = [
+                { "title": 'Writing Fingerprint', "sub": 'Average Deviation', "value": f'{avg_dev}%', "trend": 'up' },
+                { "title": 'Writing Fingerprint', "sub": 'Total Scans', "value": str(total_fp), "trend": 'up' },
+                { "title": 'AI Prompt Used', "sub": 'Total Tokens', "value": str(total_tokens), "trend": 'up' },
+                { "title": 'AI Prompt Used', "sub": 'Average Per School', "value": str(round(total_tokens / max(1, fingerprint_stats['total_fingerprints']))), "trend": 'down' }
+            ]
+
+            chartData = [
+                { "name": 'Jan', "value": 30 },
+                { "name": 'Feb', "value": 45 },
+                { "name": 'Mar', "value": 60 },
+                { "name": 'Apr', "value": 25 },
+                { "name": 'May', "value": 80 },
+                { "name": 'Jun', "value": 50 },
+                { "name": 'Jul', "value": 65 },
+                { "name": 'Aug', "value": 35 },
+                { "name": 'Sep', "value": 75 },
+                { "name": 'Oct', "value": 90 },
+                { "name": 'Nov', "value": 55 },
+                { "name": 'Dec', "value": 70 }
+            ]
+
+            return {
+                "success": True,
+                "kpis": kpis,
+                "chartData": chartData
+            }
+        finally:
+            cursor.close()
+            conn.close()
+    except Exception as e:
         logger.error(f"Error fetching platform admin stats: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -921,6 +995,8 @@ async def get_all_institute_summary(
                     i.institute_name,
                     i.institute_code,
                     i.is_demo,
+                    i.primary_color,
+                    i.logo_url,
                     i.created_at,
                     s.status_code,
                     s.status_name
@@ -1121,6 +1197,46 @@ async def bulk_import_schools(file: UploadFile = File(...)):
         logger.error(f"Bulk import error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
+@router.put("/platform_admin/institute/{institute_id}/branding")
+async def update_institute_branding(
+    institute_id: str,
+    primary_color: str = Form(...),
+    logo: Optional[UploadFile] = File(None)
+):
+    """Update primary color and logo for a school."""
+    logo_path = None
+    try:
+        if logo and logo.filename:
+            # Save logo
+            upload_dir = os.path.join(os.path.dirname(__file__), "..", "..", "uploads", "logos")
+            os.makedirs(upload_dir, exist_ok=True)
+            
+            ext = os.path.splitext(logo.filename)[1]
+            unique_name = f"{institute_id}{ext}"
+            file_path = os.path.join(upload_dir, unique_name)
+            
+            with open(file_path, "wb") as buffer:
+                shutil.copyfileobj(logo.file, buffer)
+                
+            logo_path = f"/uploads/logos/{unique_name}"
+            
+        conn = get_mysql_connection()
+        cursor = conn.cursor()
+        
+        if logo_path:
+            cursor.execute("UPDATE BINARY_SUCCESS_PLATFORM_INSTITUTES SET primary_color = %s, logo_url = %s WHERE institute_id = %s", (primary_color, logo_path, institute_id))
+        else:
+            cursor.execute("UPDATE BINARY_SUCCESS_PLATFORM_INSTITUTES SET primary_color = %s WHERE institute_id = %s", (primary_color, institute_id))
+            
+        conn.commit()
+        return {"out_status": "SUCCESS", "message": "Branding updated successfully!"}
+    except Exception as e:
+        logger.error(f"Update branding error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        if 'cursor' in locals():
+            cursor.close()
+            conn.close()
 
 class AddUserRequest(BaseModel):
     first_name: str
@@ -1394,6 +1510,77 @@ async def get_all_platform_users(
     
     except Exception as e:
         logger.error(f"Error fetching users: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/platform_admin/audit_logs")
+async def get_audit_logs(page_number: int = 1, page_size: int = 20):
+    try:
+        conn = get_mysql_connection()
+        cursor = conn.cursor(dictionary=True)
+        try:
+            query = "SELECT log_id, user_name, role_name, action_type, description, ip_address, created_at FROM BINARY_SUCCESS_AUDIT_LOGS ORDER BY created_at DESC"
+            offset = (page_number - 1) * page_size
+            query += " LIMIT %s OFFSET %s"
+            cursor.execute(query, (page_size, offset))
+            logs = cursor.fetchall()
+            
+            cursor.execute("SELECT COUNT(*) as total FROM BINARY_SUCCESS_AUDIT_LOGS")
+            total = cursor.fetchone()['total']
+            
+            return {
+                "out_status": "SUCCESS",
+                "logs": logs,
+                "total": total
+            }
+        finally:
+            cursor.close()
+            conn.close()
+    except Exception as e:
+        logger.error(f"Error fetching audit logs: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@router.get("/platform_admin/api_quotas")
+async def get_api_quotas():
+    try:
+        conn = get_mysql_connection()
+        cursor = conn.cursor(dictionary=True)
+        try:
+            # Join with platform institutes to get the name
+            query = """
+                SELECT 
+                    q.quota_id,
+                    q.institute_id,
+                    q.month_year,
+                    q.tokens_used,
+                    q.threshold_limit,
+                    q.last_updated,
+                    i.institute_name,
+                    i.is_demo
+                FROM BINARY_SUCCESS_API_QUOTAS q
+                JOIN BINARY_SUCCESS_PLATFORM_INSTITUTES i ON q.institute_id = i.institute_id
+                ORDER BY q.tokens_used DESC
+            """
+            cursor.execute(query)
+            quotas = cursor.fetchall()
+            
+            # Simple summary stats
+            total_tokens = sum(q['tokens_used'] for q in quotas)
+            schools_near_limit = sum(1 for q in quotas if q['tokens_used'] >= (q['threshold_limit'] * 0.8))
+            
+            return {
+                "out_status": "SUCCESS",
+                "quotas": quotas,
+                "summary": {
+                    "total_tokens_used": total_tokens,
+                    "schools_near_limit": schools_near_limit
+                }
+            }
+        finally:
+            cursor.close()
+            conn.close()
+    except Exception as e:
+        logger.error(f"Error fetching api quotas: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 
@@ -1853,15 +2040,12 @@ async def submit_assignment(request: Request):
             
             submitted_status_id = status_row['status_id']
             
-            # Update learner task
+            # Update learner task with content and status
             cursor.execute("""
                 UPDATE BINARY_SUCCESS_LEARNER_TASKS 
-                SET status_id = %s, submitted_at = %s
+                SET status_id = %s, submitted_at = %s, submission_text = %s
                 WHERE learner_task_id = %s
-            """, (submitted_status_id, datetime.now(), learner_task_id))
-            
-            # Here we would normally save the actual content to a separate table or storage
-            # For this mock, we'll just log it or assuming it's handled
+            """, (submitted_status_id, datetime.now(), content, learner_task_id))
             
             conn.commit()
             return {"success": True, "message": "Assignment submitted successfully"}
@@ -1987,6 +2171,115 @@ async def create_study_material(request: Request):
     except Exception as e:
         logger.error(f"Error creating study material: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+
+# ============================================================================
+# SYSTEM DICTIONARY / GLOBAL SETTINGS
+# ============================================================================
+
+class GradeLevelCreate(BaseModel):
+    grade_name: str
+    grade_order: int
+
+@router.get("/dictionary/grade_levels")
+async def get_grade_levels():
+    try:
+        conn = get_mysql_connection()
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM BINARY_SUCCESS_GRADE_LEVELS ORDER BY grade_order ASC")
+        return {"out_status": "SUCCESS", "items": cursor.fetchall()}
+    finally:
+        cursor.close()
+        conn.close()
+
+@router.post("/dictionary/grade_levels")
+async def add_grade_level(grade: GradeLevelCreate):
+    try:
+        conn = get_mysql_connection()
+        cursor = conn.cursor()
+        grade_id = f"grade-{uuid.uuid4().hex[:8]}"
+        cursor.execute(
+            "INSERT INTO BINARY_SUCCESS_GRADE_LEVELS (grade_level_id, grade_name, grade_order) VALUES (%s, %s, %s)",
+            (grade_id, grade.grade_name, grade.grade_order)
+        )
+        conn.commit()
+        return {"out_status": "SUCCESS", "message": "Grade Level added", "grade_level_id": grade_id}
+    finally:
+        cursor.close()
+        conn.close()
+
+@router.delete("/dictionary/grade_levels/{grade_id}")
+async def delete_grade_level(grade_id: str):
+    try:
+        conn = get_mysql_connection()
+        cursor = conn.cursor()
+        # Ensure it's not being used in classes table
+        cursor.execute("SELECT COUNT(*) FROM BINARY_SUCCESS_CLASSES WHERE grade_level_id = %s", (grade_id,))
+        if cursor.fetchone()[0] > 0:
+            raise HTTPException(status_code=400, detail="Cannot delete because this Grade is tied to active classes.")
+            
+        cursor.execute("DELETE FROM BINARY_SUCCESS_GRADE_LEVELS WHERE grade_level_id = %s", (grade_id,))
+        conn.commit()
+        return {"out_status": "SUCCESS", "message": "Grade level deleted"}
+    finally:
+        cursor.close()
+        conn.close()
+
+
+class TaskTypeCreate(BaseModel):
+    task_type: str
+    task_type_description: Optional[str] = None
+
+@router.get("/dictionary/task_types")
+async def get_task_types():
+    try:
+        conn = get_mysql_connection()
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM BINARY_SUCCESS_TASK_TYPES ORDER BY created_at DESC")
+        return {"out_status": "SUCCESS", "items": cursor.fetchall()}
+    finally:
+        cursor.close()
+        conn.close()
+
+@router.post("/dictionary/task_types")
+async def add_task_type(task_type_data: TaskTypeCreate):
+    try:
+        conn = get_mysql_connection()
+        cursor = conn.cursor()
+        
+        # Check if exists
+        cursor.execute("SELECT * FROM BINARY_SUCCESS_TASK_TYPES WHERE lower(task_type) = lower(%s)", (task_type_data.task_type,))
+        if cursor.fetchone():
+             raise HTTPException(status_code=400, detail="A task type with this name already exists.")
+
+        task_id = f"tt-{uuid.uuid4().hex[:8]}"
+        cursor.execute(
+            "INSERT INTO BINARY_SUCCESS_TASK_TYPES (task_type_id, task_type, task_type_description) VALUES (%s, %s, %s)",
+            (task_id, task_type_data.task_type, task_type_data.task_type_description or "")
+        )
+        conn.commit()
+        return {"out_status": "SUCCESS", "message": "Task Type added", "task_type_id": task_id}
+    except HTTPException:
+        raise
+    finally:
+        cursor.close()
+        conn.close()
+
+@router.delete("/dictionary/task_types/{type_id}")
+async def delete_task_type(type_id: str):
+    try:
+        conn = get_mysql_connection()
+        cursor = conn.cursor()
+        
+        cursor.execute("SELECT COUNT(*) FROM BINARY_SUCCESS_TEACHER_TASKS WHERE task_type_id = %s", (type_id,))
+        if cursor.fetchone()[0] > 0:
+            raise HTTPException(status_code=400, detail="Cannot delete because this Task Type is currently in use.")
+
+        cursor.execute("DELETE FROM BINARY_SUCCESS_TASK_TYPES WHERE task_type_id = %s", (type_id,))
+        conn.commit()
+        return {"out_status": "SUCCESS", "message": "Task type deleted."}
+    finally:
+        cursor.close()
+        conn.close()
 
 # ============================================================================
 # CATCH-ALL PROXY (for unimplemented endpoints)
