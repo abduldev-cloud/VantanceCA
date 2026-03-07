@@ -13,9 +13,11 @@ const studentService = {
         }
     },
 
-    getAssignmentDetails: async (taskId) => {
+    getAssignmentDetails: async (taskId, learnerId = null) => {
         try {
-            const response = await api.get(`/db/assignments/${taskId}`);
+            const params = {};
+            if (learnerId) params.learner_id = learnerId;
+            const response = await api.get(`/db/assignments/${taskId}`, { params });
             return response.data;
         } catch (error) {
             console.error('Error fetching assignment details:', error);

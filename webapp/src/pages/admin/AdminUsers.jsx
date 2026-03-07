@@ -14,6 +14,7 @@ import {
 import MainLayout from '../../components/layout/MainLayout';
 import TitleBar from '../../components/layout/TitleBar';
 import adminService from '../../services/adminService';
+import { useRole } from '../../hooks/useRole';
 import styles from './AdminUsers.module.css';
 
 const AddUserDialog = ({ isOpen, onClose, currentInstituteId, onSuccess }) => {
@@ -142,7 +143,30 @@ const BulkImportUsersDialog = ({ isOpen, onClose, currentInstituteId, onSuccess 
     const [file, setFile] = useState(null);
     const [isUploading, setIsUploading] = useState(false);
     const [error, setError] = useState('');
+    const [schools, setSchools] = useState([]);
+    const [selectedInstituteId, setSelectedInstituteId] = useState('');
     const fileInputRef = useRef(null);
+
+    useEffect(() => {
+        if (isOpen && !currentInstituteId) {
+            const fetchSchoolsForDropdown = async () => {
+                try {
+                    const response = await adminService.getSchools('ACTIVE');
+                    if (response.out_status === 'SUCCESS') {
+                        setSchools(response.institute_details || []);
+                        if (response.institute_details?.length > 0) {
+                            setSelectedInstituteId(response.institute_details[0].institute_id);
+                        }
+                    }
+                } catch (err) {
+                    console.error('Error fetching schools:', err);
+                }
+            };
+            fetchSchoolsForDropdown();
+        } else if (isOpen && currentInstituteId) {
+            setSelectedInstituteId(currentInstituteId);
+        }
+    }, [isOpen, currentInstituteId]);
 
     if (!isOpen) return null;
 
@@ -159,12 +183,18 @@ const BulkImportUsersDialog = ({ isOpen, onClose, currentInstituteId, onSuccess 
             return;
         }
 
+        if (!selectedInstituteId) {
+            setError('Please select a school to assign these users to.');
+            return;
+        }
+
         setIsUploading(true);
         setError('');
         try {
-            const response = await adminService.bulkImportUsers(file, currentInstituteId);
+            const response = await adminService.bulkImportUsers(file, selectedInstituteId);
             onSuccess(response.message);
             onClose();
+            setFile(null); // Reset file
         } catch (err) {
             setError(err.response?.data?.detail || 'Failed to upload file.');
         } finally {
@@ -178,7 +208,7 @@ const BulkImportUsersDialog = ({ isOpen, onClose, currentInstituteId, onSuccess 
                 <button className={styles.btnClose} onClick={onClose}><X size={20} /></button>
                 <div className={styles.modalHeader}>
                     <h2 className={styles.modalTitle}>Bulk Import Users</h2>
-                    <p className={styles.modalSubtitle}>Upload a CSV file to create multiple students or faculty at once.</p>
+                    <p className={styles.modalSubtitle}>Upload a CSV file to create students or faculty and assign them to a school.</p>
                 </div>
 
                 <div className={styles.form}>
@@ -194,14 +224,30 @@ const BulkImportUsersDialog = ({ isOpen, onClose, currentInstituteId, onSuccess 
                         />
                     </div>
 
-                    <div className={styles.uploadHelpText}>
+                    {!currentInstituteId && (
+                        <div className={styles.field} style={{ marginBottom: '10px' }}>
+                            <label>Assign Users To School</label>
+                            <select
+                                className={styles.select}
+                                value={selectedInstituteId}
+                                onChange={(e) => setSelectedInstituteId(e.target.value)}
+                            >
+                                <option value="" disabled>Select a school...</option>
+                                {schools.map(school => (
+                                    <option key={school.institute_id} value={school.institute_id}>
+                                        {school.institute_name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    )}
+
+                    <div className={styles.uploadHelpText} style={{ marginTop: '0' }}>
                         Expected CSV columns: <b>first_name, last_name, email, role_id</b>
                         <br /><br />
                         For <b>role_id</b>, use: <br />
                         <b>role-004</b> (Student) <br />
-                        <b>role-003</b> (Faculty) <br />
-                        <br />
-                        <i>Note: If assigning globally, add <br /><b>institute_id</b> to your CSV.</i>
+                        <b>role-003</b> (Faculty)
                     </div>
 
                     {error && <div className={styles.errorMessage}>{error}</div>}
@@ -221,8 +267,16 @@ const BulkImportUsersDialog = ({ isOpen, onClose, currentInstituteId, onSuccess 
 const AdminUsers = () => {
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
-    const instituteId = searchParams.get('institute_id');
-    const schoolName = searchParams.get('school_name');
+    const { isInstituteAdmin } = useRole();
+
+    // Attempt to grab instituteId from URL first. If not, and they are an Institute Admin, 
+    // it will still restrict on the frontend to hide PLATFORM_ADMIN users.
+    const urlInstituteId = searchParams.get('institute_id');
+    const urlSchoolName = searchParams.get('school_name');
+
+    const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+    const instituteId = urlInstituteId || (isInstituteAdmin ? userData.institute_id : null);
+    const schoolName = urlSchoolName || (isInstituteAdmin ? userData.institute_name : null);
 
     const [selectedTab, setSelectedTab] = useState(0); // 0: Active, 1: Inactive, 2: Total
     const [searchQuery, setSearchQuery] = useState('');
@@ -245,8 +299,18 @@ const AdminUsers = () => {
             const status = selectedTab === 0 ? 'ACTIVE' : selectedTab === 1 ? 'INACTIVE' : null;
             const response = await adminService.getUsers(status, 1, 50, instituteId);
             if (response.out_status === 'SUCCESS') {
-                setUsers(response.user_list || []);
+                let userList = response.user_list || [];
+
+                // If user is Institute Admin, filter out PLATFORM_ADMIN globally
+                if (isInstituteAdmin) {
+                    userList = userList.filter(u => u.role_display_name !== 'PLATFORM_ADMIN');
+                }
+
+                setUsers(userList);
+
                 if (response.user_counts && response.user_counts.length > 0) {
+                    // Quick patch: we aren't re-calculating exact total sizes if PLATFORM_ADMINs are removed 
+                    // from the raw count endpoint, but for Institute Admins it won't matter when instituteId is properly passed.
                     setCounts({
                         active: response.user_counts[0].active_users || 0,
                         inactive: response.user_counts[0].archived_users || 0,

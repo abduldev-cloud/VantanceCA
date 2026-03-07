@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     TrendingUp,
     TrendingDown,
@@ -17,6 +17,7 @@ import {
 } from 'recharts';
 import MainLayout from '../../components/layout/MainLayout';
 import TitleBar from '../../components/layout/TitleBar';
+import adminService from '../../services/adminService';
 import styles from './AdminAnalytics.module.css';
 
 const AdminAnalytics = () => {
@@ -26,29 +27,27 @@ const AdminAnalytics = () => {
     const [grade, setGrade] = useState('All');
     const [classFilter, setClassFilter] = useState('All');
 
-    const kpis = [
-        { title: 'Writing Fingerprint', sub: 'Average Deviation', value: '12.4%', trend: 'up' },
-        { title: 'Writing Fingerprint', sub: 'Total', value: '1,560', trend: 'up' },
-        { title: 'Writing Fingerprint', sub: 'Average Deviation', value: '12.4%', trend: 'up' },
-        { title: 'Writing Fingerprint', sub: 'Total', value: '1,560', trend: 'up' },
-        { title: 'AI Prompt Used', sub: 'Average', value: '4.2', trend: 'down' },
-        { title: 'AI Prompt Used', sub: 'Total', value: '12.4k', trend: 'up' }
-    ];
+    const [isLoading, setIsLoading] = useState(true);
+    const [kpis, setKpis] = useState([]);
+    const [chartData, setChartData] = useState([]);
 
-    const chartData = [
-        { name: 'Jan', value: 30 },
-        { name: 'Feb', value: 45 },
-        { name: 'Mar', value: 60 },
-        { name: 'Apr', value: 25 },
-        { name: 'May', value: 80 },
-        { name: 'Jun', value: 50 },
-        { name: 'Jul', value: 65 },
-        { name: 'Aug', value: 35 },
-        { name: 'Sep', value: 75 },
-        { name: 'Oct', value: 90 },
-        { name: 'Nov', value: 55 },
-        { name: 'Dec', value: 70 }
-    ];
+    useEffect(() => {
+        const loadAnalytics = async () => {
+            setIsLoading(true);
+            try {
+                const res = await adminService.getAnalytics();
+                if (res.success) {
+                    setKpis(res.kpis);
+                    setChartData(res.chartData);
+                }
+            } catch (err) {
+                console.error("Failed to load analytics: ", err);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        loadAnalytics();
+    }, []);
 
     return (
         <MainLayout>

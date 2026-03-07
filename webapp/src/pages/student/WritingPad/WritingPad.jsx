@@ -20,11 +20,17 @@ const WritingPad = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [lastSavedTime, setLastSavedTime] = useState('Not saved yet');
 
+    const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+    const learnerId = userData.role_entity_id;
+
     useEffect(() => {
         const fetchTask = async () => {
-            if (!taskId) return;
+            if (!taskId) {
+                setIsLoading(false);
+                return;
+            }
             try {
-                const response = await studentService.getAssignmentDetails(taskId);
+                const response = await studentService.getAssignmentDetails(taskId, learnerId);
                 if (response.success) {
                     const data = response.data;
                     setTaskData({
@@ -34,12 +40,16 @@ const WritingPad = () => {
                         prompt: data.task_description,
                         dueDate: data.due_date ? new Date(data.due_date).toLocaleDateString() : 'No due date',
                         dueTime: data.due_date ? new Date(data.due_date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '',
-                        targetWords: 500, // Default if not in DB
-                        learnerName: JSON.parse(localStorage.getItem('userData') || '{}').username || 'Student',
+                        targetWords: 500,
+                        learnerName: `${userData.first_name || ''} ${userData.last_name || ''}`.trim() || 'Student',
                         className: data.class_name,
                         gradeName: data.grade_name || 'N/A',
                         taskType: data.task_type || 'ASSIGNMENT',
                     });
+                    // Load previously saved content if any
+                    if (data.submission_text) {
+                        setContent(data.submission_text);
+                    }
                 }
             } catch (err) {
                 console.error('Error fetching task:', err);
@@ -48,7 +58,7 @@ const WritingPad = () => {
             }
         };
         fetchTask();
-    }, [taskId]);
+    }, [taskId, learnerId]);
 
     const handleSubmit = async () => {
         if (!taskData?.learnerTaskId) return;

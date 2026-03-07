@@ -33,18 +33,33 @@ const AdminDashboard = () => {
         systemUptime: '99.9%',
         anomalies: []
     });
+    const [analytics, setAnalytics] = useState({
+        kpis: [],
+        chartData: []
+    });
     const [error, setError] = useState('');
 
     useEffect(() => {
         const fetchStats = async () => {
             try {
-                const response = await adminService.getStats();
-                if (response.success) {
+                const [statsRes, analyticsRes] = await Promise.all([
+                    adminService.getStats(),
+                    adminService.getAnalytics()
+                ]);
+
+                if (statsRes.success) {
                     setStatsData({
-                        activeStudents: response.data.active_students,
-                        totalSchools: response.data.total_schools,
-                        systemUptime: response.data.system_uptime,
-                        anomalies: response.data.anomalies || []
+                        activeStudents: statsRes.data.active_students,
+                        totalSchools: statsRes.data.total_schools,
+                        systemUptime: statsRes.data.system_uptime,
+                        anomalies: statsRes.data.anomalies || []
+                    });
+                }
+
+                if (analyticsRes.success) {
+                    setAnalytics({
+                        kpis: analyticsRes.kpis,
+                        chartData: analyticsRes.chartData
                     });
                 }
             } catch (err) {
@@ -63,27 +78,11 @@ const AdminDashboard = () => {
         { title: 'System Uptime', value: statsData.systemUptime, color: '#CB6CE6' }
     ];
 
-    const aiUsageKPIs = [
-        { title: 'Writing Fingerprint', sub: 'Average Deviation', value: '12.4%', trend: 'up' },
-        { title: 'Writing Fingerprint', sub: 'Total Alerts', value: statsData.anomalies.length.toString(), trend: 'up' },
-        { title: 'AI Prompt Used', sub: 'Average', value: '4.2', trend: 'down' },
-        { title: 'AI Prompt Used', sub: 'Total', value: '12.4k', trend: 'up' }
+    const aiUsageKPIs = analytics.kpis.length > 0 ? analytics.kpis : [
+        { title: 'AI Stats', sub: 'Status', value: 'Loading...', trend: 'up' }
     ];
 
-    const chartData = [
-        { name: 'Jan', value: 40 },
-        { name: 'Feb', value: 30 },
-        { name: 'Mar', value: 65 },
-        { name: 'Apr', value: 45 },
-        { name: 'May', value: 90 },
-        { name: 'Jun', value: 55 },
-        { name: 'Jul', value: 70 },
-        { name: 'Aug', value: 40 },
-        { name: 'Sep', value: 80 },
-        { name: 'Oct', value: 95 },
-        { name: 'Nov', value: 60 },
-        { name: 'Dec', value: 75 }
-    ];
+    const chartData = analytics.chartData.length > 0 ? analytics.chartData : [];
 
     if (isLoading) {
         return (

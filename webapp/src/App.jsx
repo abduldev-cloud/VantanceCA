@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { RoleProvider } from './hooks/useRole';
 import LoginPage from './pages/auth/LoginPage';
@@ -29,9 +29,28 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminSchools from './pages/admin/AdminSchools';
 import AdminUsers from './pages/admin/AdminUsers';
 import AdminAnalytics from './pages/admin/AdminAnalytics';
+import AdminDictionary from './pages/admin/AdminDictionary';
+import AdminSecurityLogs from './pages/admin/AdminSecurityLogs';
+import AdminApiQuotas from './pages/admin/AdminApiQuotas';
 import './styles/global.css';
 
 function App() {
+    useEffect(() => {
+        try {
+            const data = localStorage.getItem('userData');
+            if (data) {
+                const parsed = JSON.parse(data);
+                if (parsed.primary_color) {
+                    document.documentElement.style.setProperty('--primary-color', parsed.primary_color);
+                } else {
+                    document.documentElement.style.setProperty('--primary-color', '#004AAD'); // generic platform default
+                }
+            }
+        } catch (e) {
+            console.error('Failed to parse userData for branding', e);
+        }
+    }, [window.location.pathname]);
+
     return (
         <RoleProvider>
             <Router>
@@ -53,6 +72,9 @@ function App() {
                     <Route path="/admin/dashboard" element={<AdminDashboard />} />
                     <Route path="/admin/school" element={<AdminSchools />} />
                     <Route path="/admin/user" element={<AdminUsers />} />
+                    <Route path="/admin/dictionary" element={<AdminDictionary />} />
+                    <Route path="/admin/security" element={<AdminSecurityLogs />} />
+                    <Route path="/admin/api-quotas" element={<AdminApiQuotas />} />
                     <Route path="/admin/analytics" element={<AdminAnalytics />} />
 
                     {/* Student Routes */}

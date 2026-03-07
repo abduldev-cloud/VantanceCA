@@ -8,7 +8,9 @@ import {
     Eye,
     X,
     FolderUp,
-    RefreshCw
+    RefreshCw,
+    Palette,
+    Image as ImageIcon
 } from 'lucide-react';
 import MainLayout from '../../components/layout/MainLayout';
 import TitleBar from '../../components/layout/TitleBar';
@@ -150,11 +152,108 @@ const BulkImportSchoolsDialog = ({ isOpen, onClose, onSuccess }) => {
     );
 };
 
+const BrandingDialog = ({ isOpen, onClose, school, onSuccess }) => {
+    const [primaryColor, setPrimaryColor] = useState('#0A8041');
+    const [logoFile, setLogoFile] = useState(null);
+    const [isSaving, setIsSaving] = useState(false);
+
+    useEffect(() => {
+        if (school) {
+            setPrimaryColor(school.primary_color || '#0A8041');
+            setLogoFile(null);
+        }
+    }, [school]);
+
+    if (!isOpen || !school) return null;
+
+    const handleSave = async () => {
+        setIsSaving(true);
+        try {
+            const formData = new FormData();
+            formData.append('primary_color', primaryColor);
+            if (logoFile) {
+                formData.append('logo', logoFile);
+            }
+            const res = await adminService.updateSchoolBranding(school.institute_id, formData);
+            if (res.out_status === 'SUCCESS') {
+                onSuccess("Branding updated successfully!");
+                onClose();
+            }
+        } catch (err) {
+            console.error('Failed to update branding:', err);
+            alert('Failed to update branding. Check console.');
+        } finally {
+            setIsSaving(false);
+        }
+    };
+
+    return (
+        <div className={styles.overlay}>
+            <div className={styles.modal}>
+                <button className={styles.btnClose} onClick={onClose}><X size={20} /></button>
+                <div className={styles.modalHeader}>
+                    <h2 className={styles.modalTitle}>School Branding</h2>
+                    <p className={styles.modalSubtitle}>Customize appearance for {school.institute_name}</p>
+                </div>
+                <div className={styles.form}>
+                    <div className={styles.field}>
+                        <label>Primary Theme Color</label>
+                        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                            <input
+                                type="color"
+                                value={primaryColor}
+                                onChange={(e) => setPrimaryColor(e.target.value)}
+                                style={{ width: '50px', height: '40px', padding: 0, border: 'none', cursor: 'pointer', borderRadius: '4px' }}
+                            />
+                            <input
+                                type="text"
+                                className={styles.input}
+                                value={primaryColor}
+                                onChange={(e) => setPrimaryColor(e.target.value)}
+                                style={{ flex: 1 }}
+                            />
+                        </div>
+                    </div>
+
+                    <div className={styles.field}>
+                        <label>School Logo</label>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                            {school.logo_url && !logoFile && (
+                                <img src={`http://localhost:8000${school.logo_url}`} alt="current logo" style={{ height: '40px', objectFit: 'contain' }} />
+                            )}
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => setLogoFile(e.target.files[0])}
+                                style={{ display: 'none' }}
+                                id={`logo-upload-${school.institute_id}`}
+                            />
+                            <label htmlFor={`logo-upload-${school.institute_id}`} className={styles.btnSecondary} style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', margin: 0 }}>
+                                <ImageIcon size={16} />
+                                {logoFile ? logoFile.name : 'Choose Logo Image'}
+                            </label>
+                        </div>
+                    </div>
+
+                    <div className={styles.modalFooter} style={{ marginTop: '20px' }}>
+                        <button className={styles.btnSecondary} onClick={onClose} disabled={isSaving}>Cancel</button>
+                        <button className={styles.btnPrimary} onClick={handleSave} disabled={isSaving}>
+                            {isSaving ? 'Saving...' : 'Save Branding'}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 const AdminSchools = () => {
     const navigate = useNavigate();
     const [selectedTab, setSelectedTab] = useState(0); // 0: Active, 1: Archived
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isBulkImportOpen, setIsBulkImportOpen] = useState(false);
+    const [isBrandingOpen, setIsBrandingOpen] = useState(false);
+    const [selectedSchoolForBranding, setSelectedSchoolForBranding] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [schools, setSchools] = useState([]);
     const [toastMessage, setToastMessage] = useState('');
@@ -294,13 +393,26 @@ const AdminSchools = () => {
                                     </div>
                                 </div>
 
-                                <button
-                                    className={styles.viewDetailsButton}
-                                    onClick={() => handleViewDetails(school)}
-                                >
-                                    <Eye size={20} />
-                                    <span>View Users</span>
-                                </button>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                    <button
+                                        className={styles.viewDetailsButton}
+                                        onClick={() => handleViewDetails(school)}
+                                    >
+                                        <Eye size={18} />
+                                        <span>View Users</span>
+                                    </button>
+                                    <button
+                                        className={styles.viewDetailsButton}
+                                        onClick={() => {
+                                            setSelectedSchoolForBranding(school);
+                                            setIsBrandingOpen(true);
+                                        }}
+                                        style={{ background: '#F8FAFC', color: '#334155', border: '1px solid #E2E8F0' }}
+                                    >
+                                        <Palette size={18} />
+                                        <span>Branding</span>
+                                    </button>
+                                </div>
                             </div>
                         ))
                     )}
@@ -313,7 +425,16 @@ const AdminSchools = () => {
                 onClose={() => setIsBulkImportOpen(false)}
                 onSuccess={handleBulkImportSuccess}
             />
-        </MainLayout>
+            <BrandingDialog
+                isOpen={isBrandingOpen}
+                school={selectedSchoolForBranding}
+                onClose={() => {
+                    setIsBrandingOpen(false);
+                    setSelectedSchoolForBranding(null);
+                }}
+                onSuccess={handleBulkImportSuccess}
+            />
+        </MainLayout >
     );
 };
 

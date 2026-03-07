@@ -1,0 +1,177 @@
+.container {
+    padding: 24px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.introBox {
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.introBox h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #1E293B;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.introBox p {
+    margin: 0;
+    font-size: 14px;
+    color: #64748B;
+    line-height: 1.5;
+    max-width: 800px;
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.statCard {
+    background: white;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.statTitle {
+    font-size: 14px;
+    font-weight: 500;
+    color: #64748B;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.statValue {
+    font-size: 32px;
+    font-weight: 700;
+    color: #0F172A;
+}
+
+.tableContainer {
+    background: white;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th {
+    background: #F8FAFC;
+    padding: 16px 24px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 600;
+    color: #475569;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid #E2E8F0;
+}
+
+.table td {
+    padding: 20px 24px;
+    font-size: 14px;
+    color: #334155;
+    border-bottom: 1px solid #E2E8F0;
+    vertical-align: middle;
+}
+
+.table tr:last-child td {
+    border-bottom: none;
+}
+
+.schoolName {
+    font-weight: 600;
+    color: #0F172A;
+    font-size: 15px;
+}
+
+.demoBadge {
+    display: inline-block;
+    padding: 2px 8px;
+    background: #F1F5F9;
+    color: #64748B;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+.progressBarContainer {
+    width: 100%;
+    height: 8px;
+    background: #F1F5F9;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 8px;
+}
+
+.progressBar {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.progressLabel {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #64748B;
+    font-weight: 500;
+}
+
+.statusNormal {
+    color: #059669;
+}
+
+.statusWarning {
+    color: #D97706;
+}
+
+.statusCritical {
+    color: #DC2626;
+}
+
+.alertBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badgeNormal {
+    background: #D1FAE5;
+    color: #065F46;
+}
+
+.badgeWarning {
+    background: #FEF3C7;
+    color: #92400E;
+}
+
+.badgeCritical {
+    background: #FEE2E2;
+    color: #991B1B;
+}

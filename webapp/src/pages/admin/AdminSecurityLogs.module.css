@@ -1,0 +1,156 @@
+.container {
+    padding: 24px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.introBox {
+    background: #FAFAFA;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.introBox h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #111827;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.introBox p {
+    margin: 0;
+    font-size: 14px;
+    color: #6B7280;
+    line-height: 1.5;
+}
+
+.tableContainer {
+    background: white;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th {
+    background: #F9FAFB;
+    padding: 12px 24px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 500;
+    color: #6B7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid #E5E7EB;
+}
+
+.table td {
+    padding: 16px 24px;
+    font-size: 14px;
+    color: #374151;
+    border-bottom: 1px solid #E5E7EB;
+    vertical-align: top;
+}
+
+.table tr:last-child td {
+    border-bottom: none;
+}
+
+.table tr:hover {
+    background: #F9FAFB;
+}
+
+.timeCell {
+    color: #6B7280;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.userCell {
+    font-weight: 500;
+    color: #111827;
+}
+
+.roleBadge {
+    display: inline-block;
+    padding: 2px 8px;
+    background: #E0E7FF;
+    color: #4338CA;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+.actionCell {
+    font-family: monospace;
+    color: #047857;
+    background: #D1FAE5;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    display: inline-block;
+}
+
+.descCell {
+    color: #4B5563;
+    line-height: 1.5;
+}
+
+.ipCell {
+    color: #9CA3AF;
+    font-family: monospace;
+    font-size: 12px;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    background: #F9FAFB;
+    border-top: 1px solid #E5E7EB;
+}
+
+.pageInfo {
+    font-size: 14px;
+    color: #6B7280;
+}
+
+.pageControls {
+    display: flex;
+    gap: 8px;
+}
+
+.pageBtn {
+    padding: 8px 16px;
+    border: 1px solid #D1D5DB;
+    background: white;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #374151;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.pageBtn:hover:not(:disabled) {
+    background: #F3F4F6;
+    border-color: #9CA3AF;
+}
+
+.pageBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

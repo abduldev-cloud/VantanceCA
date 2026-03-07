@@ -15,7 +15,9 @@ import {
     ChevronLeft,
     ChevronRight,
     LogOut,
-    User
+    User,
+    Shield,
+    Activity
 } from 'lucide-react';
 import authService from '../../services/authService';
 import { useRole } from '../../hooks/useRole';
@@ -66,7 +68,17 @@ const Sidebar = () => {
             { title: 'Dashboard', icon: <LayoutDashboard size={20} />, path: '/admin/dashboard' },
             { title: 'Schools', icon: <BookOpen size={20} />, path: '/admin/school' },
             { title: 'Users', icon: <User size={20} />, path: '/admin/user' },
-            // { title: 'Analytics', icon: <BarChart2 size={20} />, path: '/admin/analytics' },
+            { title: 'Dictionary', icon: <ClipboardList size={20} />, path: '/admin/dictionary' },
+            { title: 'Security', icon: <Shield size={20} />, path: '/admin/security' },
+            { title: 'API Quotas', icon: <Activity size={20} />, path: '/admin/api-quotas' },
+            { type: 'spacer' },
+            { title: 'Settings', icon: <Settings size={20} />, path: '/school/setting' },
+            { title: 'Help', icon: <HelpCircle size={20} />, path: '/admin/faqs' },
+        ],
+        institute_admin: [
+            { title: 'Dashboard', icon: <LayoutDashboard size={20} />, path: '/admin/dashboard' },
+            { title: 'Schools', icon: <BookOpen size={20} />, path: '/admin/school' },
+            { title: 'Users', icon: <User size={20} />, path: '/admin/user' },
             { type: 'spacer' },
             { title: 'Settings', icon: <Settings size={20} />, path: '/school/setting' },
             { title: 'Help', icon: <HelpCircle size={20} />, path: '/admin/faqs' },
@@ -77,9 +89,11 @@ const Sidebar = () => {
         ? menuItems.teacher
         : isStudent
             ? menuItems.student
-            : isPlatformAdmin || isInstituteAdmin
+            : isPlatformAdmin
                 ? menuItems.platform_admin
-                : [];
+                : isInstituteAdmin
+                    ? menuItems.institute_admin
+                    : [];
 
     const toggleSidebar = () => {
         const newState = !isCondensed;
@@ -87,13 +101,27 @@ const Sidebar = () => {
         localStorage.setItem('sidebarCondensed', newState.toString());
     };
 
+    let customLogoUrl = null;
+    try {
+        const data = localStorage.getItem('userData');
+        if (data) {
+            const parsed = JSON.parse(data);
+            if (parsed.logo_url) {
+                customLogoUrl = `http://localhost:8000${parsed.logo_url}`;
+            }
+        }
+    } catch (e) {
+        // use default
+    }
+
     return (
         <div className={`${styles.sidebar} ${isCondensed ? styles.condensed : ''}`}>
             <div className={styles.logoSection} onClick={toggleSidebar}>
                 <img
-                    src={isCondensed ? LogoCircle : Logo}
+                    src={customLogoUrl ? customLogoUrl : (isCondensed ? LogoCircle : Logo)}
                     alt="Logo"
                     className={styles.logo}
+                    style={customLogoUrl ? { objectFit: 'contain', maxHeight: '45px', width: 'auto' } : {}}
                 />
             </div>
 
