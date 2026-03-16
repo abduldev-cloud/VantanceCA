@@ -37,7 +37,8 @@ const StudentPractices = () => {
                         dueDate: new Date(item.due_date).toLocaleDateString(),
                         duration: '00:10:00', // Mock duration as it's not in DB
                         frequency: 'Once',
-                        status: item.status // e.g., 'ASSIGNED', 'SUBMITTED', 'GRADED'
+                        status: item.status, // e.g., 'ASSIGNED', 'SUBMITTED', 'GRADED'
+                        hasProgress: !!item.submission_text
                     }));
                     setPractices(mapped);
                 }
@@ -125,9 +126,16 @@ const StudentPractices = () => {
 
                             <button
                                 className={styles.startBtn}
-                                onClick={() => navigate(`/student/writingpad?id=${practice.id}`)}
+                                onClick={() => {
+                                    if (practice.status === 'GRADED' || practice.status === 'SUBMITTED') {
+                                        navigate('/student/result');
+                                    } else {
+                                        navigate(`/student/writingpad?id=${practice.id}`);
+                                    }
+                                }}
                             >
-                                Start Practices
+                                {practice.status === 'GRADED' || practice.status === 'SUBMITTED' ? 'Review Work' :
+                                    (practice.hasProgress ? 'Continue Writing' : 'Start Practice')}
                             </button>
                         </div>
                     ))

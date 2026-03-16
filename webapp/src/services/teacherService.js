@@ -171,6 +171,40 @@ const teacherService = {
         } catch (error) {
             throw error;
         }
+    },
+
+    submitGrade: async (learnerTaskId, grade, feedback = '') => {
+        try {
+            const response = await api.post('/db/assignments/grade', {
+                learner_task_id: learnerTaskId,
+                score: grade,
+                feedback: feedback
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Error submitting grade:', error);
+            throw error;
+        }
+    },
+
+    getChatHistory: async (learnerTaskId) => {
+        try {
+            const response = await api.get(`/db/assignments/${learnerTaskId}/chat`);
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching chat history:', error);
+            throw error;
+        }
+    },
+
+    autoGrade: async (learnerTaskId) => {
+        try {
+            const response = await api.post(`/db/assignments/${learnerTaskId}/auto-grade`);
+            return response.data;
+        } catch (error) {
+            console.error('Error auto-grading submission:', error);
+            throw error;
+        }
     }
 };
 

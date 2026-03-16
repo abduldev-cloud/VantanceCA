@@ -1,10 +1,12 @@
 import api from '../utils/api';
 
 const studentService = {
-    getAssignments: async (learnerId) => {
+    getAssignments: async (learnerId, classId = null) => {
         try {
+            const params = { learner_id: learnerId };
+            if (classId) params.class_id = classId;
             const response = await api.get(`/db/assignments`, {
-                params: { learner_id: learnerId }
+                params
             });
             return response.data;
         } catch (error) {
@@ -39,6 +41,19 @@ const studentService = {
         }
     },
 
+    saveAssignmentDraft: async (learnerTaskId, content) => {
+        try {
+            const response = await api.post('/db/assignments/save_draft', {
+                learner_task_id: learnerTaskId,
+                content
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Error saving assignment draft:', error);
+            throw error;
+        }
+    },
+
     getClasses: async (learnerId) => {
         try {
             const response = await api.get(`/db/classes/learner/${learnerId}`);
@@ -55,6 +70,26 @@ const studentService = {
             return response.data;
         } catch (error) {
             console.error('Error fetching grade levels:', error);
+            throw error;
+        }
+    },
+
+    getChatHistory: async (learnerTaskId) => {
+        try {
+            const response = await api.get(`/db/assignments/${learnerTaskId}/chat`);
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching chat history:', error);
+            throw error;
+        }
+    },
+
+    sendChatMessage: async (learnerTaskId, message) => {
+        try {
+            const response = await api.post(`/db/assignments/${learnerTaskId}/chat`, { message });
+            return response.data;
+        } catch (error) {
+            console.error('Error sending chat message:', error);
             throw error;
         }
     }
