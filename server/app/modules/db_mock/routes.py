@@ -9,6 +9,7 @@ from app.core.logger import logger
 from app.core.database_mysql import get_mysql_connection
 from typing import Dict, List, Any, Optional
 from datetime import datetime
+from app.core.ai_service import ai_service
 
 router = APIRouter(prefix="/db", tags=["Database Mock"])
 
@@ -592,6 +593,51 @@ async def get_assignment_by_id(task_id: str, learner_id: Optional[str] = None):
             assignment = cursor.fetchone()
             if not assignment:
                 raise HTTPException(status_code=404, detail="Assignment not found")
+            
+            # If learner_id was provided but no learner_task_id was found,
+            # we check if the student is actually enrolled in this class.
+            # If they are, we'll auto-assign it (useful for late enrollments).
+            if learner_id and not assignment.get('learner_task_id'):
+                # Check enrollment
+                cursor.execute("""
+                    SELECT enrollment_id FROM BINARY_SUCCESS_ENROLLMENTS 
+                    WHERE learner_id = %s AND class_id = %s AND status = 'ACTIVE'
+                """, (learner_id, assignment['class_id']))
+                enrollment = cursor.fetchone()
+                
+                if enrollment:
+                    logger.info(f"Auto-assigning task {task_id} to student {learner_id}")
+                    # Get ASSIGNED status_id
+                    cursor.execute("SELECT status_id FROM BINARY_SUCCESS_TASK_STATUSES WHERE status = 'ASSIGNED'")
+                    status_row = cursor.fetchone()
+                    status_id = status_row['status_id'] if status_row else "taskstatus-001"
+                    
+                    # Create the record
+                    new_learner_task_id = f"ltask-{uuid.uuid4().hex[:12]}"
+                    cursor.execute("""
+                        INSERT INTO BINARY_SUCCESS_LEARNER_TASKS (learner_task_id, task_id, learner_id, status_id, assigned_at)
+                        VALUES (%s, %s, %s, %s, %s)
+                    """, (new_learner_task_id, task_id, learner_id, status_id, datetime.now()))
+                    conn.commit()
+                    
+                    # Re-fetch the full joined record
+                    cursor.execute("""
+                        SELECT tt.*, ttype.task_type, c.class_name,
+                            u.first_name AS teacher_first_name, u.last_name AS teacher_last_name,
+                            lt.learner_task_id, lt.status_id AS learner_status_id, 
+                            lt.score, lt.submitted_at, lt.submission_text,
+                            ts.status AS learner_status
+                        FROM BINARY_SUCCESS_TEACHER_TASKS tt
+                        JOIN BINARY_SUCCESS_TASK_TYPES ttype ON tt.task_type_id = ttype.task_type_id
+                        LEFT JOIN BINARY_SUCCESS_CLASSES c ON tt.class_id = c.class_id
+                        LEFT JOIN BINARY_SUCCESS_TEACHERS t ON tt.teacher_id = t.teacher_id
+                        LEFT JOIN BINARY_SUCCESS_PLATFORM_USERS u ON t.user_id = u.user_id
+                        LEFT JOIN BINARY_SUCCESS_LEARNER_TASKS lt ON tt.task_id = lt.task_id AND lt.learner_id = %s
+                        LEFT JOIN BINARY_SUCCESS_TASK_STATUSES ts ON lt.status_id = ts.status_id
+                        WHERE tt.task_id = %s
+                    """, (learner_id, task_id))
+                    assignment = cursor.fetchone()
+
             return {"success": True, "data": assignment}
         finally:
             cursor.close()
@@ -611,11 +657,13 @@ async def get_assignment_submissions(task_id: str):
         cursor = conn.cursor(dictionary=True)
         try:
             cursor.execute("""
-                SELECT lt.*, ts.status, l.learner_code, u.first_name, u.last_name, u.email
+                SELECT lt.*, ts.status, l.learner_code, u.first_name, u.last_name, u.email,
+                       tt.task_title
                 FROM BINARY_SUCCESS_LEARNER_TASKS lt
                 JOIN BINARY_SUCCESS_TASK_STATUSES ts ON lt.status_id = ts.status_id
                 JOIN BINARY_SUCCESS_LEARNERS l ON lt.learner_id = l.learner_id
                 JOIN BINARY_SUCCESS_PLATFORM_USERS u ON l.user_id = u.user_id
+                JOIN BINARY_SUCCESS_TEACHER_TASKS tt ON lt.task_id = tt.task_id
                 WHERE lt.task_id = %s
                 ORDER BY lt.submitted_at DESC
             """, (task_id,))
@@ -2054,6 +2102,219 @@ async def submit_assignment(request: Request):
             conn.close()
     except Exception as e:
         logger.error(f"Error submitting assignment: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/assignments/save_draft")
+async def save_assignment_draft(request: Request):
+    """Save an assignment draft without submitting it"""
+    try:
+        data = await request.json()
+        
+        learner_task_id = data.get("learner_task_id")
+        content = data.get("content")
+        
+        if not learner_task_id:
+            raise HTTPException(status_code=400, detail="Missing learner_task_id")
+            
+        conn = get_mysql_connection()
+        cursor = conn.cursor(dictionary=True)
+        
+        try:
+            # Check if task is already in progress, if not set it to IN_PROGRESS
+            # Get current status
+            cursor.execute("SELECT status_id FROM BINARY_SUCCESS_LEARNER_TASKS WHERE learner_task_id = %s", (learner_task_id,))
+            user_task = cursor.fetchone()
+            
+            if not user_task:
+                raise HTTPException(status_code=404, detail="Learner task not found")
+                
+            # Get status IDs
+            cursor.execute("SELECT status_id, status FROM BINARY_SUCCESS_TASK_STATUSES WHERE status IN ('ASSIGNED', 'IN_PROGRESS')")
+            status_map = {row['status']: row['status_id'] for row in cursor.fetchall()}
+            
+            status_id = user_task['status_id']
+            if status_id == status_map.get('ASSIGNED'):
+                status_id = status_map.get('IN_PROGRESS')
+                
+            # Update learner task with content
+            cursor.execute("""
+                UPDATE BINARY_SUCCESS_LEARNER_TASKS 
+                SET submission_text = %s, status_id = %s
+                WHERE learner_task_id = %s
+            """, (content, status_id, learner_task_id))
+            
+            conn.commit()
+            return {"success": True, "message": "Draft saved successfully", "status": "IN_PROGRESS"}
+        finally:
+            cursor.close()
+            conn.close()
+    except Exception as e:
+        logger.error(f"Error saving draft: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/assignments/grade")
+async def submit_grade(request: Request):
+    """Submit score and feedback for a learner task"""
+    try:
+        data = await request.json()
+        learner_task_id = data.get("learner_task_id")
+        score = data.get("score")
+        feedback = data.get("feedback", "")
+        
+        if not learner_task_id:
+            raise HTTPException(status_code=400, detail="Missing learner_task_id")
+            
+        conn = get_mysql_connection()
+        cursor = conn.cursor(dictionary=True)
+        
+        try:
+            # Get GRADED status_id
+            cursor.execute("SELECT status_id FROM BINARY_SUCCESS_TASK_STATUSES WHERE status = 'GRADED'")
+            status_row = cursor.fetchone()
+            graded_status_id = status_row['status_id'] if status_row else "taskstatus-004"
+            
+            # Update learner task
+            cursor.execute("""
+                UPDATE BINARY_SUCCESS_LEARNER_TASKS 
+                SET score = %s, feedback = %s, status_id = %s, graded_at = %s
+                WHERE learner_task_id = %s
+            """, (score, feedback, graded_status_id, datetime.now(), learner_task_id))
+            
+            conn.commit()
+            return {"success": True, "message": "Grade submitted successfully"}
+        finally:
+            cursor.close()
+            conn.close()
+    except Exception as e:
+        logger.error(f"Error submitting grade: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/assignments/{learner_task_id}/chat")
+async def get_chat_history(learner_task_id: str):
+    """Get chat history for a specific learner task"""
+    try:
+        conn = get_mysql_connection()
+        cursor = conn.cursor(dictionary=True)
+        try:
+            cursor.execute("""
+                SELECT message_id, sender, message_content, created_at
+                FROM BINARY_SUCCESS_AIC_MESSAGES
+                WHERE learner_task_id = %s
+                ORDER BY created_at ASC
+            """, (learner_task_id,))
+            messages = cursor.fetchall()
+            return {"success": True, "data": messages}
+        finally:
+            cursor.close()
+            conn.close()
+    except Exception as e:
+        logger.error(f"Error loading chat history: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/assignments/{learner_task_id}/chat")
+async def send_chat_message(learner_task_id: str, request: Request):
+    """Send a message to AI and get a response"""
+    try:
+        data = await request.json()
+        message = data.get("message")
+        
+        if not message:
+            raise HTTPException(status_code=400, detail="Message is required")
+            
+        conn = get_mysql_connection()
+        cursor = conn.cursor(dictionary=True)
+        try:
+            # 1. Fetch Task Context
+            cursor.execute("""
+                SELECT tt.task_title, tt.task_description 
+                FROM BINARY_SUCCESS_TEACHER_TASKS tt
+                JOIN BINARY_SUCCESS_LEARNER_TASKS lt ON tt.task_id = lt.task_id
+                WHERE lt.learner_task_id = %s
+            """, (learner_task_id,))
+            task = cursor.fetchone()
+            task_context = f"Task Title: {task['task_title']}\nDescription: {task['task_description']}" if task else "Generic Writing Task"
+
+            # 2. Fetch Chat History (for context)
+            cursor.execute("""
+                SELECT sender, message_content 
+                FROM BINARY_SUCCESS_AIC_MESSAGES 
+                WHERE learner_task_id = %s 
+                ORDER BY created_at ASC 
+                LIMIT 10
+            """, (learner_task_id,))
+            history = cursor.fetchall()
+
+            # 3. Save student message
+            student_msg_id = f"msg-{uuid.uuid4().hex[:12]}"
+            cursor.execute("""
+                INSERT INTO BINARY_SUCCESS_AIC_MESSAGES (message_id, learner_task_id, sender, message_content)
+                VALUES (%s, %s, 'STUDENT', %s)
+            """, (student_msg_id, learner_task_id, message))
+            
+            # 4. Get REAL AI Response
+            ai_response = await ai_service.get_chat_response(message, context=task_context, history=history)
+            
+            # 5. Save AI response
+            ai_msg_id = f"msg-{uuid.uuid4().hex[:12]}"
+            cursor.execute("""
+                INSERT INTO BINARY_SUCCESS_AIC_MESSAGES (message_id, learner_task_id, sender, message_content)
+                VALUES (%s, %s, 'AI', %s)
+            """, (ai_msg_id, learner_task_id, ai_response))
+            
+            conn.commit()
+            
+            return {
+                "success": True, 
+                "student_message": {"message_id": student_msg_id, "sender": "STUDENT", "content": message},
+                "ai_response": {"message_id": ai_msg_id, "sender": "AI", "content": ai_response}
+            }
+        finally:
+            cursor.close()
+            conn.close()
+    except Exception as e:
+        logger.error(f"Error sending chat message: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/assignments/{learner_task_id}/auto-grade")
+async def auto_grade_submission(learner_task_id: str):
+    """Trigger AI automated grading for a specific submission"""
+    try:
+        conn = get_mysql_connection()
+        cursor = conn.cursor(dictionary=True)
+        try:
+            # 1. Fetch Task Context & Student Submission
+            cursor.execute("""
+                SELECT tt.task_title, tt.task_description, lt.submission_text
+                FROM BINARY_SUCCESS_TEACHER_TASKS tt
+                JOIN BINARY_SUCCESS_LEARNER_TASKS lt ON tt.task_id = lt.task_id
+                WHERE lt.learner_task_id = %s
+            """, (learner_task_id,))
+            data = cursor.fetchone()
+            
+            if not data or not data['submission_text']:
+                raise HTTPException(status_code=400, detail="Submission text not found.")
+            
+            task_context = f"Title: {data['task_title']}\nDescription: {data['task_description']}"
+            submission_text = data['submission_text']
+            
+            # 2. Get AI Grade
+            ai_result = await ai_service.get_auto_grade(submission_text, task_context)
+            
+            return {
+                "success": True, 
+                "score": ai_result.get("score", 0),
+                "feedback": ai_result.get("feedback", "No feedback generated.")
+            }
+        finally:
+            cursor.close()
+            conn.close()
+    except Exception as e:
+        logger.error(f"Error in auto-grading: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 
