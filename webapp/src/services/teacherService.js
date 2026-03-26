@@ -205,6 +205,56 @@ const teacherService = {
             console.error('Error auto-grading submission:', error);
             throw error;
         }
+    },
+
+    getCalendarEvents: async (teacherId) => {
+        try {
+            const response = await api.get(`/db/teacher/${teacherId}/calendar-events`);
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching calendar events:', error);
+            throw error;
+        }
+    },
+
+    getReminders: async (teacherId) => {
+        try {
+            const response = await api.get(`/db/teacher/${teacherId}/reminders`);
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching reminders:', error);
+            throw error;
+        }
+    },
+
+    createReminder: async (teacherId, reminderData) => {
+        try {
+            const response = await api.post(`/db/teacher/${teacherId}/reminders`, reminderData);
+            return response.data;
+        } catch (error) {
+            console.error('Error creating reminder:', error);
+            throw error;
+        }
+    },
+
+    deleteReminder: async (reminderId) => {
+        try {
+            const response = await api.delete(`/db/reminders/${reminderId}`);
+            return response.data;
+        } catch (error) {
+            console.error('Error deleting reminder:', error);
+            throw error;
+        }
+    },
+
+    toggleReminder: async (reminderId) => {
+        try {
+            const response = await api.put(`/db/reminders/${reminderId}/toggle`);
+            return response.data;
+        } catch (error) {
+            console.error('Error toggling reminder:', error);
+            throw error;
+        }
     }
 };
 

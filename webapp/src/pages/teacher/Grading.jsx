@@ -8,6 +8,7 @@ import {
     Eye,
     Bell
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import MainLayout from '../../components/layout/MainLayout';
 import TitleBar from '../../components/layout/TitleBar';
 import Typography from '../../components/common/Typography';
@@ -22,6 +23,8 @@ const Grading = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState('');
     const [assignments, setAssignments] = useState([]);
+    const [rawSubmissions, setRawSubmissions] = useState([]);
+    const navigate = useNavigate();
 
     const userData = JSON.parse(localStorage.getItem('userData') || '{}');
     const teacherId = userData.role_entity_id;
@@ -37,13 +40,14 @@ const Grading = () => {
             try {
                 const response = await teacherService.getAllSubmissions(teacherId);
                 if (response.success) {
+                    setRawSubmissions(response.data || []);
                     const mapped = response.data.map(item => ({
                         id: item.learner_task_id,
                         studentName: `${item.first_name} ${item.last_name}`,
                         hasFingerprint: (item.fingerprint_count || 0) > 0,
                         assignmentTitle: item.task_title,
                         submittedDate: item.submitted_at ? new Date(item.submitted_at).toLocaleString() : '-',
-                        wordCount: '850', // Mock word count
+                        wordCount: item.submission_text ? item.submission_text.replace(/<[^>]*>/g, '').split(/\s+/).filter(w => w).length : 0,
                         grade: item.score !== null ? `${item.score}/100` : '-',
                         status: item.status.toLowerCase()
                     }));
@@ -60,7 +64,7 @@ const Grading = () => {
         fetchSubmissions();
     }, [teacherId]);
 
-    const pendingCount = assignments.filter(a => a.status === 'submitted' || a.status === 'pending').length;
+    const pendingCount = assignments.filter(a => a.status === 'submitted').length;
     const gradedCount = assignments.filter(a => a.status === 'graded').length;
 
     const stats = [
@@ -71,7 +75,7 @@ const Grading = () => {
 
     const filteredItems = assignments.filter(item => {
         const matchesSearch = item.studentName.toLowerCase().includes(searchQuery.toLowerCase());
-        if (selectedTab === 0) return matchesSearch && item.status === 'pending';
+        if (selectedTab === 0) return matchesSearch && item.status === 'submitted';
         if (selectedTab === 1) return matchesSearch && item.status === 'graded';
         return matchesSearch;
     });
@@ -149,14 +153,26 @@ const Grading = () => {
                                     <div>{item.wordCount}</div>
                                     <div>{item.grade}</div>
                                     <div>
-                                        {(item.status === 'pending' || item.status === 'submitted') && (
-                                            <button className={`${styles.actionButton} ${styles.btnReview}`}>
+                                        {(item.status === 'submitted') && (
+                                            <button 
+                                                className={`${styles.actionButton} ${styles.btnReview}`}
+                                                onClick={() => {
+                                                    const raw = rawSubmissions.find(s => s.learner_task_id === item.id);
+                                                    navigate('/teacher/grading-review', { state: { submission: raw } });
+                                                }}
+                                            >
                                                 <Eye size={16} />
                                                 Review
                                             </button>
                                         )}
                                         {item.status === 'graded' && (
-                                            <button className={`${styles.actionButton} ${styles.btnView}`}>
+                                            <button 
+                                                className={`${styles.actionButton} ${styles.btnView}`}
+                                                onClick={() => {
+                                                    const raw = rawSubmissions.find(s => s.learner_task_id === item.id);
+                                                    navigate('/teacher/grading-review', { state: { submission: raw } });
+                                                }}
+                                            >
                                                 <Eye size={16} />
                                                 View
                                             </button>
