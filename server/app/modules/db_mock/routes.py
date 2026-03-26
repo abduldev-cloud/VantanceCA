@@ -255,6 +255,8 @@ async def get_teacher_submissions(teacher_id: str):
                     ts.status,
                     lt.submitted_at,
                     lt.score,
+                    lt.feedback,
+                    lt.submission_text,
                     lt.deviation_percentage,
                     (SELECT COUNT(*) FROM BINARY_SUCCESS_WRITING_FINGERPRINTS wf WHERE wf.learner_id = lt.learner_id) as fingerprint_count
                 FROM BINARY_SUCCESS_LEARNER_TASKS lt
@@ -2315,6 +2317,224 @@ async def auto_grade_submission(learner_task_id: str):
             conn.close()
     except Exception as e:
         logger.error(f"Error in auto-grading: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/teacher/{teacher_id}/calendar-events")
+async def get_calendar_events(teacher_id: str, month: Optional[int] = None, year: Optional[int] = None):
+    """Get calendar events for a teacher - includes due dates, submissions, grading"""
+    try:
+        conn = get_mysql_connection()
+        cursor = conn.cursor(dictionary=True)
+        try:
+            # 1. Assignment due dates
+            cursor.execute("""
+                SELECT 
+                    tt.task_id, tt.task_title, tt.due_date, tt.created_at,
+                    c.class_name, c.class_id,
+                    ttype.task_type,
+                    COUNT(DISTINCT lt.learner_task_id) as submission_count,
+                    COUNT(DISTINCT CASE WHEN ts.status = 'GRADED' THEN lt.learner_task_id END) as graded_count,
+                    (SELECT COUNT(*) FROM BINARY_SUCCESS_ENROLLMENTS e WHERE e.class_id = tt.class_id AND e.status = 'ACTIVE') as student_count
+                FROM BINARY_SUCCESS_TEACHER_TASKS tt
+                JOIN BINARY_SUCCESS_TASK_TYPES ttype ON tt.task_type_id = ttype.task_type_id
+                LEFT JOIN BINARY_SUCCESS_CLASSES c ON tt.class_id = c.class_id
+                LEFT JOIN BINARY_SUCCESS_LEARNER_TASKS lt ON tt.task_id = lt.task_id
+                LEFT JOIN BINARY_SUCCESS_TASK_STATUSES ts ON lt.status_id = ts.status_id
+                WHERE tt.teacher_id = %s
+                GROUP BY tt.task_id
+                ORDER BY tt.due_date ASC
+            """, (teacher_id,))
+            assignments = cursor.fetchall()
+
+            events = []
+            for a in assignments:
+                # Due date event
+                if a['due_date']:
+                    events.append({
+                        "date": a['due_date'].strftime('%Y-%m-%d') if hasattr(a['due_date'], 'strftime') else str(a['due_date'])[:10],
+                        "type": "deadline",
+                        "title": a['task_title'],
+                        "class_name": a['class_name'] or 'N/A',
+                        "task_id": a['task_id'],
+                        "task_type": a['task_type'],
+                        "submission_count": a['submission_count'],
+                        "student_count": a['student_count'],
+                        "graded_count": a['graded_count'],
+                        "color": "#EF4444"
+                    })
+                # Created date event
+                if a['created_at']:
+                    events.append({
+                        "date": a['created_at'].strftime('%Y-%m-%d') if hasattr(a['created_at'], 'strftime') else str(a['created_at'])[:10],
+                        "type": "created",
+                        "title": f"Created: {a['task_title']}",
+                        "class_name": a['class_name'] or 'N/A',
+                        "task_id": a['task_id'],
+                        "task_type": a['task_type'],
+                        "color": "#3B82F6"
+                    })
+
+            # 2. Submission events
+            cursor.execute("""
+                SELECT 
+                    lt.submitted_at, lt.graded_at,
+                    tt.task_title, tt.task_id,
+                    u.first_name, u.last_name,
+                    c.class_name
+                FROM BINARY_SUCCESS_LEARNER_TASKS lt
+                JOIN BINARY_SUCCESS_TEACHER_TASKS tt ON lt.task_id = tt.task_id
+                JOIN BINARY_SUCCESS_TASK_STATUSES ts ON lt.status_id = ts.status_id
+                JOIN BINARY_SUCCESS_LEARNERS l ON lt.learner_id = l.learner_id
+                JOIN BINARY_SUCCESS_PLATFORM_USERS u ON l.user_id = u.user_id
+                LEFT JOIN BINARY_SUCCESS_CLASSES c ON tt.class_id = c.class_id
+                WHERE tt.teacher_id = %s AND lt.submitted_at IS NOT NULL
+                ORDER BY lt.submitted_at DESC
+            """, (teacher_id,))
+            submissions = cursor.fetchall()
+
+            for s in submissions:
+                if s['submitted_at']:
+                    events.append({
+                        "date": s['submitted_at'].strftime('%Y-%m-%d') if hasattr(s['submitted_at'], 'strftime') else str(s['submitted_at'])[:10],
+                        "type": "submission",
+                        "title": f"{s['first_name']} {s['last_name']} submitted",
+                        "class_name": s['class_name'] or 'N/A',
+                        "task_id": s['task_id'],
+                        "task_title": s['task_title'],
+                        "color": "#F59E0B"
+                    })
+                if s['graded_at']:
+                    events.append({
+                        "date": s['graded_at'].strftime('%Y-%m-%d') if hasattr(s['graded_at'], 'strftime') else str(s['graded_at'])[:10],
+                        "type": "graded",
+                        "title": f"Graded: {s['first_name']} {s['last_name']}",
+                        "class_name": s['class_name'] or 'N/A',
+                        "task_id": s['task_id'],
+                        "task_title": s['task_title'],
+                        "color": "#10B981"
+                    })
+
+            return {"success": True, "data": events, "count": len(events)}
+        finally:
+            cursor.close()
+            conn.close()
+    except Exception as e:
+        logger.error(f"Error fetching calendar events: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ============================================================================
+# REMINDERS ENDPOINTS
+# ============================================================================
+
+@router.get("/teacher/{teacher_id}/reminders")
+async def get_reminders(teacher_id: str):
+    """Get all reminders for a teacher"""
+    try:
+        conn = get_mysql_connection()
+        cursor = conn.cursor(dictionary=True)
+        try:
+            cursor.execute("""
+                SELECT reminder_id, teacher_id, reminder_date, reminder_title, 
+                       reminder_description, reminder_type, color, is_completed, created_at
+                FROM BINARY_SUCCESS_REMINDERS 
+                WHERE teacher_id = %s 
+                ORDER BY reminder_date ASC
+            """, (teacher_id,))
+            reminders = cursor.fetchall()
+            # Convert date objects to strings
+            for r in reminders:
+                if r.get('reminder_date'):
+                    r['reminder_date'] = r['reminder_date'].strftime('%Y-%m-%d') if hasattr(r['reminder_date'], 'strftime') else str(r['reminder_date'])
+                if r.get('created_at'):
+                    r['created_at'] = r['created_at'].isoformat() if hasattr(r['created_at'], 'isoformat') else str(r['created_at'])
+                if r.get('is_completed') is not None:
+                    r['is_completed'] = bool(r['is_completed'])
+            return {"success": True, "data": reminders, "count": len(reminders)}
+        finally:
+            cursor.close()
+            conn.close()
+    except Exception as e:
+        logger.error(f"Error fetching reminders: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/teacher/{teacher_id}/reminders")
+async def create_reminder(teacher_id: str, request: Request):
+    """Create a new reminder"""
+    try:
+        data = await request.json()
+        title = data.get("title")
+        date = data.get("date")
+        description = data.get("description", "")
+        reminder_type = data.get("type", "personal")
+        color = data.get("color", "#6366F1")
+
+        if not title or not date:
+            raise HTTPException(status_code=400, detail="Title and date are required.")
+
+        reminder_id = f"rem-{uuid.uuid4().hex[:12]}"
+
+        conn = get_mysql_connection()
+        cursor = conn.cursor()
+        try:
+            cursor.execute("""
+                INSERT INTO BINARY_SUCCESS_REMINDERS 
+                (reminder_id, teacher_id, reminder_date, reminder_title, reminder_description, reminder_type, color)
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
+            """, (reminder_id, teacher_id, date, title, description, reminder_type, color))
+            conn.commit()
+            return {
+                "success": True, 
+                "reminder_id": reminder_id,
+                "message": "Reminder created successfully."
+            }
+        finally:
+            cursor.close()
+            conn.close()
+    except Exception as e:
+        logger.error(f"Error creating reminder: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.delete("/reminders/{reminder_id}")
+async def delete_reminder(reminder_id: str):
+    """Delete a reminder"""
+    try:
+        conn = get_mysql_connection()
+        cursor = conn.cursor()
+        try:
+            cursor.execute("DELETE FROM BINARY_SUCCESS_REMINDERS WHERE reminder_id = %s", (reminder_id,))
+            conn.commit()
+            return {"success": True, "message": "Reminder deleted."}
+        finally:
+            cursor.close()
+            conn.close()
+    except Exception as e:
+        logger.error(f"Error deleting reminder: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.put("/reminders/{reminder_id}/toggle")
+async def toggle_reminder(reminder_id: str):
+    """Toggle a reminder's completed status"""
+    try:
+        conn = get_mysql_connection()
+        cursor = conn.cursor()
+        try:
+            cursor.execute("""
+                UPDATE BINARY_SUCCESS_REMINDERS 
+                SET is_completed = NOT is_completed 
+                WHERE reminder_id = %s
+            """, (reminder_id,))
+            conn.commit()
+            return {"success": True, "message": "Reminder toggled."}
+        finally:
+            cursor.close()
+            conn.close()
+    except Exception as e:
+        logger.error(f"Error toggling reminder: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 
