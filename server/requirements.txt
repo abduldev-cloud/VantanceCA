@@ -16,3 +16,5 @@ lxml
 pyparsing
 mysql-connector-python
 google-generativeai
+oracledb
+PyJWT
