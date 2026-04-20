@@ -1,8 +1,8 @@
 .container {
-    padding: 24px 40px;
+    padding: 32px 40px;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 32px;
 }
 
 .topSection {
@@ -12,58 +12,65 @@
 }
 
 .alertsCard {
-    background: white;
-    border: 1px solid #EEE;
-    border-radius: 25px;
-    padding: 12px;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    width: 140px;
+    gap: 12px;
+    width: 160px;
     cursor: pointer;
-    transition: transform 0.2s;
+    transition: var(--transition-normal);
+    box-shadow: var(--shadow-md);
 }
 
 .alertsCard:hover {
-    transform: translateY(-2px);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: #EF4444;
 }
 
 .alertsIcon {
-    width: 50px;
-    height: 50px;
+    width: 48px;
+    height: 48px;
+    color: #EF4444;
 }
 
 .alertsText {
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
-    color: #004AAD;
+    color: var(--text-primary);
     text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .guideCard {
     flex: 1;
-    background: white;
-    border: 1px solid #EEE;
-    border-radius: 20px;
-    padding: 20px 22px;
+    background: rgba(var(--secondary-rgb), 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 28px;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
 }
 
 .guideTitle {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 700;
-    color: #142228;
+    font-family: var(--font-outfit);
+    color: var(--text-primary);
 }
 
 .guideText {
     font-size: 14px;
     font-weight: 400;
-    color: #142228;
-    line-height: 1.5;
+    color: var(--text-secondary);
+    line-height: 1.6;
 }
 
 /* List Items */

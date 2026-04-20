@@ -1,131 +1,169 @@
 .sidebar {
-    width: 260px;
-    height: 100vh;
-    background: white;
+    width: 280px;
+    height: calc(100vh - 32px);
+    background: var(--surface-color);
+    margin: 16px;
+    border-radius: var(--radius-lg);
     display: flex;
     flex-direction: column;
-    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 4px 0 30px rgba(0, 0, 0, 0.05);
+    transition: width var(--transition-normal);
+    box-shadow: var(--shadow-lg);
     position: sticky;
-    top: 0;
+    top: 16px;
     z-index: 100;
     overflow: hidden;
+    border: 1px solid var(--border-color);
 }
 
 .condensed {
-    width: 70px;
+    width: 80px;
 }
 
 .logoSection {
-    height: 80px;
+    height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 12px;
+    padding: 0 24px;
     cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.logoSection:hover {
+    opacity: 0.8;
 }
 
 .logo {
-    max-height: 40px;
+    max-height: 50px;
+    width: auto;
     object-fit: contain;
 }
 
 .nav {
     flex: 1;
-    padding: 24px 12px;
+    padding: 12px;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
+    overflow-y: auto;
 }
 
 .navItem {
-    height: 48px;
+    height: 46px;
     display: flex;
     align-items: center;
-    padding: 0 12px;
-    border-radius: 8px;
+    padding: 0 16px;
+    border-radius: var(--radius-md);
     cursor: pointer;
-    color: #667085;
-    transition: all 0.2s;
+    color: var(--text-secondary);
+    transition: var(--transition-normal);
     white-space: nowrap;
+    position: relative;
 }
 
 .navItem:hover {
-    background: rgba(0, 0, 0, 0.04);
-    color: #000;
+    background: var(--surface-hover);
+    color: var(--secondary);
 }
 
 .active {
-    background: rgba(0, 0, 0, 0.04);
-    color: #000;
+    background: rgba(var(--secondary-rgb), 0.08);
+    color: var(--secondary);
     font-weight: 600;
+}
+
+.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 25%;
+    height: 50%;
+    width: 4px;
+    background: var(--secondary);
+    border-radius: 0 4px 4px 0;
 }
 
 .icon {
     width: 24px;
     display: flex;
     justify-content: center;
+    transition: var(--transition-fast);
+}
+
+.navItem:hover .icon {
+    transform: scale(1.1);
 }
 
 .title {
-    margin-left: 16px;
+    margin-left: 12px;
     font-size: 14px;
+    font-family: var(--font-outfit);
 }
 
 .spacer {
-    flex: 1;
+    height: 24px;
 }
 
 .userProfile {
-    padding: 16px 12px;
-    border-top: 1px solid #F0F0F0;
+    padding: 24px 16px;
+    background: var(--surface-hover);
+    border-top: 1px solid var(--border-color);
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
 .avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: #F2F2F2;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    box-shadow: 0 4px 8px rgba(var(--secondary-rgb), 0.2);
 }
 
 .userInfo {
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 .userName {
     font-size: 14px;
     font-weight: 600;
-    color: black;
+    color: var(--text-primary);
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .userId {
     font-size: 11px;
-    color: #667085;
+    color: var(--text-muted);
 }
 
 .logoutBtn {
     margin-left: auto;
-    background: transparent;
-    border: none;
-    color: #98A2B3;
-    padding: 8px;
-    border-radius: 6px;
+    background: white;
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: var(--transition-fast);
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: var(--shadow-sm);
 }
 
 .logoutBtn:hover {
-    background: #FEF3F2;
-    color: #D92D20;
-}
+    background: #FFF5F5;
+    color: #FF4D4D;
+    border-color: #FFD6D6;
+    transform: scale(1.05);
+}

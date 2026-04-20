@@ -4,21 +4,35 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.4);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 1000;
+    backdrop-filter: blur(12px);
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .modal {
-    background: white;
-    border-radius: 25px;
-    padding: 35px;
+    background: var(--surface-color);
+    border-radius: var(--radius-lg);
+    padding: 40px;
     width: 90%;
-    max-width: 500px;
+    max-width: 520px;
     position: relative;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-lg), 0 32px 64px rgba(0, 0, 0, 0.2);
+    animation: modalSlide 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalSlide {
+    from { opacity: 0; transform: translateY(20px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .btnClose {
@@ -33,19 +47,20 @@
 
 .header {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 32px;
 }
 
 .header h2 {
-    font-size: 24px;
-    font-weight: 600;
-    color: #142228;
+    font-size: 28px;
+    font-weight: 800;
+    font-family: var(--font-outfit);
+    color: var(--text-primary);
     margin: 0;
 }
 
 .header p {
-    font-size: 14px;
-    color: #666;
+    font-size: 15px;
+    color: var(--text-secondary);
     margin-top: 8px;
 }
 
@@ -63,23 +78,28 @@
 
 .field label {
     font-size: 14px;
-    font-weight: 500;
-    color: #142228;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .input,
 .select {
     padding: 12px 16px;
-    border: 1px solid #D0D5DD;
-    border-radius: 10px;
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: var(--surface-color);
+    color: var(--text-primary);
     font-size: 14px;
     outline: none;
-    transition: border-color 0.2s;
+    transition: var(--transition-fast);
 }
 
 .input:focus,
 .select:focus {
-    border-color: #004AAD;
+    border-color: var(--secondary);
+    box-shadow: 0 0 0 4px rgba(var(--secondary-rgb), 0.1);
 }
 
 .row {

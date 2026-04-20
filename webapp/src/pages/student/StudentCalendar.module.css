@@ -1,66 +1,84 @@
 .header {
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 
 .calendarCard {
-    background: white;
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    background: var(--surface-color);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    box-shadow: var(--shadow-lg);
     min-height: 600px;
     display: flex;
     flex-direction: column;
+    border: 1px solid var(--border-color);
 }
 
 .calendarHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 24px;
+    margin-bottom: 32px;
 }
 
 .navControls {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 20px;
 }
 
 .navBtn {
-    background: none;
-    border: none;
+    background: var(--surface-hover);
+    border: 1px solid var(--border-color);
     cursor: pointer;
-    color: #616161;
+    color: var(--text-primary);
     display: flex;
     align-items: center;
-    padding: 4px;
+    padding: 8px;
+    border-radius: var(--radius-sm);
+    transition: var(--transition-fast);
+}
+
+.navBtn:hover {
+    background: var(--border-color);
+    color: var(--secondary);
 }
 
 .currentMonth {
-    font-size: 16px;
-    font-weight: 500;
-    color: #1A1A1A;
+    font-size: 20px;
+    font-weight: 800;
+    font-family: var(--font-outfit);
+    color: var(--text-primary);
 }
 
 .viewTabs {
     display: flex;
-    gap: 8px;
+    gap: 12px;
+    background: var(--surface-hover);
+    padding: 6px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border-color);
 }
 
 .tabBtn {
-    padding: 8px 16px;
-    border-radius: 20px;
-    border: 1px solid #E0E0E0;
-    background: none;
+    padding: 8px 20px;
+    border-radius: var(--radius-full);
+    border: none;
+    background: transparent;
     font-size: 14px;
-    color: #616161;
+    font-weight: 600;
+    color: var(--text-muted);
     cursor: pointer;
-    transition: all 0.2s;
+    transition: var(--transition-fast);
+}
+
+.tabBtn:hover {
+    color: var(--text-primary);
 }
 
 .activeTab {
-    border-color: #8E8E93;
-    color: #8E8E93;
-    font-weight: 600;
+    background: var(--surface-color);
+    color: var(--secondary);
+    box-shadow: var(--shadow-sm);
 }
 
 .calendarGrid {
@@ -72,14 +90,16 @@
 .weekHeader {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    margin-bottom: 12px;
+    margin-bottom: 16px;
 }
 
 .weekDay {
     text-align: center;
-    font-size: 13px;
-    font-weight: 600;
-    color: #757575;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
     padding: 8px;
 }
 
@@ -87,42 +107,55 @@
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     flex: 1;
+    gap: 1px;
+    background: var(--border-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    overflow: hidden;
 }
 
 .day,
 .dayEmpty {
-    min-height: 100px;
-    border: 0.5px solid #F0F0F0;
-    padding: 8px;
+    min-height: 110px;
+    background: var(--surface-color);
+    padding: 12px;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
+    transition: var(--transition-fast);
+}
+
+.day:hover {
+    background: var(--surface-hover);
 }
 
 .day span {
     font-size: 14px;
-    color: black;
+    font-weight: 600;
+    color: var(--text-primary);
 }
 
 .today span {
-    background: #2196F3;
+    background: var(--secondary);
     color: white;
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(var(--secondary-rgb), 0.3);
 }
 
 .eventMarker {
-    background: #EEECFF;
-    color: #6155F5;
+    background: rgba(var(--secondary-rgb), 0.1);
+    color: var(--secondary);
     font-size: 11px;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    font-weight: 700;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    border: 1px solid rgba(var(--secondary-rgb), 0.1);
 }

@@ -1,8 +1,14 @@
 /* ===== LAYOUT ===== */
 .calendarLayout {
     display: flex;
-    gap: 20px;
-    padding: 0 0 40px;
+    gap: 24px;
+    padding-bottom: 40px;
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .calendarMain {
@@ -11,10 +17,10 @@
 }
 
 .sidebar {
-    width: 300px;
+    width: 320px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 20px;
     flex-shrink: 0;
 }
 
@@ -27,77 +33,86 @@
 
 .statCard {
     flex: 1;
-    background: white;
-    border-radius: 16px;
-    padding: 18px 20px;
-    border: 1px solid #F1F5F9;
-    transition: transform 0.15s, box-shadow 0.15s;
+    background: var(--surface-color);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    border: 1px solid var(--border-color);
+    transition: var(--transition-normal);
+    box-shadow: var(--shadow-md);
 }
 
 .statCard:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--secondary);
 }
 
 .statValue {
-    font-size: 28px;
-    font-weight: 700;
+    font-size: 32px;
+    font-weight: 800;
+    font-family: var(--font-outfit);
+    color: var(--text-primary);
     line-height: 1.2;
 }
 
 .statLabel {
-    font-size: 12px;
-    font-weight: 500;
-    color: #64748B;
-    margin-top: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 6px;
 }
 
 /* ===== CALENDAR CARD ===== */
 .calendarCard {
-    background: white;
-    border-radius: 20px;
-    padding: 24px;
-    border: 1px solid #F1F5F9;
+    background: var(--surface-color);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-lg);
 }
 
 .calendarHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 32px;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 16px;
 }
 
 .navControls {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 16px;
 }
 
 .navBtn {
-    background: #F8FAFC;
-    border: 1px solid #E2E8F0;
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
+    background: var(--surface-hover);
+    border: 1px solid var(--border-color);
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    color: #334155;
-    transition: all 0.15s;
+    color: var(--text-primary);
+    transition: var(--transition-fast);
 }
 
 .navBtn:hover {
-    background: #F1F5F9;
-    border-color: #CBD5E1;
+    background: var(--border-color);
+    color: var(--secondary);
+    transform: scale(1.05);
 }
 
 .currentMonth {
-    font-size: 20px;
-    font-weight: 700;
-    color: #0F172A;
+    font-size: 24px;
+    font-weight: 800;
+    font-family: var(--font-outfit);
+    color: var(--text-primary);
 }
 
 .headerRight {
@@ -107,33 +122,38 @@
 }
 
 /* ===== FILTER CHIPS ===== */
-.filterChips {
-    display: flex;
-    gap: 6px;
+.filterCard {
+    background: var(--surface-hover);
+    padding: 4px;
+    border-radius: var(--radius-full);
 }
 
 .filterChip {
     display: flex;
     align-items: center;
-    gap: 5px;
-    padding: 5px 12px;
-    border-radius: 20px;
-    border: 1px solid #E2E8F0;
-    font-size: 12px;
-    font-weight: 500;
-    background: white;
-    color: #64748B;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border-color);
+    font-size: 13px;
+    font-weight: 600;
+    background: var(--surface-color);
+    color: var(--text-secondary);
     cursor: pointer;
-    transition: all 0.15s;
+    transition: var(--transition-fast);
 }
 
 .filterChip:hover {
-    border-color: #CBD5E1;
-    background: #F8FAFC;
+    border-color: var(--secondary);
+    color: var(--secondary);
+    transform: translateY(-1px);
 }
 
 .filterChipActive {
-    border-color: transparent;
+    background: var(--secondary);
+    color: white;
+    border-color: var(--secondary);
+    box-shadow: 0 4px 12px rgba(var(--secondary-rgb), 0.2);
 }
 
 .chipDot {
@@ -146,52 +166,53 @@
 /* ===== VIEW TABS ===== */
 .viewTabs {
     display: flex;
-    background: #F1F5F9;
-    padding: 3px;
-    border-radius: 10px;
-    gap: 2px;
+    background: var(--surface-hover);
+    padding: 4px;
+    border-radius: var(--radius-md);
+    gap: 4px;
 }
 
 .tabBtn {
-    padding: 6px 14px;
-    border-radius: 8px;
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
     border: none;
-    font-size: 13px;
-    font-weight: 500;
-    background: transparent;
-    color: #64748B;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    transition: all 0.15s;
-}
-
-.tabBtn:hover {
-    color: #334155;
-}
-
-.activeTab {
-    background: white;
-    color: #0F172A;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-}
-
-.todayBtn {
-    padding: 6px 14px;
-    border-radius: 8px;
-    border: 1px solid #004AAD;
     font-size: 13px;
     font-weight: 600;
     background: transparent;
-    color: #004AAD;
+    color: var(--text-muted);
     cursor: pointer;
-    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: var(--transition-fast);
+}
+
+.tabBtn:hover {
+    color: var(--text-primary);
+}
+
+.activeTab {
+    background: var(--surface-color);
+    color: var(--secondary);
+    box-shadow: var(--shadow-sm);
+}
+
+.todayBtn {
+    padding: 8px 20px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--secondary);
+    font-size: 13px;
+    font-weight: 700;
+    background: transparent;
+    color: var(--secondary);
+    cursor: pointer;
+    transition: var(--transition-fast);
 }
 
 .todayBtn:hover {
-    background: #004AAD;
+    background: var(--secondary);
     color: white;
+    box-shadow: 0 4px 12px rgba(var(--secondary-rgb), 0.2);
 }
 
 /* ===== CALENDAR GRID ===== */
@@ -203,17 +224,18 @@
 .weekHeader {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    border-bottom: 2px solid #F1F5F9;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--surface-hover);
 }
 
 .weekDay {
-    padding: 10px;
+    padding: 16px;
     text-align: center;
     font-size: 12px;
-    font-weight: 600;
-    color: #94A3B8;
+    font-weight: 700;
+    color: var(--text-muted);
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1.5px;
 }
 
 .daysGrid {
@@ -231,61 +253,67 @@
 }
 
 .day {
-    min-height: 100px;
-    padding: 6px 8px;
+    min-height: 120px;
+    padding: 12px;
     display: flex;
     flex-direction: column;
-    gap: 3px;
-    border: 1px solid #F8FAFC;
+    gap: 8px;
+    border: 1px solid var(--border-color);
     cursor: pointer;
-    transition: background 0.1s;
+    transition: var(--transition-fast);
     position: relative;
+    background: var(--surface-color);
+}
+
+.dayEmail {
+    background: var(--surface-hover);
 }
 
 .day:hover {
-    background: #F8FAFC;
+    background: var(--surface-hover);
+    z-index: 2;
+    box-shadow: var(--shadow-md);
 }
 
 .daySelected {
-    background: #EFF6FF !important;
-    border-color: #BFDBFE !important;
+    background: rgba(var(--secondary-rgb), 0.05) !important;
+    border-color: var(--secondary) !important;
+    z-index: 3;
 }
 
 .dayHasEvents {
-    background: #FEFCE8;
+    background: rgba(var(--primary-rgb), 0.02);
 }
 
 .dayEmpty {
-    background: #FAFBFC;
+    background: var(--surface-hover);
+    opacity: 0.5;
     cursor: default;
 }
 
-.dayEmpty:hover {
-    background: #FAFBFC;
-}
-
 .dayNumber {
-    font-size: 13px;
-    font-weight: 500;
-    color: #334155;
-    width: 26px;
-    height: 26px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    width: 28px;
+    height: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .todayCircle {
-    width: 26px;
-    height: 26px;
-    background: #004AAD;
+    width: 28px;
+    height: 28px;
+    background: var(--secondary);
     color: white;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 13px;
+    font-weight: 800;
+    box-shadow: 0 4px 8px rgba(var(--secondary-rgb), 0.3);
 }
 
 /* ===== EVENT PILLS ===== */
@@ -298,14 +326,21 @@
 }
 
 .eventPill {
-    padding: 2px 6px;
-    border-radius: 4px;
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
     overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-fast);
+}
+
+.eventPill:hover {
+    transform: scale(1.02);
+    box-shadow: var(--shadow-md);
 }
 
 .eventPillText {
-    font-size: 10px;
-    font-weight: 600;
+    font-size: 11px;
+    font-weight: 700;
     color: white;
     white-space: nowrap;
     overflow: hidden;
@@ -314,10 +349,11 @@
 }
 
 .moreEvents {
-    font-size: 10px;
-    color: #64748B;
-    font-weight: 500;
-    padding: 1px 4px;
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 700;
+    padding: 4px;
+    text-align: center;
 }
 
 /* ===== SCHEDULE VIEW ===== */
@@ -434,17 +470,18 @@
 
 /* ===== SIDEBAR CARDS ===== */
 .sidebarCard {
-    background: white;
-    border-radius: 16px;
-    padding: 18px;
-    border: 1px solid #F1F5F9;
+    background: var(--surface-color);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
 }
 
 .sidebarCardHeader {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 14px;
+    margin-bottom: 18px;
 }
 
 .sidebarCardHeader h3 {
@@ -571,74 +608,77 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    gap: 8px;
     width: 100%;
-    padding: 10px;
-    margin-top: 12px;
-    border: 2px dashed #CBD5E1;
-    border-radius: 10px;
+    padding: 12px;
+    margin-top: 16px;
+    border: 2px dashed var(--border-color);
+    border-radius: var(--radius-md);
     background: transparent;
-    color: #6366F1;
-    font-size: 13px;
-    font-weight: 600;
+    color: var(--secondary);
+    font-size: 14px;
+    font-weight: 700;
     cursor: pointer;
-    transition: all 0.15s;
+    transition: var(--transition-normal);
 }
 
 .addReminderBtn:hover {
-    border-color: #6366F1;
-    background: #EEF2FF;
+    border-color: var(--secondary);
+    background: rgba(var(--secondary-rgb), 0.05);
+    transform: translateY(-2px);
 }
 
 .reminderForm {
-    margin-top: 12px;
-    padding: 14px;
-    background: #FAFBFE;
-    border-radius: 12px;
-    border: 1px solid #E2E8F0;
+    margin-top: 16px;
+    padding: 20px;
+    background: var(--surface-hover);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
 }
 
 .reminderFormTitle {
     display: flex;
     align-items: center;
-    gap: 6px;
-    font-size: 13px;
+    gap: 8px;
+    font-size: 14px;
     font-weight: 700;
-    color: #0F172A;
-    margin-bottom: 10px;
+    font-family: var(--font-outfit);
+    color: var(--text-primary);
+    margin-bottom: 12px;
 }
 
 .reminderInput {
     width: 100%;
-    padding: 8px 12px;
-    border: 1px solid #E2E8F0;
-    border-radius: 8px;
-    font-size: 13px;
+    padding: 10px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
     outline: none;
     box-sizing: border-box;
-    transition: border-color 0.15s;
+    transition: var(--transition-fast);
 }
 
 .reminderInput:focus {
-    border-color: #6366F1;
+    border-color: var(--secondary);
 }
 
 .reminderTextarea {
     width: 100%;
-    padding: 8px 12px;
-    border: 1px solid #E2E8F0;
-    border-radius: 8px;
-    font-size: 13px;
+    padding: 10px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
     outline: none;
     resize: none;
-    margin-top: 8px;
+    margin-top: 10px;
     box-sizing: border-box;
     font-family: inherit;
-    transition: border-color 0.15s;
+    transition: var(--transition-fast);
 }
 
 .reminderTextarea:focus {
-    border-color: #6366F1;
+    border-color: var(--secondary);
 }
 
 .reminderFormRow {
@@ -709,19 +749,20 @@
 
 .saveReminderBtn {
     flex: 1;
-    padding: 8px;
+    padding: 10px;
     border: none;
-    border-radius: 8px;
-    background: #6366F1;
-    font-size: 12px;
-    font-weight: 600;
+    border-radius: var(--radius-sm);
+    background: var(--secondary);
+    font-size: 13px;
+    font-weight: 700;
     color: white;
     cursor: pointer;
-    transition: background 0.15s;
+    transition: var(--transition-fast);
 }
 
 .saveReminderBtn:hover {
-    background: #4F46E5;
+    opacity: 0.9;
+    transform: translateY(-1px);
 }
 
 .saveReminderBtn:disabled {

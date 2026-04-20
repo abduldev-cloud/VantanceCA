@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import AuthLayout from '../../components/layout/AuthLayout';
 import Typography from '../../components/common/Typography';
 import Input from '../../components/common/Input';
@@ -83,7 +83,7 @@ const LoginPage = () => {
                 <Typography variant="bodyMedium" color="#667085" align="center" className={styles.subtitle}>
                     Please enter your details.
                 </Typography>
-                {error && <div style={{ color: '#EF4444', textAlign: 'center', marginTop: '10px', fontSize: '14px' }}>{error}</div>}
+                {error && <div className={styles.error}>{error}</div>}
             </div>
 
             <form onSubmit={handleSubmit} className={styles.form}>
@@ -124,14 +124,14 @@ const LoginPage = () => {
                     Sign in
                 </Button>
 
-                <Button variant="secondary" fullWidth className={styles.googleBtn}>
+                {/* <Button variant="secondary" fullWidth className={styles.googleBtn}>
                     <img src={GoogleLogo} alt="Google" className={styles.googleIcon} />
                     Sign in with Google
-                </Button>
+                </Button> */}
 
                 <div className={styles.footerLinks}>
                     <Typography variant="bodySmall" color="#667085">
-                        Don't have an account? <a href="/auth/register" className={styles.boldLink}>Register</a>
+                        Don't have an account? <Link to="/auth/register" className={styles.boldLink}>Register</Link>
                     </Typography>
                     <Typography variant="bodySmall" color="#667085" className={styles.mt20}>
                         Don't have an access? <a href="#" className={styles.boldLink}>Join Us</a>

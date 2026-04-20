@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { RoleProvider } from './hooks/useRole';
 import LoginPage from './pages/auth/LoginPage';
+import RegisterPage from './pages/auth/RegisterPage';
 import TeacherDashboard from './pages/teacher/Dashboard';
 import TeacherClasses from './pages/teacher/TeacherClasses';
 import TeacherClassDetail from './pages/teacher/TeacherClassDetail';
@@ -56,6 +57,7 @@ function App() {
             <Router>
                 <Routes>
                     <Route path="/auth/login" element={<LoginPage />} />
+                    <Route path="/auth/register" element={<RegisterPage />} />
                     <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
                     <Route path="/teacher/classes" element={<TeacherClasses />} />
                     <Route path="/teacher/classes/:id" element={<TeacherClassDetail />} />

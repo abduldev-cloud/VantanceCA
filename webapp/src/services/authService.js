@@ -15,6 +15,16 @@ const authService = {
         }
     },
 
+    register: async (userData) => {
+        try {
+            const response = await api.post('/users/', userData);
+            return response.data;
+        } catch (error) {
+            console.error('Register error:', error);
+            throw error;
+        }
+    },
+
     getUserDetails: async (userId) => {
         try {
             const response = await api.get(`/db/users/get_user_entity_details/${userId}`);

@@ -1,72 +1,84 @@
 .container {
-    padding: 24px 0;
+    padding: 32px 0;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 32px;
 }
 
 .introBox {
-    background: #F8FAFC;
-    border: 1px solid #E2E8F0;
-    border-radius: 12px;
-    padding: 24px;
+    background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.05) 0%, rgba(var(--secondary-rgb), 0.05) 100%);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 32px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 12px;
 }
 
 .introBox h3 {
     margin: 0;
-    font-size: 18px;
-    color: #1E293B;
+    font-size: 20px;
+    font-weight: 800;
+    font-family: var(--font-outfit);
+    color: var(--primary);
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
 }
 
 .introBox p {
     margin: 0;
-    font-size: 14px;
-    color: #64748B;
-    line-height: 1.5;
-    max-width: 800px;
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 840px;
 }
 
 .statsGrid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    gap: 32px;
 }
 
 .statCard {
-    background: white;
-    border: 1px solid #E2E8F0;
-    border-radius: 12px;
-    padding: 24px;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 32px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 12px;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-normal);
+}
+
+.statCard:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--secondary);
 }
 
 .statTitle {
-    font-size: 14px;
-    font-weight: 500;
-    color: #64748B;
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--text-muted);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 1px;
 }
 
 .statValue {
-    font-size: 32px;
-    font-weight: 700;
-    color: #0F172A;
+    font-size: 36px;
+    font-weight: 800;
+    font-family: var(--font-outfit);
+    color: var(--text-primary);
 }
 
 .tableContainer {
-    background: white;
-    border: 1px solid #E2E8F0;
-    border-radius: 12px;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
     overflow: hidden;
+    box-shadow: var(--shadow-lg);
 }
 
 .table {
@@ -75,22 +87,22 @@
 }
 
 .table th {
-    background: #F8FAFC;
-    padding: 16px 24px;
+    background: var(--surface-hover);
+    padding: 18px 32px;
     text-align: left;
-    font-size: 13px;
-    font-weight: 600;
-    color: #475569;
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--text-muted);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    border-bottom: 1px solid #E2E8F0;
+    letter-spacing: 1px;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .table td {
-    padding: 20px 24px;
+    padding: 24px 32px;
     font-size: 14px;
-    color: #334155;
-    border-bottom: 1px solid #E2E8F0;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-color);
     vertical-align: middle;
 }
 
@@ -99,79 +111,85 @@
 }
 
 .schoolName {
-    font-weight: 600;
-    color: #0F172A;
-    font-size: 15px;
+    font-weight: 800;
+    color: var(--text-primary);
+    font-family: var(--font-outfit);
+    font-size: 16px;
 }
 
 .demoBadge {
     display: inline-block;
-    padding: 2px 8px;
-    background: #F1F5F9;
-    color: #64748B;
-    border-radius: 12px;
-    font-size: 11px;
-    font-weight: 600;
-    margin-left: 8px;
+    padding: 2px 10px;
+    background: var(--surface-hover);
+    color: var(--text-muted);
+    border-radius: var(--radius-full);
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-left: 10px;
     vertical-align: middle;
+    border: 1px solid var(--border-color);
 }
 
 .progressBarContainer {
     width: 100%;
-    height: 8px;
-    background: #F1F5F9;
-    border-radius: 4px;
+    height: 10px;
+    background: var(--surface-hover);
+    border-radius: var(--radius-full);
     overflow: hidden;
-    margin-top: 8px;
+    margin-top: 10px;
+    border: 1px solid var(--border-color);
 }
 
 .progressBar {
     height: 100%;
-    border-radius: 4px;
-    transition: width 0.3s ease, background-color 0.3s ease;
+    border-radius: var(--radius-full);
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .progressLabel {
     display: flex;
     justify-content: space-between;
     font-size: 13px;
-    color: #64748B;
-    font-weight: 500;
+    color: var(--text-muted);
+    font-weight: 700;
 }
 
 .statusNormal {
-    color: #059669;
+    color: var(--success);
 }
 
 .statusWarning {
-    color: #D97706;
+    color: var(--warning);
 }
 
 .statusCritical {
-    color: #DC2626;
+    color: var(--error);
 }
 
 .alertBadge {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .badgeNormal {
-    background: #D1FAE5;
-    color: #065F46;
+    background: rgba(var(--success-rgb), 0.1);
+    color: var(--success);
 }
 
 .badgeWarning {
-    background: #FEF3C7;
-    color: #92400E;
+    background: rgba(var(--warning-rgb), 0.1);
+    color: var(--warning);
 }
 
 .badgeCritical {
-    background: #FEE2E2;
-    color: #991B1B;
+    background: rgba(var(--error-rgb), 0.1);
+    color: var(--error);
 }

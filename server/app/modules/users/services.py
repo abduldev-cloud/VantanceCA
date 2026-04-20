@@ -49,16 +49,65 @@ class UsersService:
 
     async def create_user(self, schema: CreateKeycloakUserSchema):
         try:
-            user_id = await self.keycloak_service.create_user(schema)
+            # Check if we should bypass Keycloak
+            if not self.keycloak_service.base_url or "localhost" in self.keycloak_service.base_url or "127.0.0.1" in self.keycloak_service.base_url:
+                # Insert directly into DB (MySQL)
+                from app.core.database_mysql import get_mysql_connection
+                import uuid
+                
+                conn = get_mysql_connection()
+                cursor = conn.cursor()
+                try:
+                    # Check if user exists
+                    cursor.execute("SELECT 1 FROM BINARY_SUCCESS_PLATFORM_USERS WHERE email = %s OR username = %s", 
+                                (schema.email, schema.username))
+                    if cursor.fetchone():
+                        raise HTTPException(status_code=409, detail="User already exists")
+
+                    user_id = str(uuid.uuid4())
+                    
+                    # Get role_id
+                    cursor.execute("SELECT role_id FROM BINARY_SUCCESS_ROLES WHERE LOWER(role_name) = %s", (schema.role.lower(),))
+                    role_row = cursor.fetchone()
+                    role_id = role_row[0] if role_row else None
+
+                    # Insert user
+                    cursor.execute("""
+                        INSERT INTO BINARY_SUCCESS_PLATFORM_USERS 
+                        (user_id, keycloak_id, username, email, password, first_name, last_name, role_id, enabled)
+                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, 1)
+                    """, (user_id, user_id, schema.username, schema.email, schema.password, 
+                        schema.first_name, schema.last_name, role_id))
+                    
+                    # Also insert into student/teacher stub so they don't crash when querying role_entity_id
+                    if schema.role.lower() == 'learner':
+                        cursor.execute("INSERT INTO BINARY_SUCCESS_LEARNERS (learner_id, user_id) VALUES (%s, %s)", 
+                                    (str(uuid.uuid4()), user_id))
+                    elif schema.role.lower() == 'teacher':
+                        cursor.execute("INSERT INTO BINARY_SUCCESS_TEACHERS (teacher_id, user_id) VALUES (%s, %s)", 
+                                    (str(uuid.uuid4()), user_id))
+                                    
+                    conn.commit()
+                except HTTPException:
+                    raise
+                except Exception as e:
+                    conn.rollback()
+                    raise HTTPException(status_code=500, detail=str(e))
+                finally:
+                    cursor.close()
+                    conn.close()
+                    
+                tokens = {"access_token": "mock-token", "refresh_token": "mock-refresh"}
+            else:
+                user_id = await self.keycloak_service.create_user(schema)
+                tokens = await self.keycloak_service.login_user(schema.username, schema.password)
         except HTTPException as e:
             if e.status_code == 409:
                 raise HTTPException(status_code=409, detail="User already exists in Keycloak")
             raise
 
-        tokens = await self.keycloak_service.login_user(schema.username, schema.password)
-
         return {
-            "message": "User successfully created in Keycloak",
+            "message": "User successfully created in Keycloak (or DB mock)",
             "user_id": user_id,
             "access_token": tokens["access_token"],
             "refresh_token": tokens["refresh_token"]

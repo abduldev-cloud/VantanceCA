@@ -1,31 +1,39 @@
 .tabsRow {
     display: flex;
-    gap: 24px;
+    gap: 16px;
     margin-bottom: 32px;
 }
 
 .tabCard {
     flex: 1;
-    background: white;
+    background: var(--surface-color);
     padding: 24px;
-    border-radius: 20px;
+    border-radius: var(--radius-lg);
     cursor: pointer;
-    transition: all 0.3s ease;
-    border: 1px solid transparent;
+    transition: var(--transition-normal);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
 .tabActive {
-    background: linear-gradient(180deg, #EEECFF 0%, #DBEBFF 100%);
-    box-shadow: none;
+    background: rgba(var(--secondary-rgb), 0.05);
+    border-color: var(--secondary);
+    box-shadow: var(--shadow-md);
 }
 
 .tabTitle {
-    margin-bottom: 8px;
-    color: #7E7E7E;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .tabActive .tabTitle {
-    color: #142228;
+    color: var(--secondary);
 }
 
 .assignmentList {

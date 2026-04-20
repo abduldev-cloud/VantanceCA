@@ -1,91 +1,98 @@
 .displayLarge {
+    font-family: var(--font-outfit);
     font-size: 57px;
     line-height: 64px;
+    font-weight: 800;
 }
 
 .displayMedium {
+    font-family: var(--font-outfit);
     font-size: 45px;
     line-height: 52px;
+    font-weight: 700;
 }
 
 .displaySmall {
+    font-family: var(--font-outfit);
     font-size: 36px;
     line-height: 44px;
+    font-weight: 700;
 }
 
 .headlineLarge {
+    font-family: var(--font-outfit);
     font-size: 32px;
     line-height: 40px;
-    font-weight: 500;
+    font-weight: 700;
 }
 
 .headlineMedium {
+    font-family: var(--font-outfit);
     font-size: 28px;
     line-height: 36px;
-    font-weight: 500;
+    font-weight: 700;
 }
 
 .headlineSmall {
+    font-family: var(--font-outfit);
     font-size: 24px;
     line-height: 32px;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .titleLarge {
+    font-family: var(--font-outfit);
     font-size: 22px;
     line-height: 28px;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .titleMedium {
+    font-family: var(--font-outfit);
     font-size: 16px;
     line-height: 24px;
-    font-weight: 500;
-    letter-spacing: 0.15px;
+    font-weight: 600;
 }
 
 .titleSmall {
+    font-family: var(--font-outfit);
     font-size: 14px;
     line-height: 20px;
-    font-weight: 500;
-    letter-spacing: 0.1px;
+    font-weight: 600;
 }
 
 .labelLarge {
     font-size: 14px;
     line-height: 20px;
-    font-weight: 500;
-    letter-spacing: 0.1px;
+    font-weight: 600;
 }
 
 .labelMedium {
     font-size: 12px;
     line-height: 16px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
+    font-weight: 600;
 }
 
 .labelSmall {
     font-size: 11px;
     line-height: 16px;
     font-weight: 500;
-    letter-spacing: 0.5px;
 }
 
 .bodyLarge {
     font-size: 16px;
-    line-height: 24px;
-    letter-spacing: 0.5px;
+    line-height: 26px;
+    color: var(--text-secondary);
 }
 
 .bodyMedium {
     font-size: 14px;
-    line-height: 20px;
-    letter-spacing: 0.25px;
+    line-height: 22px;
+    color: var(--text-secondary);
 }
 
 .bodySmall {
     font-size: 12px;
-    line-height: 16px;
-    letter-spacing: 0.4px;
+    line-height: 18px;
+    color: var(--text-muted);
 }

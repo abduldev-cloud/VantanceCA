@@ -1,129 +1,158 @@
 .sidebar {
-    width: 21vw;
-    background-color: #E8F0FE;
+    width: 22vw;
+    background-color: var(--background);
     height: 100vh;
     display: flex;
     flex-direction: column;
-    padding-left: 15px;
+    padding: 32px 24px;
+    border-right: 1px solid var(--border-color);
 }
 
 .logoIcon {
-    width: 8vw;
-    height: 70px;
+    width: 140px;
+    height: auto;
     object-fit: contain;
     cursor: pointer;
+    margin-bottom: 32px;
 }
 
 .profileRow {
     display: flex;
     align-items: center;
-    gap: 15px;
-    margin-top: 20px;
+    gap: 16px;
+    padding: 16px;
+    background: var(--surface-color);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
 }
 
 .initialsCircle {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
-    background: linear-gradient(180deg, #CB6CE6 0%, #004AAD 100%);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    font-weight: 600;
+    font-weight: 800;
     font-size: 16px;
+    box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.3);
 }
 
 .profileInfo h3 {
-    font-size: 17px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 800;
+    font-family: var(--font-outfit);
+    color: var(--text-primary);
     margin: 0;
 }
 
 .profileInfo p {
     font-size: 12px;
-    font-style: italic;
-    color: #9668D2;
-    margin: 0;
+    font-weight: 700;
+    color: var(--secondary);
+    margin: 2px 0 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .tabsContainer {
-    margin-top: 30px;
+    margin-top: 40px;
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding-right: 10px;
+    overflow: hidden;
 }
 
 .tabHeader {
     display: flex;
-    gap: 4px;
+    gap: 8px;
+    background: var(--surface-hover);
+    padding: 6px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border-color);
+    margin-bottom: 24px;
 }
 
 .tab {
-    padding: 10px 15px;
+    flex: 1;
+    padding: 10px 12px;
     cursor: pointer;
     font-size: 13px;
-    font-weight: 500;
-    border-radius: 8px 8px 0 0;
-    color: #666;
-    background: rgba(0, 0, 0, 0.05);
-    transition: all 0.2s;
+    font-weight: 700;
+    border-radius: var(--radius-full);
+    color: var(--text-muted);
+    text-align: center;
+    transition: var(--transition-fast);
 }
 
 .activeTab {
-    background: #EEECFF;
-    color: #000;
-    font-weight: 600;
+    background: var(--surface-color);
+    color: var(--secondary);
+    box-shadow: var(--shadow-sm);
 }
 
 .tabContent {
     flex: 1;
-    background: linear-gradient(90deg, #EEECFF 0%, #EEECFF 50%, #DBEBFF 100%);
-    border-radius: 0 10px 10px 10px;
-    padding: 20px 10px;
+    background: var(--surface-color);
+    border-radius: var(--radius-lg);
+    padding: 24px 16px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
 }
 
 /* AI Helper Styles */
 .aiHeader {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 15px;
+    gap: 12px;
+    margin-bottom: 24px;
 }
 
 .aiIcon {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
 }
 
 .aiTitle h4 {
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 800;
+    font-family: var(--font-outfit);
+    color: var(--text-primary);
     margin: 0;
 }
 
 .aiTitle p {
-    font-size: 11px;
-    font-style: italic;
-    color: #8E8E93;
-    margin: 0;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin: 2px 0 0;
 }
 
 .brainstormBtn {
-    background: white;
-    border: 0.5px solid #D9D9D9;
-    border-radius: 10px;
-    padding: 8px 12px;
+    background: var(--surface-hover);
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 12px;
     cursor: pointer;
-    margin-bottom: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    transition: var(--transition-fast);
+    margin-bottom: 20px;
+}
+
+.brainstormBtn:hover {
+    background: var(--border-color);
+    transform: translateY(-2px);
 }
 
 .chatList {
@@ -131,29 +160,37 @@
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    padding-right: 5px;
+    gap: 12px;
+    padding: 8px;
+    background: rgba(var(--background-rgb), 0.5);
+    border-radius: var(--radius-md);
 }
 
 .chatMessage {
-    max-width: 85%;
-    padding: 8px 12px;
-    border-radius: 10px;
-    border: 0.5px solid #D9D9D9;
-    background: white;
+    max-width: 90%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    background: var(--surface-color);
     font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    box-shadow: var(--shadow-sm);
 }
 
 .me {
     align-self: flex-end;
-    background: #F3F2FF;
+    background: rgba(var(--secondary-rgb), 0.05);
+    border-color: rgba(var(--secondary-rgb), 0.2);
+    color: var(--secondary);
+    font-weight: 600;
 }
 
 .aiInputArea {
-    margin-top: 10px;
-    background: white;
-    border: 0.2px solid rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
+    margin-top: 16px;
+    background: var(--surface-hover);
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-md);
     display: flex;
     align-items: center;
 }
@@ -162,105 +199,128 @@
     flex: 1;
     border: none;
     outline: none;
-    padding: 15px 10px;
+    padding: 14px 16px;
     font-size: 14px;
+    background: transparent;
+    color: var(--text-primary);
 }
 
 .sendBtn {
-    margin-right: 10px;
-    width: 30px;
-    height: 38px;
-    background: linear-gradient(180deg, #CB6CE6 0%, #004AAD 100%);
-    border-radius: 10px;
+    margin: 8px;
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    border-radius: var(--radius-sm);
     border: none;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: white;
     cursor: pointer;
+    transition: var(--transition-normal);
+}
+
+.sendBtn:hover {
+    transform: scale(1.05);
 }
 
 /* Rubric Styles */
 .rubricCard {
-    background: white;
-    border: 0.5px solid #D9D9D9;
-    border-radius: 10px;
-    padding: 18px;
-    margin-bottom: 10px;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-fast);
+}
+
+.rubricCard:hover {
+    border-color: var(--secondary);
+    box-shadow: var(--shadow-md);
 }
 
 .rubricHeader {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 15px;
+    margin-bottom: 16px;
 }
 
 .rubricTitle {
-    font-size: 14px;
-    font-weight: 600;
-    color: #000;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
     max-width: 70%;
 }
 
 .rubricPoints {
     font-size: 14px;
-    font-weight: 500;
-    white-space: nowrap;
+    font-weight: 800;
+    color: var(--secondary);
+    background: rgba(var(--secondary-rgb), 0.1);
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
 }
 
 .criteriaItem {
     display: flex;
-    gap: 8px;
-    margin-top: 10px;
+    gap: 12px;
+    margin-top: 12px;
     font-size: 14px;
-}
-
-.checkIcon {
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
+    color: var(--text-secondary);
+    line-height: 1.5;
 }
 
 /* Example Styles */
 .exampleHeader {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 15px;
+    gap: 12px;
+    margin-bottom: 24px;
 }
 
 .exampleIconBox {
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(180deg, #CB6CE6 0%, #004AAD 100%);
-    border-radius: 10px;
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    border-radius: var(--radius-sm);
     display: flex;
     align-items: center;
     justify-content: center;
+    color: white;
 }
 
 .exampleCard {
-    background: white;
-    border: 0.5px solid #D9D9D9;
-    border-radius: 10px;
-    padding: 18px;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
 }
 
 .strongThesis {
-    color: #0A8041;
+    color: var(--success);
+    font-weight: 700;
 }
 
 .weakThesis {
-    color: #950909;
+    color: var(--error);
+    font-weight: 700;
 }
 
 .exampleTitle {
     font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 4px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
 }
 
 .exampleText {
-    font-size: 14px;
-    margin-bottom: 15px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
 }

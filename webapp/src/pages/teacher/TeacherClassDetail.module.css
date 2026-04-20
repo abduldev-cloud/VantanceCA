@@ -1,35 +1,31 @@
 .container {
-    padding: 24px;
-    max-width: 1200px;
-    margin: 0 auto;
+    padding: 32px;
 }
 
 .backButton {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: none;
-    border: none;
-    color: #004AAD;
+    color: var(--secondary);
     font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    padding: 8px 0;
-    margin-bottom: 16px;
-    transition: opacity 0.2s;
+    font-weight: 600;
+    transition: var(--transition-fast);
+    margin-bottom: 24px;
 }
 
 .backButton:hover {
-    opacity: 0.7;
+    transform: translateX(-4px);
+    opacity: 0.8;
 }
 
 /* Header */
 .header {
-    background: linear-gradient(135deg, #004AAD 0%, #0066E0 100%);
-    border-radius: 16px;
-    padding: 32px;
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+    border-radius: var(--radius-lg);
+    padding: 40px;
     color: white;
-    margin-bottom: 24px;
+    margin-bottom: 32px;
+    box-shadow: var(--shadow-md);
 }
 
 .headerTop {
@@ -83,55 +79,70 @@
 }
 
 .statCard {
-    background: white;
-    border-radius: 12px;
-    padding: 20px;
-    border: 1px solid #E5E7EB;
+    background: var(--surface-color);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    border: 1px solid var(--border-color);
     text-align: center;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-fast);
+}
+
+.statCard:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
 }
 
 .statValue {
-    font-size: 28px;
-    font-weight: 700;
+    font-size: 32px;
+    font-weight: 800;
+    font-family: var(--font-outfit);
+    color: var(--secondary);
     margin-bottom: 4px;
 }
 
 .statLabel {
     font-size: 13px;
-    color: #6B7280;
-    font-weight: 500;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 /* Students Section */
 .section {
-    background: white;
-    border-radius: 16px;
-    border: 1px solid #E5E7EB;
+    background: var(--surface-color);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
     overflow: hidden;
-    margin-bottom: 24px;
+    margin-bottom: 32px;
+    box-shadow: var(--shadow-md);
 }
 
 .sectionHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 24px;
-    border-bottom: 1px solid #E5E7EB;
+    padding: 24px 32px;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--surface-hover);
 }
 
 .sectionTitle {
     font-size: 18px;
-    font-weight: 600;
-    color: #1F2937;
+    font-weight: 700;
+    font-family: var(--font-outfit);
+    color: var(--text-primary);
 }
 
 .studentCount {
-    font-size: 13px;
-    color: #6B7280;
-    background: #F3F4F6;
-    padding: 4px 12px;
-    border-radius: 12px;
-    font-weight: 500;
+    font-size: 12px;
+    color: var(--secondary);
+    background: rgba(var(--secondary-rgb), 0.1);
+    padding: 6px 16px;
+    border-radius: var(--radius-full);
+    font-weight: 700;
+    text-transform: uppercase;
 }
 
 /* Table */
@@ -142,21 +153,21 @@
 
 .table th {
     text-align: left;
-    padding: 12px 24px;
+    padding: 16px 32px;
     font-size: 12px;
-    font-weight: 600;
-    color: #6B7280;
+    font-weight: 700;
+    color: var(--text-muted);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    background: #F9FAFB;
-    border-bottom: 1px solid #E5E7EB;
+    letter-spacing: 1px;
+    background: var(--surface-color);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .table td {
-    padding: 14px 24px;
+    padding: 20px 32px;
     font-size: 14px;
-    color: #374151;
-    border-bottom: 1px solid #F3F4F6;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .table tr:last-child td {
@@ -164,7 +175,7 @@
 }
 
 .table tr:hover {
-    background: #F9FAFB;
+    background: var(--surface-hover);
 }
 
 .studentName {

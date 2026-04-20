@@ -1,20 +1,60 @@
 .container {
-    padding: 24px 40px;
+    padding: 32px 40px;
     display: flex;
     flex-direction: column;
+    gap: 32px;
 }
 
 .header {
     margin-bottom: 24px;
 }
 
-.mainCard {
-    background: white;
-    border: 1px solid #EEE;
-    border-radius: 25px;
-    padding: 35px 40px 35px 25px;
+.titleRow {
     display: flex;
-    gap: 20px;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: 800;
+    font-family: var(--font-outfit);
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.subtitle {
+    font-size: 16px;
+    color: var(--text-secondary);
+    margin-top: 8px;
+}
+
+.createBtn {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    border: none;
+    padding: 12px 32px;
+    border-radius: var(--radius-full);
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.3);
+    transition: var(--transition-normal);
+}
+
+.createBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(var(--primary-rgb), 0.4);
+}
+
+.mainCard {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 40px;
+    display: flex;
+    gap: 40px;
+    box-shadow: var(--shadow-md);
 }
 
 .leftCol {
@@ -32,9 +72,10 @@
 
 .kpiTitle {
     font-size: 20px;
-    font-weight: 600;
-    color: #142228;
-    margin-bottom: 8px;
+    font-weight: 700;
+    font-family: var(--font-outfit);
+    color: var(--text-primary);
+    margin-bottom: 12px;
 }
 
 .filterRow {
@@ -50,26 +91,37 @@
 }
 
 .trendingCard {
-    background: linear-gradient(135deg, #EEECFF 0%, #DBEBFF 100%);
-    border-radius: 25px;
-    padding: 16px;
+    background: var(--surface-hover);
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 24px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 4px;
-    min-height: 140px;
+    gap: 8px;
+    min-height: 160px;
+    transition: var(--transition-normal);
+}
+
+.trendingCard:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--secondary);
+    background: var(--surface-color);
 }
 
 .cardTitle {
-    font-size: 14px;
-    font-weight: 600;
-    color: #142228;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .cardSubtitle {
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 500;
-    color: #142228;
+    color: var(--text-secondary);
 }
 
 .cardValueRow {
@@ -79,18 +131,20 @@
 }
 
 .cardValue {
-    font-size: 24px;
-    font-weight: 600;
-    color: #CB6CE6;
+    font-size: 32px;
+    font-weight: 800;
+    font-family: var(--font-outfit);
+    color: var(--primary);
 }
 
 .cardPeriod {
-    font-size: 10px;
-    color: #142228;
+    font-size: 11px;
+    color: var(--text-muted);
 }
 
 .cardPeriod span {
-    color: #CB6CE6;
+    color: var(--secondary);
+    font-weight: 700;
 }
 
 /* Right Side Filters */
@@ -106,36 +160,61 @@
     align-items: center;
     gap: 8px;
     font-size: 12px;
-    color: #142228;
+    color: var(--text-primary);
 }
 
 .select {
     flex: 1;
-    border: 1px solid #EEE;
-    background: #F8F9FA;
-    padding: 6px 10px;
-    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: var(--surface-color);
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
     font-size: 13px;
     outline: none;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.select:hover {
+    border-color: var(--secondary);
+}
+
+.navBtn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 50%;
+    transition: var(--transition-fast);
+}
+
+.navBtn:hover {
+    background: var(--surface-hover);
 }
 
 .chartCard {
-    border: 1px solid #EEE;
-    border-radius: 22px;
-    padding: 20px 25px;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 32px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    min-height: 250px;
+    gap: 20px;
+    min-height: 320px;
+    box-shadow: var(--shadow-sm);
 }
 
 .chartTitle {
-    font-size: 15px;
-    font-weight: 600;
-    color: #142228;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: var(--font-outfit);
+    color: var(--text-primary);
 }
 
 .divider {
     height: 1px;
-    background: #EEE;
+    background: var(--border-color);
 }

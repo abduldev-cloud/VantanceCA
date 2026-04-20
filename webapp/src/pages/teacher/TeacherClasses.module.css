@@ -1,8 +1,13 @@
 .container {
-    padding: 24px 0;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 32px;
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .statsGrid {
@@ -12,31 +17,55 @@
 }
 
 .statCard {
-    background: white;
-    border: 1px solid #EEE;
-    border-radius: 25px;
-    padding: 20px 25px;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 24px 28px;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: var(--transition-normal);
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 8px;
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
 }
 
 .statCardActive {
-    background: linear-gradient(135deg, #EEECFF 0%, #DBEBFF 100%);
-    border-color: transparent;
+    background: rgba(var(--secondary-rgb), 0.05);
+    border-color: var(--secondary);
+    box-shadow: var(--shadow-lg);
+}
+
+.statCardActive::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    background: var(--secondary);
+}
+
+.statCard:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--secondary);
 }
 
 .statTitle {
-    font-size: 20px;
+    font-size: 14px;
     font-weight: 600;
-    color: #142228;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .statValue {
-    font-size: 35px;
-    font-weight: 600;
+    font-size: 36px;
+    font-weight: 800;
+    font-family: var(--font-outfit);
+    color: var(--text-primary);
 }
 
 /* Class Cards */
@@ -47,89 +76,101 @@
 }
 
 .classCard {
-    background: white;
-    border: 1px solid #EEE;
-    border-radius: 25px;
-    padding: 18px 25px 18px 40px;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 24px 32px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 20px;
+    gap: 24px;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition-normal);
+}
+
+.classCard:hover {
+    transform: scale(1.01);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary);
 }
 
 .classMain {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 12px;
 }
 
 .classNameRow {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 16px;
 }
 
 .className {
     font-size: 20px;
-    font-weight: 600;
-    color: #142228;
+    font-weight: 700;
+    font-family: var(--font-outfit);
+    color: var(--text-primary);
 }
 
 .statusBadge {
-    padding: 4px 12px;
-    border-radius: 25px;
-    font-size: 10px;
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+    font-size: 11px;
     font-weight: 600;
-    text-transform: lowercase;
-    border: 2px solid currentColor;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: rgba(var(--primary-rgb), 0.1);
+    color: var(--primary);
 }
 
 .classDescription {
     font-size: 14px;
-    color: #142228;
-    margin-bottom: 20px;
+    color: var(--text-secondary);
+    line-height: 1.6;
 }
 
 .classMeta {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 24px;
 }
 
 .metaItem {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 12px;
-    color: #142228;
+    font-size: 13px;
+    color: var(--text-muted);
 }
 
 .metaIcon {
     width: 18px;
     height: 18px;
-    color: #666;
+    color: var(--secondary);
 }
 
 .viewDetailsButton {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 16px;
-    border: 1.5px solid #142228;
-    border-radius: 25px;
+    padding: 10px 24px;
+    border: 1px solid var(--secondary);
+    border-radius: var(--radius-full);
     background: transparent;
-    color: #142228;
-    font-size: 16px;
+    color: var(--secondary);
+    font-size: 14px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: var(--transition-fast);
     white-space: nowrap;
 }
 
 .viewDetailsButton:hover {
-    background: #142228;
+    background: var(--secondary);
     color: white;
+    box-shadow: 0 4px 12px rgba(var(--secondary-rgb), 0.2);
 }
 
 .emptyState {
@@ -137,18 +178,36 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 60px 0;
-    gap: 16px;
-    color: #666;
+    padding: 80px 0;
+    gap: 20px;
+    color: var(--text-muted);
 }
 
 .emptyTitle {
-    font-size: 16px;
-    font-weight: 600;
-    color: #142228;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
 }
 
 .emptySubtitle {
     font-size: 14px;
     font-style: italic;
+    opacity: 0.8;
 }
+
+@media (max-width: 800px) {
+    .statsGrid {
+        grid-template-columns: 1fr;
+    }
+    
+    .classCard {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 24px;
+    }
+    
+    .viewDetailsButton {
+        width: 100%;
+        justify-content: center;
+    }
+}

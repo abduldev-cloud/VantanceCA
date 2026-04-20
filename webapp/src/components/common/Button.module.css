@@ -1,41 +1,52 @@
 .button {
-    height: 52px;
+    height: 48px;
     padding: 0 24px;
-    border-radius: 50px;
-    font-size: 16px;
-    font-weight: 600;
+    border-radius: var(--radius-md);
+    font-size: 15px;
+    font-weight: 500;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: var(--transition-normal);
     border: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
+    gap: 10px;
     outline: none;
+    position: relative;
+    overflow: hidden;
 }
 
 .button:disabled {
-    opacity: 0.6;
+    opacity: 0.5;
     cursor: not-allowed;
 }
 
 .primary {
-    background: black;
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
     color: white;
+    box-shadow: 0 4px 12px rgba(var(--secondary-rgb), 0.2);
 }
 
 .primary:hover:not(:disabled) {
-    background: #222;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(var(--secondary-rgb), 0.3);
+    filter: brightness(1.1);
+}
+
+.primary:active:not(:disabled) {
+    transform: translateY(0);
 }
 
 .secondary {
-    background: white;
-    color: black;
-    border: 1px solid #D0D5DD;
+    background: var(--surface-color);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
 }
 
 .secondary:hover:not(:disabled) {
-    background: #F9FAFB;
+    background: var(--surface-hover);
+    border-color: var(--secondary);
+    color: var(--secondary);
 }
 
 .fullWidth {
@@ -43,8 +54,8 @@
 }
 
 .spinner {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     border: 2px solid rgba(255, 255, 255, 0.3);
     border-radius: 50%;
     border-top-color: #fff;

@@ -3,81 +3,87 @@
 }
 
 .header {
-    margin-bottom: 32px;
+    margin-bottom: 40px;
 }
 
 .title {
-    font-size: 24px;
-    font-weight: 700;
-    color: #000;
+    font-size: 32px;
+    font-weight: 800;
+    font-family: var(--font-outfit);
+    color: var(--text-primary);
     margin: 0;
 }
 
 .subtitle {
-    font-size: 14px;
-    color: #666;
-    margin-top: 4px;
+    font-size: 15px;
+    color: var(--text-muted);
+    margin-top: 8px;
 }
 
 .plansGrid {
     display: flex;
-    gap: 24px;
+    gap: 32px;
     overflow-x: auto;
-    padding-bottom: 16px;
+    padding-bottom: 24px;
     scrollbar-width: thin;
 }
 
 .planCard {
-    min-width: 260px;
-    max-width: 260px;
-    background: white;
-    border-radius: 16px;
-    border: 1px solid #E5E7EB;
-    padding: 24px;
+    min-width: 300px;
+    max-width: 300px;
+    background: var(--surface-color);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    padding: 32px;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition-normal);
 }
 
 .planCard:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
 }
 
 .activeCard {
-    border: 2px solid #CB6CE6;
+    border: 2px solid var(--secondary);
+    box-shadow: 0 0 0 4px rgba(var(--secondary-rgb), 0.1);
 }
 
 .badge {
-    background: rgba(203, 108, 230, 0.1);
-    color: #CB6CE6;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-    margin-bottom: 12px;
+    background: rgba(var(--secondary-rgb), 0.1);
+    color: var(--secondary);
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 16px;
     display: inline-block;
 }
 
 .planName {
-    font-size: 18px;
-    font-weight: 600;
-    color: #000;
-    margin-bottom: 8px;
+    font-size: 20px;
+    font-weight: 700;
+    font-family: var(--font-outfit);
+    color: var(--text-primary);
+    margin-bottom: 10px;
 }
 
 .planDesc {
-    font-size: 13px;
-    color: #666;
+    font-size: 14px;
+    color: var(--text-muted);
     margin-bottom: 24px;
-    line-height: 1.4;
+    line-height: 1.6;
 }
 
 .price {
-    font-size: 32px;
-    font-weight: 700;
-    color: #000;
+    font-size: 40px;
+    font-weight: 800;
+    font-family: var(--font-outfit);
+    color: var(--text-primary);
 }
 
 .period {
@@ -93,11 +99,11 @@
 
 .featureItem {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 12px;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     font-size: 14px;
-    color: #374151;
+    color: var(--text-secondary);
 }
 
 .checkIcon {
@@ -107,28 +113,33 @@
 
 .actionBtn {
     width: 100%;
-    padding: 12px;
-    border-radius: 12px;
+    padding: 14px;
+    border-radius: var(--radius-md);
     border: none;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 700;
     cursor: pointer;
     margin-top: 32px;
-    transition: background 0.2s;
+    transition: var(--transition-normal);
 }
 
 .upgradeBtn {
-    background: #000;
-    color: #fff;
+    background: var(--secondary);
+    color: white;
+    box-shadow: 0 4px 12px rgba(var(--secondary-rgb), 0.2);
 }
 
 .upgradeBtn:hover {
-    background: #333;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(var(--secondary-rgb), 0.3);
+    opacity: 0.9;
 }
 
 .activeBtn {
-    background: #F3F4F6;
-    color: #9CA3AF;
+    background: var(--surface-hover);
+    color: var(--text-muted);
     cursor: default;
+    border: 1px solid var(--border-color);
 }
 
 @media (max-width: 800px) {

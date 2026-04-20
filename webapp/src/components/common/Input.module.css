@@ -1,14 +1,15 @@
 .inputContainer {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
     width: 100%;
 }
 
 .label {
-    font-size: 14px;
-    font-weight: 500;
-    color: #000;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-left: 4px;
 }
 
 .fieldWrapper {
@@ -19,38 +20,55 @@
 
 .input {
     width: 100%;
-    height: 52px;
-    padding: 0 20px;
-    border-radius: 30px;
-    border: 1px solid #98A2B3;
+    height: 48px;
+    padding: 0 16px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
     font-size: 14px;
     font-family: inherit;
-    transition: all 0.2s ease;
-    background: white;
+    transition: var(--transition-normal);
+    background: var(--surface-color);
     outline: none;
+    color: var(--text-primary);
+}
+
+.input::placeholder {
+    color: var(--text-muted);
 }
 
 .input:focus {
-    border-color: #000;
+    border-color: var(--secondary);
+    box-shadow: 0 0 0 4px rgba(var(--secondary-rgb), 0.1);
+    background: var(--surface-hover);
 }
 
 .inputError {
-    border-color: #EA5455;
+    border-color: #EF4444;
+}
+
+.inputError:focus {
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1);
 }
 
 .errorText {
     font-size: 12px;
-    color: #EA5455;
-    margin-left: 12px;
+    color: #EF4444;
+    margin-left: 4px;
+    margin-top: 2px;
 }
 
 .toggleBtn {
     position: absolute;
-    right: 20px;
+    right: 16px;
     background: none;
     border: none;
-    font-size: 12px;
-    font-weight: 600;
-    color: #667085;
+    color: var(--text-muted);
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: var(--transition-fast);
+}
+
+.toggleBtn:hover {
+    color: var(--secondary);
 }

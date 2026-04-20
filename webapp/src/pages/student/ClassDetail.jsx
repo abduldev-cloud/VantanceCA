@@ -4,7 +4,8 @@ import { Calendar, Clock, BookOpen, GraduationCap, ChevronRight, Loader2 } from 
 import MainLayout from '../../components/layout/MainLayout';
 import Typography from '../../components/common/Typography';
 import studentService from '../../services/studentService';
-import styles from './Student.module.css';
+import styles from './ClassDetail.module.css';
+import studentStyles from './Student.module.css';
 
 const ClassDetail = () => {
     const navigate = useNavigate();
@@ -64,71 +65,70 @@ const ClassDetail = () => {
         }
     };
 
+    const getStatusClass = (status) => {
+        switch (status) {
+            case 'GRADED': return styles.statusGRADED;
+            case 'SUBMITTED': return styles.statusSUBMITTED;
+            default: return styles.statusPENDING;
+        }
+    };
+
     return (
         <MainLayout>
-            <div className={styles.header}>
+            <div className={studentStyles.header}>
                 <Typography variant="displaySmall" weight="700">{className}</Typography>
-                <Typography variant="bodyMedium" color="#666">
+                <Typography variant="bodyMedium" color="var(--text-muted)">
                     Assignments for this class
                 </Typography>
             </div>
 
-            <div className={styles.listContainer}>
+            <div className={studentStyles.listContainer}>
                 {isLoading ? (
-                    <div style={{ display: 'flex', justifyContent: 'center', padding: '100px' }}>
-                        <Loader2 className={styles.spinner} size={40} />
+                    <div className={styles.loadingWrapper}>
+                        <Loader2 className={styles.spinner} size={48} />
                     </div>
                 ) : error ? (
-                    <Typography color="#EF4444" align="center" style={{ width: '100%', padding: '40px' }}>{error}</Typography>
+                    <div className={styles.errorText}>{error}</div>
                 ) : assignments.length === 0 ? (
-                    <Typography align="center" style={{ width: '100%', padding: '40px' }}>No assignments found for this class.</Typography>
+                    <div className={styles.messageText}>No assignments found for this class.</div>
                 ) : (
                     assignments.map((assignment) => (
-                        <div key={assignment.id} className={styles.paperCard} style={{ padding: '24px' }}>
+                        <div key={assignment.id} className={styles.paperCard}>
                             <div className={styles.paperInfo}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
-                                    <Typography variant="headlineSmall" weight="600">
+                                <div className={styles.titleRow}>
+                                    <Typography variant="headlineSmall" weight="800" family="Outfit">
                                         {assignment.title}
                                     </Typography>
-                                    <span style={{
-                                        padding: '2px 8px',
-                                        borderRadius: '12px',
-                                        fontSize: '11px',
-                                        fontWeight: 600,
-                                        background: assignment.status === 'GRADED' ? '#D1FAE5' :
-                                            assignment.status === 'SUBMITTED' ? '#E0F2FE' : '#FEF3C7',
-                                        color: assignment.status === 'GRADED' ? '#065F46' :
-                                            assignment.status === 'SUBMITTED' ? '#0369A1' : '#92400E'
-                                    }}>
+                                    <span className={`${styles.statusBadge} ${getStatusClass(assignment.status)}`}>
                                         {assignment.status}
                                     </span>
                                 </div>
-                                <Typography variant="bodyMedium" color="#666" style={{ marginBottom: '20px', display: 'block' }}>
+                                <Typography variant="bodyMedium" color="var(--text-secondary)" className={styles.description}>
                                     {assignment.description}
                                 </Typography>
 
-                                <div className={styles.metaGrid}>
-                                    <div className={styles.metaItem}>
-                                        <Calendar size={18} color="#004AAD" />
+                                <div className={studentStyles.metaGrid}>
+                                    <div className={studentStyles.metaItem}>
+                                        <Calendar size={18} color="var(--secondary)" />
                                         <span>{assignment.dueDate}</span>
                                     </div>
-                                    <div className={styles.metaItem}>
-                                        <Clock size={18} color="#004AAD" />
+                                    <div className={studentStyles.metaItem}>
+                                        <Clock size={18} color="var(--secondary)" />
                                         <span>{assignment.dueTime}</span>
                                     </div>
-                                    <div className={styles.metaItem}>
-                                        <BookOpen size={18} color="#004AAD" />
+                                    <div className={studentStyles.metaItem}>
+                                        <BookOpen size={18} color="var(--secondary)" />
                                         <span>{assignment.className}</span>
                                     </div>
-                                    <div className={styles.metaItem}>
-                                        <GraduationCap size={18} color="#004AAD" />
+                                    <div className={studentStyles.metaItem}>
+                                        <GraduationCap size={18} color="var(--secondary)" />
                                         <span>{assignment.gradeName}</span>
                                     </div>
                                 </div>
                             </div>
 
                             <button
-                                className={styles.actionBtn}
+                                className={studentStyles.actionBtn}
                                 onClick={() => handleAction(assignment)}
                             >
                                 <ChevronRight size={20} />

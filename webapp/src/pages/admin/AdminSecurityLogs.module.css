@@ -1,15 +1,15 @@
 .container {
-    padding: 24px 0;
+    padding: 32px 0;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 24px;
 }
 
 .introBox {
-    background: #FAFAFA;
-    border: 1px solid #E5E7EB;
-    border-radius: 12px;
-    padding: 20px 24px;
+    background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.05) 0%, rgba(var(--secondary-rgb), 0.05) 100%);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 24px 32px;
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -17,25 +17,28 @@
 
 .introBox h3 {
     margin: 0;
-    font-size: 16px;
-    color: #111827;
+    font-size: 18px;
+    font-weight: 800;
+    font-family: var(--font-outfit);
+    color: var(--primary);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
 }
 
 .introBox p {
     margin: 0;
     font-size: 14px;
-    color: #6B7280;
-    line-height: 1.5;
+    color: var(--text-secondary);
+    line-height: 1.6;
 }
 
 .tableContainer {
-    background: white;
-    border: 1px solid #E5E7EB;
-    border-radius: 12px;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
     overflow: hidden;
+    box-shadow: var(--shadow-lg);
 }
 
 .table {
@@ -44,22 +47,22 @@
 }
 
 .table th {
-    background: #F9FAFB;
-    padding: 12px 24px;
+    background: var(--surface-hover);
+    padding: 16px 32px;
     text-align: left;
-    font-size: 12px;
-    font-weight: 500;
-    color: #6B7280;
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--text-muted);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    border-bottom: 1px solid #E5E7EB;
+    letter-spacing: 0.1em;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .table td {
-    padding: 16px 24px;
+    padding: 20px 32px;
     font-size: 14px;
-    color: #374151;
-    border-bottom: 1px solid #E5E7EB;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-color);
     vertical-align: top;
 }
 
@@ -68,89 +71,97 @@
 }
 
 .table tr:hover {
-    background: #F9FAFB;
+    background: rgba(var(--secondary-rgb), 0.02);
 }
 
 .timeCell {
-    color: #6B7280;
-    font-variant-numeric: tabular-nums;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-family: var(--font-inter);
     white-space: nowrap;
 }
 
 .userCell {
-    font-weight: 500;
-    color: #111827;
+    font-weight: 700;
+    color: var(--text-primary);
 }
 
 .roleBadge {
     display: inline-block;
-    padding: 2px 8px;
-    background: #E0E7FF;
-    color: #4338CA;
-    border-radius: 12px;
-    font-size: 11px;
-    font-weight: 600;
-    margin-top: 4px;
+    padding: 4px 10px;
+    background: rgba(var(--secondary-rgb), 0.1);
+    color: var(--secondary);
+    border-radius: var(--radius-full);
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 6px;
 }
 
 .actionCell {
     font-family: monospace;
-    color: #047857;
-    background: #D1FAE5;
-    padding: 4px 8px;
-    border-radius: 6px;
-    font-size: 12px;
+    font-weight: 700;
+    color: var(--success);
+    background: rgba(var(--success-rgb), 0.1);
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    font-size: 11px;
     display: inline-block;
+    border: 1px solid rgba(var(--success-rgb), 0.1);
 }
 
 .descCell {
-    color: #4B5563;
-    line-height: 1.5;
+    color: var(--text-secondary);
+    line-height: 1.6;
 }
 
 .ipCell {
-    color: #9CA3AF;
+    color: var(--text-muted);
     font-family: monospace;
     font-size: 12px;
+    font-weight: 600;
 }
 
 .pagination {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 16px 24px;
-    background: #F9FAFB;
-    border-top: 1px solid #E5E7EB;
+    padding: 24px 32px;
+    background: var(--surface-hover);
+    border-top: 1px solid var(--border-color);
 }
 
 .pageInfo {
     font-size: 14px;
-    color: #6B7280;
+    font-weight: 600;
+    color: var(--text-muted);
 }
 
 .pageControls {
     display: flex;
-    gap: 8px;
+    gap: 12px;
 }
 
 .pageBtn {
-    padding: 8px 16px;
-    border: 1px solid #D1D5DB;
-    background: white;
-    border-radius: 6px;
+    padding: 10px 24px;
+    border: 1.5px solid var(--border-color);
+    background: var(--surface-color);
+    border-radius: var(--radius-full);
     font-size: 13px;
-    font-weight: 500;
-    color: #374151;
+    font-weight: 700;
+    color: var(--text-primary);
     cursor: pointer;
-    transition: all 0.2s;
+    transition: var(--transition-fast);
 }
 
 .pageBtn:hover:not(:disabled) {
-    background: #F3F4F6;
-    border-color: #9CA3AF;
+    background: var(--border-color);
+    border-color: var(--text-muted);
 }
 
 .pageBtn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+    filter: grayscale(1);
 }

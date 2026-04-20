@@ -1,0 +1,152 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(8px);
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modal {
+    background: var(--surface-color);
+    border-radius: var(--radius-lg);
+    padding: 40px;
+    width: 90%;
+    max-width: 480px;
+    position: relative;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-lg), 0 32px 64px rgba(0, 0, 0, 0.2);
+    animation: modalSlide 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    text-align: center;
+}
+
+.successIcon {
+    margin: 0 auto 24px;
+    color: var(--success);
+    filter: drop-shadow(0 4px 12px rgba(var(--success-rgb), 0.3));
+}
+
+.warningBox {
+    background: rgba(var(--warning-rgb), 0.05);
+    padding: 24px;
+    margin: 32px 0;
+    border-left: 4px solid var(--warning);
+    border-radius: var(--radius-sm);
+    display: flex;
+    gap: 16px;
+    text-align: left;
+}
+
+.warningIcon {
+    flex-shrink: 0;
+    color: var(--warning);
+}
+
+.warningTitle {
+    color: var(--warning);
+    font-weight: 800;
+    font-size: 14px;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.warningText {
+    color: var(--text-secondary);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 800;
+    font-family: var(--font-outfit);
+    color: var(--text-primary);
+    margin-bottom: 12px;
+}
+
+.subtitle {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.userName {
+    font-weight: 800;
+    color: var(--secondary);
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 32px;
+}
+
+.cancelBtn {
+    padding: 12px 32px;
+    border-radius: var(--radius-full);
+    border: 1.5px solid var(--border-color);
+    background: var(--surface-hover);
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.cancelBtn:hover {
+    background: var(--border-color);
+}
+
+.confirmBtn {
+    padding: 12px 32px;
+    border-radius: var(--radius-full);
+    border: none;
+    background: var(--error);
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(var(--error-rgb), 0.2);
+    transition: var(--transition-normal);
+}
+
+.confirmBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(var(--error-rgb), 0.3);
+}
+
+.successBtn {
+    padding: 12px 48px;
+    border-radius: var(--radius-full);
+    border: none;
+    background: var(--secondary);
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(var(--secondary-rgb), 0.2);
+    transition: var(--transition-normal);
+}
+
+.successBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(var(--secondary-rgb), 0.3);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes modalSlide {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}

@@ -1,69 +1,100 @@
 .header {
-    margin-bottom: 40px;
+    margin-bottom: 32px;
+    text-align: center;
 }
 
 .subtitle {
-    margin-top: 8px;
+    margin-top: 12px;
+    color: var(--text-secondary);
 }
 
 .form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 24px;
 }
 
 .footerRow {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: -4px;
-    margin-bottom: 4px;
+    margin-top: -8px;
 }
 
 .checkboxLabel {
     display: flex;
     align-items: center;
-    gap: 4px;
-    font-size: 12px;
+    gap: 8px;
+    font-size: 13px;
     font-weight: 500;
-    color: rgba(0, 0, 0, 0.87);
+    color: var(--text-secondary);
     cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.checkboxLabel:hover {
+    color: var(--secondary);
 }
 
 .checkboxLabel input {
-    width: 20px;
-    height: 20px;
-    accent-color: black;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--secondary);
+    border-radius: 4px;
 }
 
 .link {
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 600;
-    color: black;
+    color: var(--secondary);
+    transition: var(--transition-fast);
+}
+
+.link:hover {
+    text-decoration: underline;
+    opacity: 0.8;
 }
 
 .googleBtn {
-    margin-top: -4px;
+    margin-top: 8px;
 }
 
 .googleIcon {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
 }
 
 .footerLinks {
-    margin-top: 12px;
-    text-align: center;
+    margin-top: 24px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    gap: 8px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-color);
 }
 
 .boldLink {
     font-weight: 700;
-    color: #667085;
+    color: var(--secondary);
+    transition: var(--transition-fast);
+}
+
+.boldLink:hover {
+    text-decoration: underline;
 }
 
 .mt20 {
-    margin-top: 20px;
+    margin-top: 8px;
+}
+
+.error {
+    color: var(--error);
+    text-align: center;
+    margin-top: 16px;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px;
+    background: rgba(var(--error-rgb), 0.1);
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(var(--error-rgb), 0.2);
 }
