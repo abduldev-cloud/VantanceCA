@@ -219,7 +219,7 @@ const BrandingDialog = ({ isOpen, onClose, school, onSuccess }) => {
                         <label>School Logo</label>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                             {school.logo_url && !logoFile && (
-                                <img src={`http://localhost:8000${school.logo_url}`} alt="current logo" style={{ height: '40px', objectFit: 'contain' }} />
+                                <img src={`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'}${school.logo_url}`} alt="current logo" style={{ height: '40px', objectFit: 'contain' }} />
                             )}
                             <input
                                 type="file"

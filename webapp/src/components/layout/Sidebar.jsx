@@ -107,7 +107,7 @@ const Sidebar = () => {
         if (data) {
             const parsed = JSON.parse(data);
             if (parsed.logo_url) {
-                customLogoUrl = `http://localhost:8000${parsed.logo_url}`;
+                customLogoUrl = `${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'}${parsed.logo_url}`;
             }
         }
     } catch (e) {
