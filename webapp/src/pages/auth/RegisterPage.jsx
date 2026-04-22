@@ -5,7 +5,7 @@ import Typography from '../../components/common/Typography';
 import Input from '../../components/common/Input';
 import Button from '../../components/common/Button';
 import authService from '../../services/authService';
-import LoginLogo from '../../assets/images/logo/login_logo.png';
+import LoginLogo from '../../assets/images/logo/login_logo.jpg';
 import styles from './Login.module.css';
 
 const RegisterPage = () => {
@@ -85,7 +85,7 @@ const RegisterPage = () => {
                         style={{ flex: 1 }}
                     />
                 </div>
-                
+
                 <Input
                     label="Username"
                     name="username"
@@ -94,7 +94,7 @@ const RegisterPage = () => {
                     onChange={handleChange}
                     required
                 />
-                
+
                 <Input
                     label="Email"
                     name="email"
@@ -104,7 +104,7 @@ const RegisterPage = () => {
                     onChange={handleChange}
                     required
                 />
-                
+
                 <Input
                     label="Phone Number"
                     name="phone_number"
@@ -113,7 +113,7 @@ const RegisterPage = () => {
                     onChange={handleChange}
                     required
                 />
-                
+
                 <Input
                     label="Password"
                     name="password"
@@ -123,20 +123,20 @@ const RegisterPage = () => {
                     onChange={handleChange}
                     required
                 />
-                
+
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '8px' }}>
                     <label style={{ fontSize: '14px', fontWeight: '500', color: 'var(--text-primary)' }}>Role</label>
-                    <select 
-                        name="role" 
-                        value={formData.role} 
+                    <select
+                        name="role"
+                        value={formData.role}
                         onChange={handleChange}
-                        style={{ 
-                            padding: '12px 16px', 
-                            border: '1.5px solid var(--border-color)', 
-                            borderRadius: 'var(--radius-md)', 
-                            fontSize: '14px', 
-                            outline: 'none', 
-                            background: 'var(--surface-color)', 
+                        style={{
+                            padding: '12px 16px',
+                            border: '1.5px solid var(--border-color)',
+                            borderRadius: 'var(--radius-md)',
+                            fontSize: '14px',
+                            outline: 'none',
+                            background: 'var(--surface-color)',
                             color: 'var(--text-primary)'
                         }}
                     >

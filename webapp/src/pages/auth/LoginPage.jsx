@@ -6,7 +6,7 @@ import Input from '../../components/common/Input';
 import Button from '../../components/common/Button';
 import { useRole } from '../../hooks/useRole';
 import authService from '../../services/authService';
-import LoginLogo from '../../assets/images/logo/login_logo.png';
+import LoginLogo from '../../assets/images/logo/login_logo.jpg';
 import GoogleLogo from '../../assets/icon/google.png';
 import styles from './Login.module.css';
 

@@ -21,7 +21,7 @@ import {
 } from 'lucide-react';
 import authService from '../../services/authService';
 import { useRole } from '../../hooks/useRole';
-import Logo from '../../assets/images/logo/Logo.png';
+import Logo from '../../assets/images/logo/Logo.jpg';
 import LogoCircle from '../../assets/images/logo/logo_circle.png';
 import styles from './Sidebar.module.css';
 
