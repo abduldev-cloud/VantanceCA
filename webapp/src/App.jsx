@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { RoleProvider } from './hooks/useRole';
+import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/auth/LoginPage';
 import RegisterPage from './pages/auth/RegisterPage';
 import TeacherDashboard from './pages/teacher/Dashboard';
@@ -56,6 +57,7 @@ function App() {
         <RoleProvider>
             <Router>
                 <Routes>
+                    <Route path="/" element={<LandingPage />} />
                     <Route path="/auth/login" element={<LoginPage />} />
                     <Route path="/auth/register" element={<RegisterPage />} />
                     <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
@@ -96,8 +98,7 @@ function App() {
                     <Route path="/admin/faqs" element={<FAQPage />} />
 
                     {/* Default routes */}
-                    <Route path="/" element={<Navigate to="/auth/login" replace />} />
-                    <Route path="*" element={<Navigate to="/auth/login" replace />} />
+                    <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
             </Router>
         </RoleProvider>

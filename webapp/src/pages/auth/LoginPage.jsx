@@ -76,6 +76,26 @@ const LoginPage = () => {
 
     return (
         <AuthLayout image={LoginLogo}>
+            {/* Back to landing page */}
+            <div style={{ marginBottom: 16 }}>
+                <Link
+                    to="/"
+                    style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 6,
+                        fontSize: 13,
+                        color: '#667085',
+                        textDecoration: 'none',
+                        transition: 'color 0.18s',
+                    }}
+                    onMouseOver={e => (e.currentTarget.style.color = '#004AAD')}
+                    onMouseOut={e => (e.currentTarget.style.color = '#667085')}
+                    id="back-to-home-btn"
+                >
+                    ← Back to Home
+                </Link>
+            </div>
             <div className={styles.header}>
                 <Typography variant="displaySmall" weight="600" align="center">
                     WELCOME BACK
